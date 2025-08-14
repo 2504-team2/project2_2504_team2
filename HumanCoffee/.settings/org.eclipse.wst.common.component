@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="HumanCoffe">
+        
+    <wb-module deploy-name="HumanCoffee">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <property name="context-root" value="HumanCoffe"/>
-        <property name="java-output-path" value="/HumanCoffe/build/classes"/>
+                
+        <property name="java-output-path" value="/HumanCoffee/build/classes"/>
+        <property name="context-root" value="HumanCoffee"/>
+            
     </wb-module>
+    
 </project-modules>
