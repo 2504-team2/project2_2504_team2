@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+body {
+	 font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
+	 display: flex;
+     justify-content: center;
+     align-items: center;
+     padding: 20px;
+}
+
+.login-form {
+	padding: 40px;
+	border-radius: 20px;
+	width: 400px;
+}
+
+.login-form h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.login-form > div {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e1e1e1;
+    border-radius: 12px;
+    font-size: 16px;
+    color: #333;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #592B18;
+}
+
+.login-form input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.login-form button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    background: #fff;
+    color: #592B18;
+    border: 2px solid #592B18;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: .4s;
+    letter-spacing: 1px;
+}
+
+.login-form button[type="submit"]:hover {
+    background: #592B18;
+    color: #fff;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    background: #fff;
+    color: #592B18;
+    border: 2px solid #592B18;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: .4s;
+    box-sizing: border-box;
+    
+}
+
+.btn:hover {
+    background: #592B18;
+    color: white;
+}
