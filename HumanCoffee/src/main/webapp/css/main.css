@@ -82,6 +82,11 @@ header .inner .logo {
   /* display: none; */
 }
 
+header .inner .logo img {
+	height: 100%;
+	width: auto;
+}
+
 header .inner .sub-menu {
   display: flex;
   position: absolute;
@@ -159,15 +164,16 @@ header .inner .sub-menu .search.focused .material-icons {
 header .main-menu {
   display: flex;
   position: absolute;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
   z-index: 1;
 }
 header .main-menu .item {
-
+	position: relative;
 }
 header .main-menu .item .item__name {
-  padding: 10px 20px 34px 20px;
+  padding: 10px 20px 44px 20px;
   font-size: 13px;
   font-family: Arial, sans-serif;
 }
@@ -179,10 +185,12 @@ header .main-menu .item:hover .item__name {
   cursor: pointer;
 }
 header .main-menu .item .item__contents {
-  width: 100%;
-  position: fixed;
-  left: 0;
+  width: 220px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
+  box-sizing: border-box;
 }
 
 header .main-menu .item:hover .item__contents {
@@ -191,6 +199,7 @@ header .main-menu .item:hover .item__contents {
 
 header .main-menu .item .item__contents .contents__menu {
   background-color: #2c2a29;
+  text-align: center;
 }
 
 header .main-menu .item .item__contents .contents__menu > ul {
@@ -223,6 +232,7 @@ header .main-menu .item .item__contents .contents__texture {
   background-image: url("../images/main_menu_pattern.jpg");
   font-size: 12px;
   padding: 26px 0;
+  text-align: center;
 }
 
 header .main-menu .item .item__contents .contents__texture h4 {
@@ -233,6 +243,14 @@ header .main-menu .item .item__contents .contents__texture h4 {
 header .main-menu .item .item__contents .contents__texture p {
   color: #690;
   margin: 4px 0 14px;
+}
+
+header .btn {
+	width: 100px;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 header .badges {
