@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
-<%@ page import="com.humancoffee.common.GenerateAlgorithm" %>
-<%@ page import="com.humancoffee.model.Customer" %>
-<%@ page import="com.humancoffee.manager.ManageCustomers" %>
-<%@ page import="com.humancoffee.dao.OraConnect" %>
+<%@ page import="com.humancoffee.common.*" %>
+<%@ page import="com.humancoffee.model.*" %>
+<%@ page import="com.humancoffee.manager.*" %>
+<%@ page import="com.humancoffee.*" %>
 
 <%
 	//post로 요청한 파라미터 조회 - 파라미터 이름 수정
@@ -25,67 +25,70 @@
 <%
         return;
     }
+    GenerateAlgorithm algo = new GenerateAlgorithm();
+	Customer customer = new Customer();
+	customer.setId(Id);
+
+	// ServletContext에서 HumanCoffee 객체를 가져옴
+ 	HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
+	ManageCustomers mCustomers = hcInstance.mCustomers;
+	Customer chkCustomer = mCustomers.searchCustomerById(customer);
+	if(chkCustomer != null){
+%>
+        <script>
+            alert('이미 존재하는 아이디입니다.');
+            location.href='<%= request.getContextPath() %>/loginService/signup_form.jsp';
+        </script>
+<%
+	}
+	Com_Member com_member = new Com_Member();
+	com_member.setId(Id);
+	ManageComMembers mMembers = hcInstance.mComMems;
+	Com_Member chk_com_member = mMembers.searchComMemberById(com_member);
+	if(chk_com_member != null){
+%>
+        <script>
+            alert('이미 존재하는 아이디입니다.');
+            location.href='<%= request.getContextPath() %>/loginService/signup_form.jsp';
+        </script>
+<%
+	}
+	
 	
 	try {
-		GenerateAlgorithm algo = new GenerateAlgorithm();
-		Customer customer = new Customer();
-		ManageCustomers mgCustomer = new ManageCustomers();
 		
-		// OraConnect 초기화
-        mgCustomer.oraConn = new OraConnect();
-		
-     	// 고객 데이터를 메모리로 읽어오기 (중복 체크를 위해)
-        mgCustomer.readCustomer(mgCustomer.memory_pos);
      	
     	// Customer 객체 설정
         customer.setId(Id);
         customer.setPwd(algo.generateSha256(Id, password)); // 패스워드 해시화
         customer.setName(name);
         customer.setTel(tel);
-     // 중복 체크 (메모리에서)
-        if (mgCustomer.searchCustomerById(customer)) {
-            // 이미 존재하는 ID
-%>
-            <script>
-                alert('이미 존재하는 아이디입니다.');
-                location.href='<%= request.getContextPath() %>/loginService/signup_form.jsp';
-            </script>
-<%
-        } else {
-            // 새로운 고객 추가
-            mgCustomer.insertCustomer(customer);
+
+        mCustomers.insertCustomer(customer);
+        boolean success = true;
+
             
-            // 실제 DB에 저장 실행
-            boolean success = mgCustomer.oraConn.exeUpdate();
-            
-            if (success) {
-                // 회원가입 성공
+        if (success) {
+            // 회원가입 성공
 %>
                 <script>
                     alert('회원가입에 성공했습니다.');
                     location.href='<%= request.getContextPath() %>/loginService/login_form.jsp';
                 </script>
 <%
-            } else {
-                // 회원가입 실패
+       } else {
+           // 회원가입 실패
 %>
                 <script>
                     alert('회원가입에 실패했습니다. 다시 시도해주세요.');
                     history.back();
                 </script>
 <%
-            }
-        }
-        
-        // 연결 종료
-        mgCustomer.exit();
-        if (mgCustomer.oraConn != null) {
-            mgCustomer.oraConn.close();
-        }
+       }
         
     } catch (Exception e) {
-        System.out.println("회원가입 처리 중 오류: " + e.getMessage());
-        e.printStackTrace();
+        Common common = new Common();
+        String strException = common.getStackTraceAsString(e);
 %>
         <script>
             alert('시스템 오류가 발생했습니다. 관리자에게 문의하세요.');
