@@ -174,6 +174,19 @@ public class ManageSubComs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
+	public Sub_Com searchSubComById(Sub_Com sub_com) {
+		Sub_Com rcv_sub_com = (Sub_Com)algo.binarySearchObj(sub_coms[memory_pos], sub_com, new SubComIdComparator());
+		return rcv_sub_com;
+	}
+	public List<Sub_Com> searchSubComByHeadComId(String id) {
+		List<Sub_Com> list = new Vector<>();
+		for(Sub_Com sub_com : sub_coms[memory_pos]) {
+			if(sub_com.getComId().equals(id))
+				list.add(sub_com);
+		}
+		return list;
+	}
+	
 	public List<Sub_Com> searchSubComByName(String name) {
 		List<Sub_Com> list = new Vector<>();
 		int index;

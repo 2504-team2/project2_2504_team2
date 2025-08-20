@@ -148,13 +148,9 @@ public class ManageCustomers {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public boolean searchCustomerById(Customer customer) {
-		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
-		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
-			System.out.println(customer.getId() + ":는 없는 ID 입니다.");
-			return false;
-		}
-		return true;
+	public Customer searchCustomerById(Customer customer) {
+		Customer rcv_customer = (Customer)algo.binarySearchObj(customers[memory_pos], customer, new CustomerIdComparator());
+		return rcv_customer;
 	}
 	
 	public void insertCustomer(Customer customer) {
@@ -163,17 +159,15 @@ public class ManageCustomers {
 			System.out.println(customer.getId() + ":는 존재하는 ID 입니다.");
 			return;
 		}
-		String sql = "insert into customer (id, pwd, name, tel, point, cupon, indate) values " +
-				" (?, ?, ?, ?, ?, ?, sysdate) ";
+		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
+				" (?, ?, ?, ?, sysdate) ";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
 				customer.getId(),
 				customer.getPwd(), 
 				customer.getName(), 
-				customer.getTel(), 
-				customer.getPoint(), 
-				customer.getCupon()
+				customer.getTel()
 				));
 		oraConn.queryInfosKey.add(key);
 	}

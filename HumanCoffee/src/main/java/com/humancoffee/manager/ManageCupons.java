@@ -151,6 +151,10 @@ public class ManageCupons {
 		oraConn.queryInfosKey.add(key);
 	}
 
+	public Cupon searchCuponById(Cupon cupon) {
+		Cupon rcv_cupon = (Cupon)algo.binarySearchObj(cupons[memory_pos], cupon, new CuponIdComparator());
+		return rcv_cupon;
+	}
 	public List<Cupon> searchCuponByName(String name) {
 		List<Cupon> list = new Vector<>();
 		int index;

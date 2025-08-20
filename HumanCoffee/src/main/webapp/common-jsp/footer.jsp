@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <link rel="stylesheet" href="./css/footer.css" />
 
 <body>
@@ -21,7 +22,6 @@
             </div>
             <div>
                 <ul class="menu">가맹점
-                    <li><a href="javascript:void(0)" class="tree">리스트</a></li>
                     <li><a href="javascript:void(0)">창업신청</a></li>
 
                 </ul>

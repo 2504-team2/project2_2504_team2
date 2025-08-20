@@ -171,6 +171,10 @@ public class ManageComCis {
 		}
 		return list;
 	}*/
+	public Com_Ci searchComCiById(Com_Ci com_ci) {
+		Com_Ci rcv_com_ci = (Com_Ci)algo.binarySearchObj(com_cis[memory_pos], com_ci, new ComCiIdComparator());
+		return rcv_com_ci;
+	}
 	
 	public List<Com_Ci> searchComCiByStatus(byte status){
 		List<Com_Ci> list = new Vector<>();

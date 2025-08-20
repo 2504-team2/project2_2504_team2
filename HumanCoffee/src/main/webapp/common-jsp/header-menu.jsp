@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- custom css -->
-<link rel="stylesheet" href="./css/header.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css"/>
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 
@@ -10,6 +10,7 @@
         <a href="./index.jsp" class="logo">
             <img src="./images/HumanCoffee_Logo.png" alt="HumanCoffee" />
         </a>
+
 
         <ul class="main-menu">
             <li class="item">
@@ -81,4 +82,5 @@
             %>
         </div>
     </div>
+
 </header>
