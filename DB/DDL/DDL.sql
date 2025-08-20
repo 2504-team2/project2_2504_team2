@@ -115,12 +115,12 @@ CREATE TABLE SUB_COM(
 
 -- 고객 
 CREATE TABLE CUSTOMER(
-	ID			VARCHAR2(30),	-- 고객 ID
-	PWD			VARCHAR2(100),	-- PASSWORD
-	NAME		NVARCHAR2(30),	-- 이름
-	TEL			VARCHAR2(20),	-- 전화
-	POINT		NUMBER(2, 0),	-- 적립된 포인트 개수
-	CUPON		NUMBER(2, 0),	-- 적립된 쿠폰 개수
+	ID			VARCHAR2(30),				-- 고객 ID
+	PWD			VARCHAR2(100),				-- PASSWORD
+	NAME		NVARCHAR2(30),				-- 이름
+	TEL			VARCHAR2(20),				-- 전화
+	POINT		NUMBER(2, 0)	DEFAULT 0,	-- 적립된 포인트 개수
+	CUPON		NUMBER(2, 0),	DEFAULT 0,	-- 적립된 쿠폰 개수
 	INDATE		DATE			DEFAULT SYSDATE,	-- 가입일
 	OUTDATE		DATE,								-- 탈퇴일
 	STATUS		NUMBER(1, 0)	DEFAULT 0,			-- 0 : 정상, 1 : 탈퇴

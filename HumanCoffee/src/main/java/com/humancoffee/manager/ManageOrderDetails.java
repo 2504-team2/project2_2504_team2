@@ -142,6 +142,20 @@ public class ManageOrderDetails {
 		oraConn.queryInfosKey.add(key);
 	}
 	
+	public Order_Detail searchOrderDetailByOrderIdNProductId(Order_Detail order_detail) {
+		Order_Detail rcv_order_detail = (Order_Detail)algo.binarySearchObj(order_details[memory_pos], order_detail, new OrderDetailIdComparator());
+		return rcv_order_detail;
+	}
+	
+	public List<Order_Detail> searchOrderDetailByOrderId(String id){
+		List<Order_Detail> list = new Vector<>();
+		int index;
+		for(Order_Detail order_detail : order_details[memory_pos]) {
+			if(order_detail.getOrderId().equals(id))
+				list.add(order_detail);
+		}
+		return list;
+	}
 /*	public List<My_Order> searchSubComByName(String name) {
 		List<Sub_Com> list = new Vector<>();
 		int index;

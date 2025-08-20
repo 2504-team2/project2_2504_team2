@@ -4,6 +4,7 @@
 <%@ page import = "com.humancoffee.manager.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
 <%@ page import = "com.humancoffee.*" %>
+
 <%
 	// out 내장객체로 웹 페이지 출력
 	out.println("<h1>로그인 처리중입니다</h1>");
@@ -13,8 +14,10 @@
 	String password = request.getParameter("pw");
 	out.println("Id: " + Id + ", Pwd: " + password);
 	
-	HumanCoffee humanCoffeeInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
-	ManageLogin mLogin = humanCoffeeInstance.mLogin;
+	// ServletContext에서 HumanCoffee 객체를 가져옴
+	HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
+	// HumanCoffee 객체로부터 ManageLogin 객체를 가져옴
+	ManageLogin mLogin = hcInstance.mLogin;
 	
 	out.println("ManageLogin : " + mLogin);
 	try {

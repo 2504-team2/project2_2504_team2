@@ -170,16 +170,14 @@ public class ManageProductImgs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-/*	public List<Product_Img> searchProductByName(String name) {
-		List<Product> list = new Vector<>();
-		int index;
-		for(Product product : products[memory_pos]) {
-			index = product.getName().indexOf(name, 0);
-			if(index >= 0)
-				list.add(product);
+	public List<Product_Img> searchProductImgByProductId(String id) {
+		List<Product_Img> list = new Vector<>();
+		for(Product_Img product_img : product_imgs[memory_pos]) {
+			if(product_img.getProductId().equals(id))
+				list.add(product_img);
 		}
 		return list;
-	}*/
+	}
 	
 	public List<Product_Img> searchProductImgByStatus(byte status){
 		List<Product_Img> list = new Vector<>();
