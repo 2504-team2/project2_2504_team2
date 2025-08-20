@@ -1,6 +1,5 @@
 package com.humancoffee.manager;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
@@ -97,7 +96,9 @@ public class ManageComHistorys {
 		}
 	}
 	
-	private void updateComHistoryStatus(Com_History com_history) {
+
+	public void updateComHistoryStatus(Com_History com_history) {
+
 		indexSearch = algo.binarySearchIndex(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
 			System.out.println(com_history.getId() + ":는 없는 ID 입니다.");
@@ -156,7 +157,9 @@ public class ManageComHistorys {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	private List<Com_History> searchComHistoryByTitle(String title) {
+
+	public List<Com_History> searchComHistoryByTitle(String title) {
+
 		List<Com_History> list = new Vector<>();
 		int index;
 		for(Com_History com_history : com_historys[memory_pos]) {

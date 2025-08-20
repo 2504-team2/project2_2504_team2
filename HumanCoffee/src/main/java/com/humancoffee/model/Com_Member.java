@@ -4,12 +4,14 @@ import java.util.Date;
 
 
 public class Com_Member implements Comparable<Com_Member>{
-	private String com_id;
-	private String id;
-	private String pwd;
-	private String name;
-	private String tel;
-	private int		roll;
+
+	private String 	com_id;
+	private String 	id;
+	private String 	pwd;
+	private String 	name;
+	private String 	tel;
+	private String	roll_id;
+
 	private Date	indate;
 	private Date	outdate;
 	private int		status;
@@ -29,8 +31,8 @@ public class Com_Member implements Comparable<Com_Member>{
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public void setRoll(int roll) {
-		this.roll = roll;
+	public void setRollId(String roll) {
+		this.roll_id = roll;
 	}
 	public void setInDate(Date indate) {
 		this.indate = indate;
@@ -57,8 +59,8 @@ public class Com_Member implements Comparable<Com_Member>{
 	public String getTel() {
 		return this.tel;
 	}
-	public int getRoll() {
-		return this.roll;
+	public String getRollId() {
+		return this.roll_id;
 	}
 	public Date getInDate() {
 		return this.indate;
