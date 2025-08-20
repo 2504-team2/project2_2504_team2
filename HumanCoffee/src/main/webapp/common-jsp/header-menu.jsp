@@ -5,7 +5,6 @@
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
-<%@ page import = "com.HumanCoffee.DBManager" %>
 <%
 	String id = request.getParameter("id");
 %> 
