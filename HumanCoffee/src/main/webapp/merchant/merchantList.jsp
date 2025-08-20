@@ -5,7 +5,6 @@
 <%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
 <%@ page import = "com.humancoffee.*" %>
-<%@ include file="../common-jsp/header-menu.jsp" %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/merchantList.css" />
 
 <%
@@ -19,6 +18,7 @@
         List<Sub_Com> merchantList = mSubComs.sub_coms[mSubComs.memory_pos];
 %>
 
+<jsp:include page="/common-jsp/header-menu.jsp" />
 <main class="merchant-list-page">
     <div class="inner">
         <h1>가맹점 리스트</h1>
