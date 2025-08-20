@@ -1,0 +1,441 @@
+package com.humancoffee;
+
+import com.humancoffee.dao.*;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+import com.humancoffee.common.*;
+import com.humancoffee.manager.*;
+
+import com.humancoffee.model.*;
+
+ 
+public class HumanCoffee {
+
+    private OraConnect oraConn;
+    private CtrlScanner ctrlScanner = new CtrlScanner();
+    
+    public ManageMemRolls mMemRolls;
+    public ManageOrderDetails mOrderDetails;
+    public ManageMyOrders mOrders;
+    public ManageCupons mCupons;
+    public ManageProductImgs mProductImgs;
+    public ManageProducts mProducts;
+    public ManageComCis mComCis;
+    public ManageComHistorys mComHistorys;
+    public ManageCompanys mCompanys;
+    public ManageComMembers mComMems;
+    public ManageSubComs mSubComs;
+    public ManageCustomers mCustomers;// = new ManageCustomers();
+    public ManageLogin mLogin;
+    private Thread workerThread;
+    private volatile boolean running = true;
+    
+    public HumanCoffee() {
+        oraConn = new OraConnect("oracle.jdbc.OracleDriver", "jdbc:oracle:thin:@1.220.247.78:1522/orcl", "project2_2504_team2", "1234");
+        if(!oraConn.connect()) {
+            System.out.println("Database connect error");
+            System.exit(0);
+        }
+        
+        mMemRolls = new ManageMemRolls();
+        System.out.println("new mMemRolls");
+        mMemRolls.oraConn = this.oraConn;
+        System.out.println("mMemRolls.oraConn = this.oraConn");
+        mMemRolls.readMemRoll(mMemRolls.memory_pos);
+        System.out.println("mMemRolls.readMemRoll(" + mMemRolls.memory_pos + ")");
+        
+        mOrderDetails = new ManageOrderDetails();
+        System.out.println("new mOrderDetails");
+        mOrderDetails.oraConn = this.oraConn;
+        System.out.println("mOrderDetails.oraConn = this.oraConn");
+        mOrderDetails.readOrderDetail(mOrderDetails.memory_pos);
+        System.out.println("mOrderDetails.readOrderDetail(" + mOrderDetails.memory_pos + ")");
+        
+        mOrders = new ManageMyOrders();
+        System.out.println("new mOrders");
+        mOrders.oraConn = this.oraConn;
+        System.out.println("mOrders.oraConn = this.oraConn");
+        mOrders.readMyOrder(mOrders.memory_pos);
+        System.out.println("mOrders.readMyOrder(" + mOrders.memory_pos + ")");
+        
+        mCupons = new ManageCupons();
+        System.out.println("new mCupons");
+        mCupons.oraConn = this.oraConn;
+        System.out.println("mCupons.oraConn = this.oraConn");
+        mCupons.readCupon(mCupons.memory_pos);
+        System.out.println("mCupons.readCupon(" + mCupons.memory_pos + ")");
+        
+        mProductImgs = new ManageProductImgs();
+        System.out.println("new mProductImgs");
+        mProductImgs.oraConn = this.oraConn;
+        System.out.println("mProductImgs.oraConn = this.oraConn");
+        mProductImgs.readProductImg(mProductImgs.memory_pos);
+        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
+        
+        mProducts = new ManageProducts();
+        System.out.println("new mProducts");
+        mProducts.oraConn = this.oraConn;
+        System.out.println("mProducts.oraConn = this.oraConn");
+        mProducts.readProduct(mProducts.memory_pos);
+        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
+        
+        mComCis = new ManageComCis();
+        System.out.println("new mComCis");
+        mComCis.oraConn = this.oraConn;
+        System.out.println("mComCis.oraConn = this.oraConn");
+        mComCis.readComCi(mComCis.memory_pos);
+        System.out.println("mComCis.readComCi(" + mComCis.memory_pos + ")");
+        
+        mComHistorys = new ManageComHistorys();
+        System.out.println("new mComHistorys");
+        mComHistorys.oraConn = this.oraConn;
+        System.out.println("mComHistorys.oraConn = this.oraConn");
+        mComHistorys.readComHistory(mComHistorys.memory_pos);
+        System.out.println("mComHistorys.readComHistory(" + mComHistorys.memory_pos + ")");
+        
+        mCompanys = new ManageCompanys();
+        System.out.println("new mCompanys");
+        mCompanys.oraConn = this.oraConn;
+        System.out.println("mCompanys.oraConn = this.oraConn");
+        mCompanys.readCompany(mCompanys.memory_pos);
+        System.out.println("mCompanys.readCompany(" + mCompanys.memory_pos + ")");
+        
+        mComMems = new ManageComMembers();
+        System.out.println("new mComMems");
+        mComMems.oraConn = this.oraConn;
+        System.out.println("mComMems.oraConn = this.oraConn");
+        mComMems.readComMember(mComMems.memory_pos);
+        System.out.println("mComMems.readComMember(" + mComMems.memory_pos + ")");
+        
+        mSubComs = new ManageSubComs();
+        System.out.println("new ManageSubComs");
+        mSubComs.oraConn = this.oraConn;
+        System.out.println("mSubComs.oraConn = this.oraConn");
+        mSubComs.readSubCom(mSubComs.memory_pos);
+        System.out.println("mSubComs.readSubCom(" + mSubComs.memory_pos + ")");
+        
+        mCustomers = new ManageCustomers();
+        System.out.println("new ManageCustomers");
+        mCustomers.oraConn = this.oraConn;
+        System.out.println("mCustomers.oraConn = this.oraConn");
+        mCustomers.readCustomer(mCustomers.memory_pos);
+        System.out.println("mCustomers.readCustomer(" + mCustomers.memory_pos + ")");
+        
+        mLogin = new ManageLogin();
+        mLogin.mCustomers = this.mCustomers;
+        mLogin.mComMembers = this.mComMems;
+        mLogin.mMemRolls = this.mMemRolls;
+        mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
+    }
+    
+    private String getKeyToClassName(String key) {
+    	int index = key.indexOf("|");
+        String rcvClass = key.substring(0, index);
+        while(true) {
+            index = rcvClass.indexOf(".");
+            if(index < 0)
+                break;
+            rcvClass = rcvClass.substring(index + 1);
+        }
+        return rcvClass;
+    }
+    
+    private boolean chkDuplicateClass(String rcvClass) {
+    	String myClass;
+    	for(int loop = 0; loop < oraConn.queryEndsKey.size(); loop++) {
+    		myClass = oraConn.queryEndsKey.get(loop);
+    		if(myClass.equals(rcvClass))
+    			return true;
+    	}
+    	return false;
+    }
+    
+    public void queryReadExe() {
+        synchronized(oraConn.queryInfosKey) { // oraConn.queryInfosKey 객체를 기준으로 동기화
+            if(oraConn.queryInfosKey == null || oraConn.conn == null)
+                return;
+            if(oraConn.queryInfosKey.size() <= 0)
+                return;
+            System.out.println("oraConn.queryInfosKey : " + oraConn.queryInfosKey);
+            System.out.println("oraConn.queryInfosKey.size() : " + oraConn.queryInfosKey.size());
+            int loop;
+            try {
+                oraConn.conn.setAutoCommit(false);
+                while(oraConn.queryInfosKey.size() > 0) {
+                    String key = oraConn.queryInfosKey.get(0);
+                    System.out.println("queryInfoExe key : " + key);
+                    QueryInfo qi = oraConn.queryInfos.get(key);
+                    if(qi.status == 0) {
+                        PreparedStatement pstmt = oraConn.conn.prepareStatement(qi.getSql());
+                        if(qi.getParams() != null) {
+                            for(loop = 0; loop < qi.getParams().length; loop++)
+                                pstmt.setObject(loop + 1, qi.getParams()[loop]);
+                        }
+                        pstmt.addBatch();
+                        pstmt.executeBatch();
+                        qi.status = 1;
+                        oraConn.queryInfos.replace(key, qi);
+                    }
+                    String className = getKeyToClassName(key);
+                    if(!chkDuplicateClass(className))
+                    	oraConn.queryEndsKey.add(className);
+                    oraConn.queryInfos.remove(key);
+                    oraConn.queryInfosKey.remove(key);
+                }
+                oraConn.conn.commit();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                if(oraConn.conn != null) {
+                    try {
+                        oraConn.conn.rollback();
+                    } catch (SQLException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+            }finally {
+                if(oraConn.conn != null) {
+                    try {
+                        oraConn.conn.setAutoCommit(true);
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            
+            
+            while(oraConn.queryEndsKey.size() > 0) {
+/*                String key = oraConn.queryEndsKey.get(0);
+                System.out.println("key : " + key);
+                
+                int index = key.indexOf("|");
+                String className = key.substring(0, index);
+                while(true) {
+                    index = className.indexOf(".");
+                    if(index < 0)
+                        break;
+                    className = className.substring(index + 1);
+                }
+                System.out.println("className : " + className);*/
+            	String className = oraConn.queryEndsKey.get(0);
+                byte new_pos;
+                switch(className) {
+                    case "ManageCustomers":
+                        new_pos = (byte)(mCustomers.memory_pos ^ 0x01);
+                        mCustomers.readCustomer(new_pos);
+                        mCustomers.memory_pos = new_pos;
+                        break;
+                    case "ManageSubComs":
+                    	new_pos = (byte)(mSubComs.memory_pos ^ 0x01);
+                    	mSubComs.readSubCom(new_pos);
+                    	mSubComs.memory_pos = new_pos;
+                    	break;
+                    case "ManageMemRolls":
+                    	new_pos = (byte)(mMemRolls.memory_pos ^ 0x01);
+                    	mMemRolls.readMemRoll(new_pos);
+                    	mMemRolls.memory_pos = new_pos;
+                    	break;
+                    case "ManageComMembers":
+                    	new_pos = (byte)(mComMems.memory_pos ^ 0x01);
+                    	mComMems.readComMember(new_pos);
+                    	mComMems.memory_pos = new_pos;
+                    	break;
+                    case "ManageCompanys":
+                    	new_pos = (byte)(mCompanys.memory_pos ^ 0x01);
+                    	mCompanys.readCompany(new_pos);
+                    	mCompanys.memory_pos = new_pos;
+                    	break;
+                    case "ManageComHistorys":
+                    	new_pos = (byte)(mComHistorys.memory_pos ^ 0x01);
+                    	mComHistorys.readComHistory(new_pos);
+                    	mComHistorys.memory_pos = new_pos;
+                    	break;
+                    case "ManageComCis":
+                    	new_pos = (byte)(mComCis.memory_pos ^ 0x01);
+                    	mComCis.readComCi(new_pos);
+                    	mComCis.memory_pos = new_pos;
+                    	break;
+                    case "ManageProducts":
+                    	new_pos = (byte)(mProducts.memory_pos ^ 0x01);
+                    	mProducts.readProduct(new_pos);
+                    	mProducts.memory_pos = new_pos;
+                    	break;
+                    case "ManageProductImgs":
+                    	new_pos = (byte)(mProductImgs.memory_pos ^ 0x01);
+                    	mProductImgs.readProductImg(new_pos);
+                    	mProductImgs.memory_pos = new_pos;
+                    	break;
+                    case "ManageCupons":
+                    	new_pos = (byte)(mCupons.memory_pos ^ 0x01);
+                    	mCupons.readCupon(new_pos);
+                    	mCupons.memory_pos = new_pos;
+                    	break;
+                    case "ManageMyOrders":
+                    	new_pos = (byte)(mOrders.memory_pos ^ 0x01);
+                    	mOrders.readMyOrder(new_pos);
+                    	mOrders.memory_pos = new_pos;
+                    	break;
+                    case "ManageOrderDetails":
+                    	new_pos = (byte)(mOrderDetails.memory_pos ^ 0x01);
+                    	mOrderDetails.readOrderDetail(new_pos);
+                    	mOrderDetails.memory_pos = new_pos;
+                    	break;
+    /* case "ManageOrders":
+                            new_pos = (byte)(mOrders.memory_pos ^ 0x01);
+                            mOrders.readOrder(new_pos);
+                            mOrders.memory_pos = new_pos;
+                            break;
+                        case "ManagePayments":
+                            new_pos = (byte)(mPayments.memory_pos ^ 0x01);
+                            mPayments.readPayment(new_pos);
+                            mPayments.memory_pos = new_pos;
+                            break;
+                        case "ManageProducts":
+                            new_pos = (byte)(mProducts.memory_pos ^ 0x01);
+                            mProducts.readProduct(new_pos);
+                            mProducts.memory_pos = new_pos;
+                            break;
+                        case "ManageSellers":
+                            new_pos = (byte)(mSellers.memory_pos ^ 0x01);
+                            mSellers.readSeller(new_pos);
+                            mSellers.memory_pos = new_pos;
+                            break;
+                        case "ManageShippings":
+                            new_pos = (byte)(mShippings.memory_pos ^ 0x01);
+                            mShippings.readShipping(new_pos);
+                            mShippings.memory_pos = new_pos;
+                            break;
+                            */
+                }
+//                oraConn.queryEndsKey.remove(key);
+//                System.out.println("oraConn.queryEndsKey.remove(key) : " + key);
+                oraConn.queryEndsKey.remove(className);
+                System.out.println("oraConn.queryEndsKey.remove(className) : " + className);
+                System.out.println("End oraConn.queryEndsKey : " + oraConn.queryEndsKey);
+                System.out.println("End oraConn.queryEndsKey.size() : " + oraConn.queryEndsKey.size());
+                
+            }
+        }
+    }
+    
+    public void exit() {
+    	running = false;
+    	try {
+    		if(workerThread != null) {
+    			workerThread.interrupt();	//	스레드 인터럽트
+    			workerThread.join(5000);	//	5초간 스레드 종료 대기
+    		}
+    	}catch(InterruptedException e) {
+    		Thread.currentThread().interrupt();
+    	}
+    	
+    	if(mOrderDetails != null)
+        	mOrderDetails.exit();
+        if(mOrders != null)
+        	mOrders.exit();
+        if(mCupons != null)
+        	mCupons.exit();
+        if(mProductImgs != null)
+        	mProductImgs.exit();
+        if(mProducts != null)
+        	mProducts.exit();
+        if(mComCis != null)
+        	mComCis.exit();
+        if(mComHistorys != null)
+        	mComHistorys.exit();
+        if(mCompanys != null)
+        	mCompanys.exit();
+        if(mComMems != null)
+        	mComMems.exit();
+        if(mSubComs != null)
+        	mSubComs.exit();
+        if(mCustomers != null)
+        	mCustomers.exit();
+        if(mLogin != null)
+        	mLogin.logout();
+        
+        
+        oraConn.close();
+        ctrlScanner.close();
+//        System.exit(0);	//	웹 서버까지 종료되므로 제거.
+    }
+    
+    public void runMenu() {
+        try {
+            if(workerThread != null && workerThread.isAlive()) {
+                System.out.println("Thread 실행 중");
+            }else {
+                running = true;
+                workerThread = new Thread(() -> {
+                    while(running && !Thread.currentThread().isInterrupted()) {
+                        queryReadExe();
+ /*                       try {
+                            Thread.sleep(100); // 바쁜 대기(Busy-Waiting) 방지를 위해 100ms 휴식
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }*/
+                    }
+                    System.out.println("Thread 종료");
+                }, "queryReadExe_Thread");
+                workerThread.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        // Tomcat과 같은 웹 애플리케이션에서는 while(true) 루프가 불필요
+        // 사용자와 상호작용하는 UI/메뉴 로직은 웹 요청에 따라 처리됨
+    }
+    
+    // 웹 애플리케이션 환경에서는 main 메서드를 사용하지 않음
+    
+    public static void main(String[] args) {
+    	//	
+        System.out.println("HumanCoffee main");
+        HumanCoffee system = new HumanCoffee();
+//        system.runMenu();
+        
+/*        int sel;
+        while(true) {
+            System.out.println("------------------------------------------------------------");
+            if(system.mLogin.currentUser != null)
+                System.out.println("\n온라인 쇼핑몰 주문 처리 시스템[ID: " + system.mLogin.currentUser + "]");
+            else
+                System.out.println("\n온라인 쇼핑몰 주문 처리 시스템");
+            System.out.println("------------------------------------------------------------");
+            System.out.println("1. 로그인/로그아웃");
+            System.out.println("2. 판매자 관리");
+            System.out.println("3. 고객 관리");
+            System.out.println("4. 제품 관리");
+            System.out.println("5. 주문 관리");
+            System.out.println("6. 프로그램 종료");
+            System.out.print("선택: ");
+            sel = system.ctrlScanner.getIntByScanner();
+            if(sel == 0)
+                sel = 1;
+            switch(sel) {
+            case 1:
+                system.mLogin.manageLogin();
+                break;
+            case 3:
+                system.mCustomers.manageCustomers();
+                break;
+            case 6:
+                system.exit();
+                break;
+            default:
+                System.out.println("잘 못 입력하셨습니다. 다시 시도해 주세요.");
+            }
+        }*/
+    }
+    
+}
