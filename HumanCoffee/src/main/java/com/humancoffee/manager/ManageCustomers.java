@@ -38,7 +38,7 @@ public class ManageCustomers {
 		customers[0] = new Vector<>();
 		customers[1] = new Vector<>();
 	}
-		
+
 	public void readCustomer(byte mem_pos) {
 		Object[][] obj;
 		QueryInfo qi;
@@ -77,6 +77,7 @@ public class ManageCustomers {
 			customer.setPoint(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
+
 			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setCupon(Integer.parseInt(value));
@@ -89,6 +90,7 @@ public class ManageCustomers {
 				customer.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
+
 			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
 				System.out.println("null 입력");
@@ -106,8 +108,9 @@ public class ManageCustomers {
 			customers[mem_pos].add(customer);
 		}
 	}
-	
+
 	public void updateCustomerStatus(Customer customer) {
+
 		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
 			System.out.println(customer.getId() + ":는 없는 ID 입니다.");
@@ -180,6 +183,7 @@ public class ManageCustomers {
 		int index;
 		for(Customer customer : customers[memory_pos]) {
 			index = customer.getName().indexOf(name, 0);
+
 			if(index >= 0)
 				list.add(customer);
 		}
@@ -194,5 +198,4 @@ public class ManageCustomers {
 		}
 		return list;
 	}
-
 }

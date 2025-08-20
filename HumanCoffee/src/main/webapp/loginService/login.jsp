@@ -4,6 +4,7 @@
 <%@ page import = "com.humancoffee.manager.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
 <%@ page import = "com.humancoffee.*" %>
+
 <%
 	// out 내장객체로 웹 페이지 출력
 	out.println("<h1>로그인 처리중입니다</h1>");
@@ -44,3 +45,4 @@
 		common.getStackTraceAsString(e);
 	}
 %>
+
