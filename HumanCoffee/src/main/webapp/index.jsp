@@ -42,6 +42,9 @@
 	<div class="main">
 		main
 	</div>
+	<div>
+		<jsp:include page="./common-jsp/footer.jsp" /> 
+	</div>
 </div>
 </body>
 </html>
