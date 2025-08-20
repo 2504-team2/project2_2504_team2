@@ -35,6 +35,9 @@
 <link rel="stylesheet" href="/css/main.css" />
 </head>
 <body>
+<<<<<<< HEAD
+Hello HI
+=======
 <div class="desktop">
 	<div>
 		<jsp:include page="./common-jsp/header-menu.jsp" /> 
@@ -43,5 +46,6 @@
 		main
 	</div>
 </div>
+>>>>>>> upstream/main
 </body>
 </html>
