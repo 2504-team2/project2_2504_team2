@@ -147,7 +147,7 @@ public class ManageCustomers {
 				customer.getId()));
 		oraConn.queryInfosKey.add(key);
 	}
-		
+
 	public void insertCustomer(Customer customer) {
 		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {

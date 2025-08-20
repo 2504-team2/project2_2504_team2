@@ -60,7 +60,7 @@
      	
     	// Customer 객체 설정
         customer.setId(Id);
-        customer.setPwd(algo.generateSha256(Id, password)); // 패스워드 해시화
+        customer.setPwd(password);
         customer.setName(name);
         customer.setTel(tel);
 
@@ -90,11 +90,12 @@
         Common common = new Common();
         String strException = common.getStackTraceAsString(e);
 %>
-        <script>
-            alert('시스템 오류가 발생했습니다. 관리자에게 문의하세요.');
-            location.href='<%= request.getContextPath() %>/loginService/signup_form.jsp';
-        </script>
+	<script>
+		alert('회원가입 처리 중 오류가 발생하였습니다.');
+	</script>
 <%
-    }
-
+		Common common = new Common();
+		common.getStackTraceAsString(e);
+	}
+    
 %>
