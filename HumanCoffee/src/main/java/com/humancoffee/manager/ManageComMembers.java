@@ -177,6 +177,7 @@ public class ManageComMembers {
 		Com_Member rcv_com_member = (Com_Member)algo.binarySearchObj(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		return rcv_com_member;
 	}
+
 	public List<Com_Member> searchComMemberByName(String name) {
 
 		List<Com_Member> list = new Vector<>();

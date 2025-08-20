@@ -62,7 +62,7 @@ public class OraConnect {
             return false;
         return true;
     }
-    
+/*    
     public void queryInfoExe() {
         synchronized(this.queryInfosKey) { // 동기화 블록 유지
             int loop;
@@ -112,7 +112,7 @@ public class OraConnect {
             }
         }
     }
-    
+*/    
     public Object[][] exeSelect(QueryInfo qi) {
         Object[][] obj = new Object[0][0];
         ResultSet rs = null;
