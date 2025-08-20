@@ -55,7 +55,7 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <li><a href="#">가맹점 리스트</a></li>
+                  <li><a href="<%= request.getContextPath() %>/merchant/merchantList.jsp">가맹점 리스트</a></li>
                   <li><a href="#">창업신청</a></li>
                 </ul>
               </li>
