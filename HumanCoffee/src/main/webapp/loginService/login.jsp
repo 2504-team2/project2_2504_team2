@@ -14,8 +14,10 @@
 	String password = request.getParameter("pw");
 	out.println("Id: " + Id + ", Pwd: " + password);
 	
-	HumanCoffee humanCoffeeInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
-	ManageLogin mLogin = humanCoffeeInstance.mLogin;
+	// ServletContext에서 HumanCoffee 객체를 가져옴
+	HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
+	// HumanCoffee 객체로부터 ManageLogin 객체를 가져옴
+	ManageLogin mLogin = hcInstance.mLogin;
 	
 	out.println("ManageLogin : " + mLogin);
 	try {
