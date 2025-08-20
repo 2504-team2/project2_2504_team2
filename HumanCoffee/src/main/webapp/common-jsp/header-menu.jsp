@@ -10,7 +10,7 @@
 %> 
 <header>
   <div class="inner">
-    <a href="./index.jsp" class="logo">
+    <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
       <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
     </a>
 
