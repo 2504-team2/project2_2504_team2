@@ -102,7 +102,7 @@ public class ManageComCis {
 		}
 	}
 	
-	private void updateComCiStatus(Com_Ci com_ci) {
+	public void updateComCiStatus(Com_Ci com_ci) {
 		indexSearch = algo.binarySearchIndex(com_cis[memory_pos], com_ci, new ComCiIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
 			System.out.println(com_ci.getId() + ":는 없는 ID 입니다.");

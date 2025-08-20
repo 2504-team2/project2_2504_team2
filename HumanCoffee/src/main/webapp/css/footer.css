@@ -1,0 +1,156 @@
+/*FOOTER*/
+footer {
+  background-color: #272727;
+  border-top: 1px solid #333;
+  height: 300px;
+}
+
+footer .footer {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  white-space: nowrap;
+
+}
+
+footer .footer a {
+  padding-left: 0px;
+
+}
+
+footer .footer {
+  display: flex;
+  gap: 170px;
+  justify-content: center;
+}
+
+
+footer .footer ul {
+  margin-top: 60px;
+  font-size: 17px;
+
+}
+
+footer .footer menu {}
+
+footer .footer .menu a {
+  padding: 0px;
+  margin-bottom: 10px;
+
+}
+
+footer .footer .tree {
+  margin-top: 50px;
+
+}
+
+footer .LOGIN .bottom_login {
+  color: white;
+  justify-content: center;
+  margin-top: 60px;
+  font-size: 17px;
+
+
+}
+
+
+footer .footer .menu li {
+  display: block;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+footer .menu li::before {
+  width: 3px;
+  height: 3px;
+  background-color: #555;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  margin: auto;
+}
+
+footer .menu li:last-child::before {
+  display: none;
+}
+
+footer .menu li a {
+  display: block;
+  color: rgba(147, 147, 147);
+  font-size: 14px;
+
+  padding: 5px;
+
+
+}
+
+footer .menu li a.green {
+  color: #669900;
+}
+
+footer ul {
+  color: white;
+
+}
+
+
+footer .info {
+
+  margin-top: 50px;
+
+  white-space: nowrap;
+  border-left: solid 0.2px #999;
+  padding-left: 60px;
+
+
+}
+
+footer .info button {
+  height: 30px;
+  width: 200px;
+  background-color: #999;
+  ;
+  border: none;
+
+}
+
+footer .info .infotext {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+footer .info div {
+  margin-bottom: 5px;
+  color: white;
+  font-size: 12px;
+}
+
+footer .info span:last-child {
+  margin-right: 0;
+
+}
+
+footer .copyright {
+  color: #999;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 12px;
+
+}
+
+footer .logo {
+  margin: 30px auto 0;
+}
+
+
+.footer .sky {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.footer .sky img {
+  height: 30px;
+  
+}    

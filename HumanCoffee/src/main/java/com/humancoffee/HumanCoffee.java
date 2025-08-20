@@ -21,18 +21,20 @@ public class HumanCoffee {
     private OraConnect oraConn;
     private CtrlScanner ctrlScanner = new CtrlScanner();
     
-    private ManageOrderDetails mOrderDetails;
-    private ManageMyOrders mOrders;
-    private ManageCupons mCupons;
-    private ManageProductImgs mProductImgs;
-    private ManageProducts mProducts;
-    private ManageComCis mComCis;
-    private ManageComHistorys mComHistorys;
-    private ManageCompanys mCompanys;
-    private ManageComMembers mComMems;
-    private ManageSubComs mSubComs;
-    private ManageCustomers mCustomers;// = new ManageCustomers();
-    private ManageLogin mLogin;
+    public ManageMemRolls mMemRolls;
+    public ManageOrderDetails mOrderDetails;
+    public ManageMyOrders mOrders;
+    public ManageCupons mCupons;
+    public ManageProductImgs mProductImgs;
+    public ManageProducts mProducts;
+    public ManageComCis mComCis;
+    public ManageComHistorys mComHistorys;
+    public ManageCompanys mCompanys;
+    public ManageComMembers mComMems;
+    public ManageSubComs mSubComs;
+    public ManageCustomers mCustomers;// = new ManageCustomers();
+    public ManageLogin mLogin;
+
     private Thread workerThread;
     private volatile boolean running = true;
     
@@ -43,6 +45,14 @@ public class HumanCoffee {
             System.exit(0);
         }
         
+
+        mMemRolls = new ManageMemRolls();
+        System.out.println("new mMemRolls");
+        mMemRolls.oraConn = this.oraConn;
+        System.out.println("mMemRolls.oraConn = this.oraConn");
+        mMemRolls.readMemRoll(mMemRolls.memory_pos);
+        System.out.println("mMemRolls.readMemRoll(" + mMemRolls.memory_pos + ")");
+
         mOrderDetails = new ManageOrderDetails();
         System.out.println("new mOrderDetails");
         mOrderDetails.oraConn = this.oraConn;
@@ -122,6 +132,10 @@ public class HumanCoffee {
         
         mLogin = new ManageLogin();
         mLogin.mCustomers = this.mCustomers;
+        mLogin.mComMembers = this.mComMems;
+        mLogin.mMemRolls = this.mMemRolls;
+        mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
+
     }
     
     private String getKeyToClassName(String key) {
@@ -228,6 +242,11 @@ public class HumanCoffee {
                     	mSubComs.readSubCom(new_pos);
                     	mSubComs.memory_pos = new_pos;
                     	break;
+                    case "ManageMemRolls":
+                    	new_pos = (byte)(mMemRolls.memory_pos ^ 0x01);
+                    	mMemRolls.readMemRoll(new_pos);
+                    	mMemRolls.memory_pos = new_pos;
+                    	break;
                     case "ManageComMembers":
                     	new_pos = (byte)(mComMems.memory_pos ^ 0x01);
                     	mComMems.readComMember(new_pos);
@@ -321,6 +340,32 @@ public class HumanCoffee {
     	}catch(InterruptedException e) {
     		Thread.currentThread().interrupt();
     	}
+    	
+    	if(mOrderDetails != null)
+        	mOrderDetails.exit();
+        if(mOrders != null)
+        	mOrders.exit();
+        if(mCupons != null)
+        	mCupons.exit();
+        if(mProductImgs != null)
+        	mProductImgs.exit();
+        if(mProducts != null)
+        	mProducts.exit();
+        if(mComCis != null)
+        	mComCis.exit();
+        if(mComHistorys != null)
+        	mComHistorys.exit();
+        if(mCompanys != null)
+        	mCompanys.exit();
+        if(mComMems != null)
+        	mComMems.exit();
+        if(mSubComs != null)
+        	mSubComs.exit();
+        if(mCustomers != null)
+        	mCustomers.exit();
+        if(mLogin != null)
+        	mLogin.logout();
+        
         oraConn.close();
         ctrlScanner.close();
 //        System.exit(0);	//	웹 서버까지 종료되므로 제거.

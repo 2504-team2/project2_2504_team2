@@ -1,6 +1,5 @@
 package com.humancoffee.manager;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
@@ -43,7 +42,9 @@ public class ManageComMembers {
 	public void readComMember(byte mem_pos) {
 		Object[][] obj;
 		QueryInfo qi;
-		String sql = "select com_id, id, pwd, name, tel, roll, indate, outdate, status " +
+
+		String sql = "select com_id, id, pwd, name, tel, roll_id, indate, outdate, status " +
+
 				" from com_member order by id";
 		qi = new QueryInfo(sql, new Object[0]);
 		obj = oraConn.exeSelect(qi);
@@ -77,8 +78,8 @@ public class ManageComMembers {
 			
 			value = Objects.toString(obj[row][col++]);
 			System.out.println(row + ":" + col + ":" + value);
-			value = (value == null) ? "0" : value;
-			com_member.setRoll(Integer.parseInt(value));
+			com_member.setRollId((value == null) ? "" : value);
+
 			
 			value = Objects.toString(obj[row][col++], null);
 			System.out.println(row + ":" + col + ":" + value);
@@ -105,7 +106,9 @@ public class ManageComMembers {
 		}
 	}
 	
-	private void updateComMemberStatus(Com_Member com_member) {
+
+	public void updateComMemberStatus(Com_Member com_member) {
+
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
 			System.out.println(com_member.getId() + ":는 없는 ID 입니다.");
@@ -127,7 +130,9 @@ public class ManageComMembers {
 			System.out.println(com_member.getId() + ":는 없는 ID 입니다.");
 			return;
 		}
-		String sql = "update com_member set com_id = ?, pwd = ?, name = ?, tel = ?, roll = ?, outdate = ?, status = ? " +
+
+		String sql = "update com_member set com_id = ?, pwd = ?, name = ?, tel = ?, roll_id = ?, outdate = ?, status = ? " +
+
 				" where id = ?";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
@@ -136,7 +141,8 @@ public class ManageComMembers {
 				com_member.getPwd(), 
 				com_member.getName(), 
 				com_member.getTel(), 
-				com_member.getRoll(), 
+				com_member.getRollId(), 
+
 				com_member.getOutDate(), 
 				com_member.getStatus(), 
 				com_member.getId()));
@@ -149,7 +155,9 @@ public class ManageComMembers {
 			System.out.println(com_member.getId() + ":는 존재하는 ID 입니다.");
 			return;
 		}
-		String sql = "insert into com_member (com_id, id, pwd, name, tel, roll, indate) values " +
+
+		String sql = "insert into com_member (com_id, id, pwd, name, tel, roll_id, indate) values " +
+
 				" (?, ?, ?, ?, ?, ?, sysdate) ";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
@@ -159,12 +167,14 @@ public class ManageComMembers {
 				com_member.getPwd(), 
 				com_member.getName(), 
 				com_member.getTel(), 
-				com_member.getRoll()
+				com_member.getRollId()
+
 				));
 		oraConn.queryInfosKey.add(key);
 	}
-	
-	private List<Com_Member> searchComMemberByName(String name) {
+
+	public List<Com_Member> searchComMemberByName(String name) {
+
 		List<Com_Member> list = new Vector<>();
 		int index;
 		for(Com_Member com_member : com_members[memory_pos]) {

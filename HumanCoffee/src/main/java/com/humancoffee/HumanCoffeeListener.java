@@ -22,6 +22,7 @@ public class HumanCoffeeListener implements ServletContextListener{
      humanCoffeeInstance = new HumanCoffee();
      humanCoffeeInstance.runMenu(); // 기존의 while(true) 루프는 제거
      
+     sce.getServletContext().setAttribute("HumanCoffee", humanCoffeeInstance);
      System.out.println("HumanCoffee-thread started.");
  }
  
