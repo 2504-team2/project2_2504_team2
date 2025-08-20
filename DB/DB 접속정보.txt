@@ -1,0 +1,24 @@
+
+
+- Database Info
+IP : 1.220.247.78	
+Port : 1522	
+Database : orcl
+
+Username : project2_2504_team2	
+Password : 1234
+
+
+-- Oracle 10g 부터 사용 되는 명령
+-- SQLPLUS : 백업파일 생성 및 복원파일 경로 설정
+CREATE OR REPLACE DIRECTORY DATA_PUMP_DIR AS 'C:\DB';
+-- 백업 : 일반 프롬프트 관리자 권한
+expdp project2_2504_team2/1234@orcl directory=DATA_PUMP_DIR dumpfile=team2_20250814.dmp full=Y logfile=team2_20250814.log
+-- 복원 : 일반 프롬프트 관리자 권한
+-- DATA_PUMP_DIR 는 xxx.dmp 파일이 있는 경로
+impdp project2_2504_team2/1234@orcl directory=DATA_PUMP_DIR dumpfile=team2_20250814.dmp full=Y
+
+
+
+
+
