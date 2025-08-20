@@ -1,3 +1,5 @@
+
+
 // 2. This code loads the IFrame Player API code asynchronously.
 var tag = document.createElement('script');
 
@@ -23,3 +25,8 @@ function onYouTubeIframeAPIReady() {
     }
   });
 }
+
+// <!-- JS: 창립일 기준 기술 경력 자동 계산 -->
+  const foundationYear = 2025; // 창립연도
+  const currentYear = new Date().getFullYear();
+  document.getElementById("years").textContent = (currentYear - foundationYear) + "년";
