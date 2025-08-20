@@ -149,17 +149,10 @@ public class ManageMemRolls {
 				));
 		oraConn.queryInfosKey.add(key);
 	}
-/*	
-	private List<Com_Ci> searchComHistoryByTitle(String title) {
-		List<Com_History> list = new Vector<>();
-		int index;
-		for(Com_History com_history : com_historys[memory_pos]) {
-			index = com_history.getTitle().indexOf(title, 0);
-			if(index >= 0)
-				list.add(com_history);
-		}
-		return list;
-	}*/
+	public Mem_Roll searchMemRollById(Mem_Roll mem_roll) {
+		Mem_Roll rcv_mem_roll = (Mem_Roll)algo.binarySearchObj(mem_rolls[memory_pos], mem_roll, new MemRollIdComparator());
+		return rcv_mem_roll;
+	}
 	
 	public List<Mem_Roll> searchMemRollByStatus(byte status){
 		List<Mem_Roll> list = new Vector<>();

@@ -175,6 +175,10 @@ public class ManageCompanys {
 		oraConn.queryInfosKey.add(key);
 	}
 	
+	public Company searchCompanyById(Company company) {
+		Company rcv_company = (Company)algo.binarySearchObj(companys[memory_pos], company, new CompanyIdComparator());
+		return rcv_company;
+	}
 	public List<Company> searchCompanyByName(String name) {
 		List<Company> list = new Vector<>();
 		int index;

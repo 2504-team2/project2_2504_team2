@@ -171,7 +171,10 @@ public class ManageProducts {
 				));
 		oraConn.queryInfosKey.add(key);
 	}
-	
+	public Product searchProductById(Product product) {
+		Product rcv_product = (Product)algo.binarySearchObj(products[memory_pos], product, new ProductIdComparator());
+		return rcv_product;
+	}
 	public List<Product> searchProductByName(String name) {
 		List<Product> list = new Vector<>();
 		int index;

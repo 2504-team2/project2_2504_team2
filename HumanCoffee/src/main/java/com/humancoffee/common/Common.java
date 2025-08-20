@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class Common {
 	final static String DEV_SUB_FOLDER = "\\src\\main\\webapp\\";
 	public static String strProjectPath = null;
-	
-	public static String getStackTraceAsString(Throwable throwable) {
+//	public static String getStackTraceAsString(Throwable throwable) {
+	public String getStackTraceAsString(Throwable throwable) {
 		StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         throwable.printStackTrace(pw);
