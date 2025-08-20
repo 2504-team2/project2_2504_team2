@@ -179,16 +179,10 @@ public class ManageMyOrders {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-/*	public List<My_Order> searchSubComByName(String name) {
-		List<Sub_Com> list = new Vector<>();
-		int index;
-		for(Sub_Com sub_com : sub_coms[memory_pos]) {
-			index = sub_com.getName().indexOf(name, 0);
-			if(index >= 0)
-				list.add(sub_com);
-		}
-		return list;
-	}*/
+	public My_Order searchMyOrderById(My_Order my_order) {
+		My_Order rcv_my_order = (My_Order)algo.binarySearchObj(my_orders[memory_pos], my_order, new MyOrderIdComparator());
+		return rcv_my_order;
+	}
 	
 	public List<My_Order> searchMyOrderByStatus(byte status){
 		List<My_Order> list = new Vector<>();

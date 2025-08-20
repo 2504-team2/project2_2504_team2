@@ -157,6 +157,10 @@ public class ManageComHistorys {
 		oraConn.queryInfosKey.add(key);
 	}
 	
+	public Com_History searchComHistoryById(Com_History com_history) {
+		Com_History rcv_com_history = (Com_History)algo.binarySearchObj(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
+		return rcv_com_history;
+	}
 
 	public List<Com_History> searchComHistoryByTitle(String title) {
 
