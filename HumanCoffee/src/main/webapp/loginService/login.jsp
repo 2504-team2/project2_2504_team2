@@ -23,8 +23,9 @@
 	try {
 		if( mLogin.login(Id, password) ) {
 			System.out.println("success");
-	
-	
+			
+			// tomcat 내장 session객체에 작성자를 저장
+			session.setAttribute("id", Id);
 		
 %>
 <script>

@@ -167,9 +167,7 @@ public class ManageCustomers {
 				customer.getId(),
 				customer.getPwd(), 
 				customer.getName(), 
-				customer.getTel(), 
-				customer.getPoint(), 
-				customer.getCupon()
+				customer.getTel()
 				));
 		oraConn.queryInfosKey.add(key);
 	}
