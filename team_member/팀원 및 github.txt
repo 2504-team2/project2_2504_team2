@@ -1,0 +1,24 @@
+
+- 팀원
+원종성, 최동규, 박재일, 김건호, 김재영
+
+- git 접속 이메일
+원종성 : wgs9655@gmail.com
+최동규 : dgjjanggu@gmail.com
+박재일 : fackfack74@gmail.com
+김건호 : geonhovv@gmail.com
+김재영 : yuyu199@naver.com
+
+- github url
+https://github.com/wgs0319/project2_2504_team2
+
+
+- 공유 google sheets
+1. 의견 제시 및 확정
+https://docs.google.com/spreadsheets/d/1rXDyxojHX25OJwf_k-fPQLj4-MaEO6LlQ3qMrjQ2IxA/edit?gid=831895656#gid=831895656
+
+
+
+
+
+
