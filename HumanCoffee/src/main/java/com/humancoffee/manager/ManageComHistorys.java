@@ -96,7 +96,9 @@ public class ManageComHistorys {
 		}
 	}
 	
+
 	public void updateComHistoryStatus(Com_History com_history) {
+
 		indexSearch = algo.binarySearchIndex(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] != 0) {
 			System.out.println(com_history.getId() + ":는 없는 ID 입니다.");
@@ -159,7 +161,9 @@ public class ManageComHistorys {
 		Com_History rcv_com_history = (Com_History)algo.binarySearchObj(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
 		return rcv_com_history;
 	}
+
 	public List<Com_History> searchComHistoryByTitle(String title) {
+
 		List<Com_History> list = new Vector<>();
 		int index;
 		for(Com_History com_history : com_historys[memory_pos]) {

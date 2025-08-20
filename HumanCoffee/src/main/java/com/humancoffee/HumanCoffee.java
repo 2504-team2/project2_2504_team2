@@ -34,6 +34,7 @@ public class HumanCoffee {
     public ManageSubComs mSubComs;
     public ManageCustomers mCustomers;// = new ManageCustomers();
     public ManageLogin mLogin;
+
     private Thread workerThread;
     private volatile boolean running = true;
     
@@ -44,13 +45,14 @@ public class HumanCoffee {
             System.exit(0);
         }
         
+
         mMemRolls = new ManageMemRolls();
         System.out.println("new mMemRolls");
         mMemRolls.oraConn = this.oraConn;
         System.out.println("mMemRolls.oraConn = this.oraConn");
         mMemRolls.readMemRoll(mMemRolls.memory_pos);
         System.out.println("mMemRolls.readMemRoll(" + mMemRolls.memory_pos + ")");
-        
+
         mOrderDetails = new ManageOrderDetails();
         System.out.println("new mOrderDetails");
         mOrderDetails.oraConn = this.oraConn;
@@ -133,6 +135,7 @@ public class HumanCoffee {
         mLogin.mComMembers = this.mComMems;
         mLogin.mMemRolls = this.mMemRolls;
         mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
+
     }
     
     private String getKeyToClassName(String key) {
@@ -362,7 +365,6 @@ public class HumanCoffee {
         	mCustomers.exit();
         if(mLogin != null)
         	mLogin.logout();
-        
         
         oraConn.close();
         ctrlScanner.close();

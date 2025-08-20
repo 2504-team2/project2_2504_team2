@@ -4,12 +4,14 @@ import java.util.Date;
 
 
 public class Com_Member implements Comparable<Com_Member>{
+
 	private String 	com_id;
 	private String 	id;
 	private String 	pwd;
 	private String 	name;
 	private String 	tel;
 	private String	roll_id;
+
 	private Date	indate;
 	private Date	outdate;
 	private int		status;

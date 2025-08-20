@@ -4,17 +4,17 @@ import com.humancoffee.common.*;
 import com.humancoffee.model.Customer;
 import com.humancoffee.model.Com_Member;
 import com.humancoffee.model.Mem_Roll;
-//import model.Seller;
 
 
 public class ManageLogin {
+
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
 	
 	public ManageCustomers mCustomers;// = new ManageCustomers();
 	public ManageComMembers mComMembers;// = new ManageSellers();
 	public ManageMemRolls mMemRolls;
 	public ManageMemRolls.MemRollIdComparator mMemRollIdComparator;
-	
+
 	public String currentUser;
 	
 	private byte	divCurrentUser;		//	1 : admin, 2 : seller, 4 : customer
@@ -28,10 +28,12 @@ public class ManageLogin {
 	
 	/*********************	LogIn Out ***********************/
 	public boolean login(String id, String password) {
+
 		
 		System.out.println("id: " + id + ", pwd: " + password);
 		System.out.println("customer size: " + mCustomers.customers[mCustomers.memory_pos].size());
 		System.out.println("com_member size: " + mComMembers.com_members[mComMembers.memory_pos].size());
+
 		if((id.equals(ADMIN_ID)) && password.equals(ADMIN_PWD)) {
 			this.currentUser = id;
 			this.divCurrentUser = DIV_ADMIN;
@@ -52,6 +54,7 @@ public class ManageLogin {
 			if(com_member.getId().equals(id) && com_member.getPwd().equals(password_sha256)) {
 				this.currentUser = id;
 				this.divCurrentUser = DIV_MEMBER;
+
 				Mem_Roll mem_roll = new Mem_Roll();
 				mem_roll.setId(com_member.getRollId());
 				
@@ -63,8 +66,7 @@ public class ManageLogin {
 					System.out.println(mem_roll.getId() + ":는 있는 Roll ID 입니다.");
 					this.userRoll = chk_mem_roll.getRoll();
 				}
-				
-				
+
 				return true;
 			}
 		}
