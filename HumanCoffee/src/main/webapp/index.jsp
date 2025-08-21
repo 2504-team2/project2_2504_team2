@@ -10,9 +10,13 @@
 <link rel="icon" href="./favicon.png" />
 
 <!-- CSS -->
+<!-- CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<!-- Swiper CSS를 먼저 로드 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.css">
+<!-- 그 다음에 커스텀 CSS 로드 -->
 <link rel="stylesheet" href="./css/header.css" />
 <link rel="stylesheet" href="./css/main.css" />
 
@@ -23,7 +27,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 <script defer src="./js/main.js"></script>
 <script defer src="./js/youtube.js"></script>
-<script src="./js/login.js"></script>
+<script src="./js/login.js"></script> 
+
 </head>
 <body>
 <div class="desktop">
