@@ -6,7 +6,7 @@
 <%@ page import="com.humancoffee.model.Company" %>
 <%@ page import="com.humancoffee.manager.ManageCompanys" %>
 <!-- css -->
-<link rel="stylesheet" href="./css/map.css" />
+<link rel="stylesheet" href="../css/map.css" />
 <!-- 브라우저 스타일 초기화 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 
@@ -62,7 +62,7 @@
 <body>
 	<div class="desktop">
 		<div>
-			<jsp:include page="./common-jsp/header-menu.jsp" /> 
+			<jsp:include page="../common-jsp/header-menu.jsp" /> 
 		</div>
 		<div class="main">
 			<div class="title">
@@ -137,7 +137,7 @@
     	</script>
 		</div>
 		<div>
-			<jsp:include page="./common-jsp/footer.jsp" /> 
+			<jsp:include page="../common-jsp/footer.jsp" /> 
 		</div>
 	</div>
  
