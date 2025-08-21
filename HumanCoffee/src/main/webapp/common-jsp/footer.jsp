@@ -5,8 +5,9 @@
 
 <body>
     <footer>
+    
         <div class="footer">
-            <div class="com_intro">
+               <div class="com_intro">
                 <ul class="menu">회사소개
                     <li><a href="javascript:void(0)" class="tree">휴먼커피 소개</a></li>
                     <li><a href="javascript:void(0)">연혁</a></li>
@@ -24,12 +25,9 @@
                 <ul class="menu">가맹점
                     <li><a href="./merchant/merchantList.jsp" class="tree">리스트</a></li>
                     <li><a href="javascript:void(0)">창업신청</a></li>
-
                 </ul>
             </div>
-            <div class="LOGIN">
-                <div class="bottom_login">로그인</div>
-            </div>
+           
             <div class="info">
                 <div class="infotext">
                     <div>사업자등록번호 201-81-21515</div>
@@ -39,15 +37,11 @@
                 </div>
                 <button>Privcy Statemen +</button>
                  <p class="copyright">
-            &copy; <span class="this-year"></span> Human Coffee Company. All Rights Reserved.
-        </p>
+          			  &copy; <span class="this-year"></span> Human Coffee Company. All Rights Reserved.
+        		</p>
             </div>
-
         </div>
 
-       
-
-        </div>
     </footer>
 </body>
 </html>

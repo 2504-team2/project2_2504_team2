@@ -12,6 +12,7 @@
 <body>
  	<div class="join-form">
     <h2>Human Coffee 회원가입</h2>
+    
 
     <form action="signup.jsp" method="post">
         <div>

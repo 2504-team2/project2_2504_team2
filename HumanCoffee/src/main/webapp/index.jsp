@@ -17,7 +17,6 @@
   <!-- Google Material Icons -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <!-- custom css -->
-  <link rel="stylesheet" href="./css/main.css" />
 
   <!-- lodash 자바스크립트 유용한 유틸리티 함수 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
@@ -32,7 +31,7 @@
   <script defer src="./js/main.js"></script>
   <script defer src="./js/youtube.js"></script>
 
-<link rel="stylesheet" href="/css/main.css" />
+
 </head>
 <body>
 <div class="desktop">
@@ -43,7 +42,7 @@
 		main
 	</div>
 	<div>
-		<jsp:include page="./common-jsp/footer.jsp" /> 
+		<jsp:include page="./common-jsp/footer.jsp" />  
 	</div>
 </div>
 </body>
