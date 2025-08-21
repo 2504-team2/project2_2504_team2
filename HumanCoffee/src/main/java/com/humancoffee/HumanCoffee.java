@@ -110,7 +110,7 @@ public class HumanCoffee {
         System.out.println("mComMems.oraConn = this.oraConn");
         mComMems.readComMember(mComMems.memory_pos);
         System.out.println("mComMems.readComMember(" + mComMems.memory_pos + ")");
-        
+                
         mSubComs = new ManageSubComs();
         System.out.println("new ManageSubComs");
         mSubComs.oraConn = this.oraConn;
@@ -125,11 +125,15 @@ public class HumanCoffee {
         mCustomers.readCustomer(mCustomers.memory_pos);
         System.out.println("mCustomers.readCustomer(" + mCustomers.memory_pos + ")");
         
+        
         mLogin = new ManageLogin();
         mLogin.mCustomers = this.mCustomers;
         mLogin.mComMembers = this.mComMems;
         mLogin.mMemRolls = this.mMemRolls;
         mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
+        
+        mComMems.mCustomerIdComparator = this.mCustomers.new CustomerIdComparator();
+        mCustomers.mComMemberIdComparator = this.mComMems.new ComMemberIdComparator();
 
     }
     
