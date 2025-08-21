@@ -37,6 +37,8 @@
 			if(chk_customer != null){
 				session.setAttribute("name", chk_customer.getName());
 				session.setAttribute("div", "customer");
+				session.setAttribute("point", chk_customer.getPoint());
+				session.setAttribute("cupon", chk_customer.getCupon());
 			}else{
 				ManageComMembers mComMems = hcInstance.mComMems;
 				Com_Member com_member = new Com_Member();
@@ -44,6 +46,8 @@
 				Com_Member chk_com_member = mComMems.searchComMemberById(com_member);
 				session.setAttribute("name", chk_com_member.getName());
 				session.setAttribute("div", "member");
+				session.setAttribute("point", 0);
+				session.setAttribute("cupon", 0);
 			}		
 %>
 <script>
