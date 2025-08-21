@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- custom css -->
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css"/>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css" />
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
@@ -39,9 +39,9 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <li><a href="menu-coffee.jsp">커피</a></li>
-                  <li><a href="menu-dikapein.jsp">디카페인</a></li>
-                  <li><a href="menu-juice.jsp">쥬스</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-coffee.jsp">커피</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-dikapein.jsp">디카페인</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-juice.jsp">쥬스</a></li>
                 </ul>
               </li>
             </ul>
@@ -69,7 +69,7 @@
       <%
       if (session.getAttribute("id") == null || session.getAttribute("id").equals("")) {
       %>
-        <a href="./loginService/login_form.jsp" class="btn">로그인</a>
+        <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
       <%
       } else {
           id = (String) session.getAttribute("id");

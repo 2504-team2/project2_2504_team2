@@ -378,8 +378,8 @@ public class HumanCoffee {
         	mSubComs.exit();
         if(mCustomers != null)
         	mCustomers.exit();
-        if(mLogin != null)
-        	mLogin.logout();
+ //       if(mLogin != null)
+ //       	mLogin.logout();
         
         oraConn.close();
         ctrlScanner.close();
