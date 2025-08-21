@@ -94,8 +94,8 @@
 		alert('회원가입 처리 중 오류가 발생하였습니다.');
 	</script>
 <%
-		Common common = new Common();
-		common.getStackTraceAsString(e);
+		Common com = new Common();
+		com.getStackTraceAsString(e);
 	}
     
 %>
