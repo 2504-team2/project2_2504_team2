@@ -23,7 +23,6 @@
             </div>
             <div>
                 <ul class="menu">가맹점
-                    <li><a href="./merchant/merchantList.jsp" class="tree">리스트</a></li>
                     <li><a href="javascript:void(0)">창업신청</a></li>
                 </ul>
             </div>

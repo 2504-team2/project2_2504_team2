@@ -173,22 +173,36 @@ public class HumanCoffee {
                 oraConn.conn.setAutoCommit(false);
                 while(oraConn.queryInfosKey.size() > 0) {
                     String key = oraConn.queryInfosKey.get(0);
-                    System.out.println("queryInfoExe key : " + key);
+                    System.out.println("2 queryInfoExe key : " + key);
                     QueryInfo qi = oraConn.queryInfos.get(key);
                     if(qi.status == 0) {
                         PreparedStatement pstmt = oraConn.conn.prepareStatement(qi.getSql());
+                        System.out.println("qi : " + qi.getParams() + ", len : " + qi.getParams().length);
                         if(qi.getParams() != null) {
-                            for(loop = 0; loop < qi.getParams().length; loop++)
+                            for(loop = 0; loop < qi.getParams().length; loop++) {
+                            	System.out.println("pre pos[" + loop + "]");
                                 pstmt.setObject(loop + 1, qi.getParams()[loop]);
+                                System.out.println("next pos[" + loop + "]");
+                            }
                         }
+                        System.out.println("pre addBatch");
                         pstmt.addBatch();
+                        System.out.println("pre executeBatch");
                         pstmt.executeBatch();
                         qi.status = 1;
+                        System.out.println("pre replace");
                         oraConn.queryInfos.replace(key, qi);
                     }
+                    System.out.println("insert key : " + key);
                     String className = getKeyToClassName(key);
-                    if(!chkDuplicateClass(className))
+                    System.out.println("className : " + className);
+                    if(!chkDuplicateClass(className)) {
                     	oraConn.queryEndsKey.add(className);
+                    	System.out.println("Add className : " + className);
+                    }else {
+                    	System.out.println("Duplicate className : " + className);
+                    }
+                    System.out.println("remove key : " + key);
                     oraConn.queryInfos.remove(key);
                     oraConn.queryInfosKey.remove(key);
                 }
@@ -215,7 +229,7 @@ public class HumanCoffee {
                 }
             }
             
-            
+            System.out.println("oraConn.queryEndsKey size : " + oraConn.queryEndsKey.size());
             while(oraConn.queryEndsKey.size() > 0) {
 /*                String key = oraConn.queryEndsKey.get(0);
                 System.out.println("key : " + key);
@@ -230,6 +244,7 @@ public class HumanCoffee {
                 }
                 System.out.println("className : " + className);*/
             	String className = oraConn.queryEndsKey.get(0);
+            	System.out.println("EndsKey className : " + className);
                 byte new_pos;
                 switch(className) {
                     case "ManageCustomers":
@@ -363,8 +378,8 @@ public class HumanCoffee {
         	mSubComs.exit();
         if(mCustomers != null)
         	mCustomers.exit();
-        if(mLogin != null)
-        	mLogin.logout();
+ //       if(mLogin != null)
+ //       	mLogin.logout();
         
         oraConn.close();
         ctrlScanner.close();

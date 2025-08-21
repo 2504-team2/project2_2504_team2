@@ -6,12 +6,13 @@
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
 <%
-	String id = request.getParameter("id");
+    String id = request.getParameter("id");
 %> 
+
 <header>
   <div class="inner">
-    <a href="./index.jsp" class="logo">
-      <img src="./images/HumanCoffee_Logo.png" alt="HumanCoffee" />
+    <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+      <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
     </a>
 
     <ul class="main-menu">
@@ -22,19 +23,14 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <a href= "#">
-                  	<li>휴먼커피에 대하여</li>
-                  </a>
-                  <a href= "#">
-                  	<li>연혁</li>
-                  </a>
-                  <a href= "#">
-                  	<li>오시는 길</li>
-                  </a>
+                  <li><a href="#">휴먼커피에 대하여</a></li>
+                  <li><a href="#">연혁</a></li>
+                  <li><a href="#">오시는 길</a></li>
                 </ul>
               </li>
             </ul>
           </div>
+        </div>
       </li>
       <li class="item">
         <div class="item__name">제품</div>
@@ -43,15 +39,9 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <a href= "#">
-                  	<li>커피</li>
-                  </a>
-                  <a href= "#">
-                  	<li>디카페인</li>
-                  </a>
-                  <a href= "#">
-                  	<li>쥬스</li>
-                  </a>         
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-coffee.jsp">커피</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-dikapein.jsp">디카페인</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-juice.jsp">쥬스</a></li>
                 </ul>
               </li>
             </ul>
@@ -65,39 +55,33 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <a href= "#">
-                  	<li>가맹점 리스트</li>
-                  </a>
-                  <a href= "#">
-                  	<li>창업신청</li>
-                  </a>
+                  <li><a href="<%= request.getContextPath() %>/merchant/merchantList.jsp">가맹점 리스트</a></li>
+                  <li><a href="#">창업신청</a></li>
                 </ul>
               </li>
             </ul>
           </div>
         </div>
       </li>
-    </ul>      
-	
-	<div class="loginService">
-		<%
-		// 비로그인시 로그인 버튼을 활성화
-		if (session.getAttribute("id") == null || session.getAttribute("id").equals(""))
-		{
-		%>
-		<a href="./loginService/login_form.jsp" class="btn">로그인</a>
-		<%
-		} else {
-			// 로그인시 id를 표시, 로그아웃 버튼을 활성화
-			id = (String) session.getAttribute("id");
-		%>
-			<div class="id-info">
-				<span>이용자: <%= id %></span>
-				<a href="javascript: Logout();" class="btn">로그아웃</a>
-			</div>
-			<%
-			}
-			%>
-		</div>
-	</div>
+    </ul>
+
+    <div class="loginService">
+      <%
+      if (session.getAttribute("id") == null || session.getAttribute("id").equals("")) {
+      %>
+        <a href="./loginService/login_form.jsp" class="btn">로그인</a>
+      <%
+      } else {
+          id = (String) session.getAttribute("id");
+      %>
+        <div class="id-info">
+          <span>이용자: <%= id %></span>
+          <a href="javascript: Logout();" class="btn">로그아웃</a>
+        </div>
+      <%
+      }
+      %>
+    </div>
+
+  </div>
 </header>
