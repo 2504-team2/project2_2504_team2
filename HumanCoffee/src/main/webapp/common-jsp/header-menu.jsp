@@ -39,9 +39,9 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <li><a href="menu-coffee.jsp">커피</a></li>
-                  <li><a href="menu-dikapein.jsp">디카페인</a></li>
-                  <li><a href="menu-juice.jsp">쥬스</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-coffee.jsp">커피</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-dikapein.jsp">디카페인</a></li>
+                  <li><a href="<%= request.getContextPath() %>/menu/menu-juice.jsp">쥬스</a></li>
                 </ul>
               </li>
             </ul>
