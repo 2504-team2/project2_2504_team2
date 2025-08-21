@@ -2,13 +2,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<link rel="stylesheet" href="./css/menu-dikapein.css" />
 
 <head>
     <meta charset="UTF-8">
     <title>Compose Coffee - 디카페인 메뉴</title>
+
 </head>
 
 <body>
+  <jsp:include page="./common-jsp/header-menu.jsp" />
+
     <!-- 메뉴 타이틀 -->
     <div class="menu-header">
         <h1>DECAF MENU</h1>
@@ -23,13 +27,13 @@
             <div class="menu-list">
                 <div class="menu-item">
                     <div class="decaf-badge">Decaf</div>
-                    <img src="https://via.placeholder.com/150x150/8B5A3C/ffffff?text=Decaf+Americano" alt="디카페인 아메리카노">
+                    <img src="./images/커피/HOT_아메리카노.jpg" alt="디카페인 아메리카노">
                     <h3>디카페인 아메리카노</h3>
                     <p>카페인을 제거한 부드럽고 은은한 맛의 아메리카노로, 언제든지 편안하게 즐길 수 있습니다.</p>
                 </div>
                 <div class="menu-item">
                     <div class="decaf-badge">Decaf</div>
-                    <img src="https://via.placeholder.com/150x150/D2B48C/ffffff?text=Decaf+Latte" alt="디카페인 라떼">
+                    <img src="./images/커피/HOT_카페라떼.jpg" alt="디카페인 라떼">
                     <h3>디카페인 라떼</h3>
                     <p>부드러운 우유와 디카페인 에스프레소가 어우러진 편안한 커피의 여유를 선사합니다.</p>
                 </div>
