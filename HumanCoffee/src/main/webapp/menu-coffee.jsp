@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-<link rel="stylesheet" href="./css/menu-coffee.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/menu-coffee.css" />
 
 <head>
     <meta charset="UTF-8">
