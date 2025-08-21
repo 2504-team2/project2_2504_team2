@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- custom css -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css" />
+
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
