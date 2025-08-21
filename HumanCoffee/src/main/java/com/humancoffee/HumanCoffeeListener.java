@@ -4,8 +4,6 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
-import com.humancoffee.HumanCoffee;
-
 //톰캣 버전에 따라 구동방식이 다를 수 있음.
 @WebListener // 이 어노테이션을 추가하여 톰캣에 리스너를 등록합니다. 톰캣 10.1 버전은 jakarta 패키지를 사용하므로...
 public class HumanCoffeeListener implements ServletContextListener{

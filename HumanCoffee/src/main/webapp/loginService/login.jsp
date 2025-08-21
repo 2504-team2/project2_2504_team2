@@ -3,6 +3,7 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import = "com.humancoffee.manager.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
+<%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.*" %>
 
 <%
@@ -12,6 +13,7 @@
 	// post로 요청한 파라미터 조회 - 파라미터 이름 수정
 	String Id = request.getParameter("id");
 	String password = request.getParameter("pw");
+	int roll;
 	out.println("Id: " + Id + ", Pwd: " + password);
 	
 	// ServletContext에서 HumanCoffee 객체를 가져옴
@@ -21,12 +23,32 @@
 	
 	out.println("ManageLogin : " + mLogin);
 	try {
-		if( mLogin.login(Id, password) ) {
-			System.out.println("success");
+		roll = mLogin.login(Id, password);
+		if( roll >= 0 ) {
+			System.out.println("success roll : " + roll);
 			
 			// tomcat 내장 session객체에 작성자를 저장
 			session.setAttribute("id", Id);
-		
+			session.setAttribute("roll", roll);
+			ManageCustomers mCustomer = hcInstance.mCustomers;
+			Customer customer = new Customer();
+			customer.setId(Id);
+			Customer chk_customer = mCustomer.searchCustomerById(customer);
+			if(chk_customer != null){
+				session.setAttribute("name", chk_customer.getName());
+				session.setAttribute("div", "customer");
+				session.setAttribute("point", chk_customer.getPoint());
+				session.setAttribute("cupon", chk_customer.getCupon());
+			}else{
+				ManageComMembers mComMems = hcInstance.mComMems;
+				Com_Member com_member = new Com_Member();
+				com_member.setId(Id);
+				Com_Member chk_com_member = mComMems.searchComMemberById(com_member);
+				session.setAttribute("name", chk_com_member.getName());
+				session.setAttribute("div", "member");
+				session.setAttribute("point", 0);
+				session.setAttribute("cupon", 0);
+			}		
 %>
 <script>
 			alert('로그인에 성공했습니다.');

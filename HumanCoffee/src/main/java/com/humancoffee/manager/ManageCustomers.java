@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
+import com.humancoffee.model.Com_Member;
 import com.humancoffee.model.Customer;
 import com.humancoffee.model.QueryInfo;
 
@@ -16,6 +17,9 @@ public class ManageCustomers {
 	public List<Customer>[] customers = (List<Customer>[]) new List[2];
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
+	
+	public ManageComMembers mComMembers;
+	public ManageComMembers.ComMemberIdComparator mComMemberIdComparator;
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
@@ -151,8 +155,16 @@ public class ManageCustomers {
 	public void insertCustomer(Customer customer) {
 		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
-			System.out.println(customer.getId() + ":는 존재하는 ID 입니다.");
+			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
 			return;
+		}else {
+			Com_Member com_member = new Com_Member();
+			com_member.setId(customer.getId());
+			indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
+			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
+				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
+				return;
+			}
 		}
 		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
 				" (?, ?, ?, ?, sysdate) ";
