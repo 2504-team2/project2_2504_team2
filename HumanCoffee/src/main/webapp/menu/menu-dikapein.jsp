@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Compose Coffee - 디카페인 메뉴</title>
-
 </head>
 
 <body>
