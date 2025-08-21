@@ -65,10 +65,10 @@
       <div class="swiper-container mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="./images/summer.jpg" alt="슬라이드1"></div>
-          <div class="swiper-slide"><img src="https://via.placeholder.com/800x300/c8102e/ffffff?text=Holiday+Edition" alt="홀리데이 에디션"></div>
-          <div class="swiper-slide"><img src="https://via.placeholder.com/800x300/f4a261/ffffff?text=New+Menu" alt="신메뉴"></div>
-          <div class="swiper-slide"><img src="https://via.placeholder.com/800x300/2a9d8f/ffffff?text=Membership+Benefits" alt="멤버십 혜택"></div>
-          <div class="swiper-slide"><img src="https://via.placeholder.com/800x300/e76f51/ffffff?text=Store+Location" alt="매장 안내"></div>
+          <div class="swiper-slide"><img src="#" alt="#"></div>
+          <div class="swiper-slide"><img src="#" alt="#"></div>
+          <div class="swiper-slide"><img src="#" alt="#"></div>
+          <div class="swiper-slide"><img src="#" alt="#"></div>
         </div>
 
         <div class="swiper-button-next"></div>
