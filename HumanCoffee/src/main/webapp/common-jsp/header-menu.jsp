@@ -69,7 +69,7 @@
       <%
       if (session.getAttribute("id") == null || session.getAttribute("id").equals("")) {
       %>
-        <a href="./loginService/login_form.jsp" class="btn">로그인</a>
+        <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
       <%
       } else {
           id = (String) session.getAttribute("id");
