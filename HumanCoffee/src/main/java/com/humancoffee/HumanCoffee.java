@@ -4,11 +4,6 @@ import com.humancoffee.dao.*;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 import com.humancoffee.common.*;
 import com.humancoffee.manager.*;
@@ -418,7 +413,7 @@ public class HumanCoffee {
     public static void main(String[] args) {
     	//	
         System.out.println("HumanCoffee main");
-        HumanCoffee system = new HumanCoffee();
+//        HumanCoffee system = new HumanCoffee();
 //        system.runMenu();
         
 /*        int sel;

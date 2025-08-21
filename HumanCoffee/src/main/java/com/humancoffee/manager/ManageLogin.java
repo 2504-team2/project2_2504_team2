@@ -39,7 +39,7 @@ public class ManageLogin {
 		if((id.equals(ADMIN_ID)) && password.equals(ADMIN_PWD)) {
 			currentUser = id;
 			divCurrentUser = DIV_ADMIN;
-			userRoll = 0;
+			userRoll = 7;
 			return userRoll;
 //			return true;
 		}
