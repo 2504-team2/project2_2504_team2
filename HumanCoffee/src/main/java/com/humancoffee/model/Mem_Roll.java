@@ -2,8 +2,6 @@ package com.humancoffee.model;
 
 import java.util.Date;
 
-import java.sql.Blob;
-
 public class Mem_Roll implements Comparable<Mem_Roll>{
 	private String 	id;
 	private String	name;

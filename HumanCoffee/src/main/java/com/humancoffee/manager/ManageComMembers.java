@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Vector;
 
 import com.humancoffee.model.Com_Member;
+import com.humancoffee.model.Customer;
 import com.humancoffee.model.QueryInfo;
 
 import com.humancoffee.common.*;
@@ -19,6 +20,9 @@ public class ManageComMembers {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	
+	public ManageCustomers mCustomers;
+	public ManageCustomers.CustomerIdComparator mCustomerIdComparator;
 	
 	public class ComMemberIdComparator implements Comparator<Com_Member>{
 		@Override
@@ -152,8 +156,16 @@ public class ManageComMembers {
 	public void insertComMember(Com_Member com_member) {
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
-			System.out.println(com_member.getId() + ":는 존재하는 ID 입니다.");
+			System.out.println(com_member.getId() + ":는 com_member 존재하는 ID 입니다.");
 			return;
+		}else {
+			Customer customer = new Customer();
+			customer.setId(com_member.getId());
+			indexSearch = algo.binarySearchIndex(mCustomers.customers[mCustomers.memory_pos], customer, mCustomerIdComparator);
+			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
+				System.out.println(com_member.getId() + ":는 customer 존재하는 ID 입니다.");
+				return;
+			}
 		}
 
 		String sql = "insert into com_member (com_id, id, pwd, name, tel, roll_id, indate) values " +
