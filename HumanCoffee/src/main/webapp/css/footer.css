@@ -1,156 +1,242 @@
-/*FOOTER*/
+/* FOOTER - 반응형 버전 */
 footer {
-  background-color: #272727;
-  border-top: 1px solid #333;
-  height: 300px;
+    background-color: #272727;
+    border-top: 1px solid #333;
+    min-height: 300px;
+    height: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+footer:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 footer .footer {
-  display: flex;
-  gap: 50px;
-  justify-content: center;
-  white-space: nowrap;
-
+    display: flex;
+    gap: 100px;
+    justify-content: center;
+    white-space: nowrap;
+    width: 100%;
+    max-width: 2000px;
 }
 
 footer .footer a {
-  padding-left: 0px;
-
+    padding-left: 0px;
 }
-
-footer .footer {
-  display: flex;
-  gap: 170px;
-  justify-content: center;
-}
-
 
 footer .footer ul {
-  margin-top: 60px;
-  font-size: 17px;
-
+    margin-top: 60px;
+    font-size: 17px;
 }
 
-footer .footer menu {}
-
 footer .footer .menu a {
-  padding: 0px;
-  margin-bottom: 10px;
-
+    padding: 0px;
+    margin-bottom: 10px;
 }
 
 footer .footer .tree {
-  margin-top: 50px;
-
+    margin-top: 50px;
 }
 
 footer .LOGIN .bottom_login {
-  color: white;
-  justify-content: center;
-  margin-top: 60px;
-  font-size: 17px;
-
-
+    color: white;
+    justify-content: center;
+    margin-top: 60px;
+    font-size: 17px;
 }
 
-
 footer .footer .menu li {
-  display: block;
-  white-space: nowrap;
-  margin-top: 10px;
+    display: block;
+    white-space: nowrap;
+    margin-top: 10px;
 }
 
 footer .menu li::before {
-  width: 3px;
-  height: 3px;
-  background-color: #555;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: -1px;
-  margin: auto;
+    width: 3px;
+    height: 3px;
+    background-color: #555;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -1px;
+    margin: auto;
 }
 
 footer .menu li:last-child::before {
-  display: none;
+    display: none;
 }
 
 footer .menu li a {
-  display: block;
-  color: rgba(147, 147, 147);
-  font-size: 14px;
-
-  padding: 5px;
-
-
+    display: block;
+    color: rgba(147, 147, 147);
+    font-size: 14px;
+    padding: 5px;
 }
 
 footer .menu li a.green {
-  color: #669900;
+    color: #669900;
 }
 
 footer ul {
-  color: white;
-
+    color: white;
 }
 
-
 footer .info {
-
-  margin-top: 50px;
-
-  white-space: nowrap;
-  border-left: solid 0.2px #999;
-  padding-left: 60px;
-
-
+    margin-top: 50px;
+    white-space: nowrap;
+    border-left: solid 0.2px #999;
+    padding-left: 60px;
+    margin-bottom: 50px;
 }
 
 footer .info button {
-  height: 30px;
-  width: 200px;
-  background-color: #999;
-  ;
-  border: none;
-
+    height: 30px;
+    width: 200px;
+    background-color: #999;
+    border: none;
 }
 
 footer .info .infotext {
-  margin-top: 10px;
-  margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 footer .info div {
-  margin-bottom: 5px;
-  color: white;
-  font-size: 12px;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 12px;
 }
 
 footer .info span:last-child {
-  margin-right: 0;
-
+    margin-right: 0;
 }
 
 footer .copyright {
-  color: #999;
-  font-size: 15px;
-  text-align: center;
-  margin-top: 12px;
-
+    color: #999;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 12px;
 }
 
 footer .logo {
-  margin: 30px auto 0;
+    margin: 30px auto 0;
 }
 
-
 .footer .sky {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .footer .sky img {
-  height: 30px;
-  
-}    
+    height: 30px;
+}
+
+/* 태블릿 화면 (768px - 1024px) */
+@media (max-width: 1024px) {
+    footer .footer {
+        gap: 30px;
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+    
+    footer .info {
+        padding-left: 30px;
+        margin-top: 30px;
+    }
+    
+    footer .footer ul {
+        margin-top: 40px;
+        font-size: 16px;
+    }
+    
+    footer .LOGIN .bottom_login {
+        margin-top: 40px;
+        font-size: 16px;
+    }
+}
+
+/* 모바일 화면 (최대 768px) */
+@media (max-width: 768px) {
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-height: auto;
+        padding: 15px 0;
+        margin: 0;
+    }
+    
+    footer .footer {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    /* 모바일에서 info를 제외한 모든 요소 숨기기 */
+    footer .footer > *:not(.info) {
+        display: none;
+    }
+    
+    footer .info {
+        border-left: none;
+        border-top: none;
+        padding: 0 15px;
+        margin: 0;
+        white-space: normal;
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    footer .info button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* 작은 모바일 화면 (최대 480px) */
+@media (max-width: 480px) {
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+    }
+    
+    /* 모바일에서 info를 제외한 모든 요소 숨기기 */
+    footer .footer > *:not(.info) {
+        display: none;
+    }
+    
+    footer .info {
+        text-align: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    
+    footer .info div {
+        font-size: 11px;
+    }
+    
+    footer .info button {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    footer .copyright {
+        font-size: 13px;
+        margin-top: 8px;
+    }
+}
