@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="./css/menu-coffee.css" />
 <link rel="stylesheet" href="./css/menu-dikapein.css" />
 <link rel="stylesheet" href="./css/menu-juice.css" />
+<link rel="stylesheet" href="./css/map.css" />
 
 </head>
 <body>
