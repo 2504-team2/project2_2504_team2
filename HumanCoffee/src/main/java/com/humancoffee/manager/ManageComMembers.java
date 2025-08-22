@@ -20,6 +20,7 @@ public class ManageComMembers {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public ManageCustomers mCustomers;
 	public ManageCustomers.CustomerIdComparator mCustomerIdComparator;
@@ -56,53 +57,54 @@ public class ManageComMembers {
 			return;
 		String value = "";
 		com_members[mem_pos].clear();
+		System.out.println("readComMember cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Com_Member com_member = new Com_Member();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
+			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setComId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setPwd((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setRollId((value == null) ? "" : value);
-
-			
+		
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				com_member.setInDate(null);
 			else
 				com_member.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				com_member.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				com_member.setOutDate(Timestamp.valueOf(value));
 			}
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			com_member.setStatus(Integer.parseInt(value));
 			
@@ -154,6 +156,9 @@ public class ManageComMembers {
 	}
 	
 	public void insertComMember(Com_Member com_member) {
+		String max_id = com_members[memory_pos].get(com_members[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		com_member.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_member.getId() + ":는 com_member 존재하는 ID 입니다.");

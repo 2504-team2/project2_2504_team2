@@ -7,13 +7,38 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Common {
 	final static String DEV_SUB_FOLDER = "\\src\\main\\webapp\\";
 	public static String strProjectPath = null;
+	
+	//	날짜시간형 문자를 Date타입으로 변환
+	public Date getTypeStrToDate(String datetime) {
+		Date date = null;
+		String exception;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyHHddHHmmss");
+		try {
+			date = sdf.parse(datetime);
+		}catch(Exception e) {
+			exception = getStackTraceAsString(e);
+			System.out.println("getTypeStrToDate Exception :\n" + exception);
+		}
+		return date;
+	}
+	
+	//	Date 타입을 문자형으로 변환
+	public String getTypeDateToStr(Date date) {
+		String strdate;
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyHHddHHmmss");
+		strdate = sdf.format(date);
+		return strdate;
+	}
 	
 	//	DB의 CLOB 타입을 문자열로 변환
 	public String getClobToString(Object obj) {

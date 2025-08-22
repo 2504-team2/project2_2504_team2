@@ -54,58 +54,59 @@ public class ManageProducts {
 			return;
 		String value = "";
 		products[mem_pos].clear();
+		System.out.println("readProduct cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Product product = new Product();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			product.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			product.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product.setPrice(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product.setPoint(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product.setDiv(Integer.parseInt(value));
 			
 //			value = Objects.toString(obj[row][col++]);
 			value = common.getClobToString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			product.setContent((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				product.setInDate(null);
 			else
 				product.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				product.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				product.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product.setStatus(Integer.parseInt(value));
 			
@@ -153,6 +154,9 @@ public class ManageProducts {
 	}
 	
 	public void insertProduct(Product product) {
+		String max_id = products[memory_pos].get(products[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		product.setId(max_id);
 		indexSearch = algo.binarySearchIndex(products[memory_pos], product, new ProductIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(product.getId() + ":는 존재하는 ID 입니다.");

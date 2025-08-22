@@ -51,46 +51,49 @@ public class ManageComHistorys {
 			return;
 		String value = "";
 		com_historys[mem_pos].clear();
+		System.out.println("readComHistory cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Com_History com_history = new Com_History();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_history.setComId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_history.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
-			if(value == null || value.isEmpty())
-				com_history.setStartDate(null);
-			else
-				com_history.setStartDate(Timestamp.valueOf(value));
-			
-			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+				com_history.setStartDate(null);
+			}else {
+				com_history.setStartDate(Timestamp.valueOf(value));
+//				System.out.println("getStartDateStr: " + common.getTypeDateToStr(com_history.getStartDate()));
+			}
+			value = Objects.toString(obj[row][col++], null);
+//			System.out.println(row + ":" + col + ":" + value);
+			if(value == null || value.isEmpty()) {
+//				System.out.println("null 입력");
 				com_history.setEndDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				com_history.setEndDate(Timestamp.valueOf(value));
+//				System.out.println("getEndDateStr: " + common.getTypeDateToStr(com_history.getEndDate()));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_history.setTitle((value == null) ? "" : value);
 				
 //			value = Objects.toString(obj[row][col++]);
 			value = common.getClobToString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_history.setContent((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			com_history.setStatus(Integer.parseInt(value));
 			
@@ -139,6 +142,9 @@ public class ManageComHistorys {
 	}
 	
 	public void insertComHistory(Com_History com_history) {
+		String max_id = com_historys[memory_pos].get(com_historys[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		com_history.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_history.getId() + ":는 존재하는 ID 입니다.");

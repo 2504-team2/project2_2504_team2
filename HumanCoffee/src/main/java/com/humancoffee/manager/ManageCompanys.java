@@ -21,6 +21,7 @@ public class ManageCompanys {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class CompanyIdComparator implements Comparator<Company>{
 		@Override
@@ -53,58 +54,59 @@ public class ManageCompanys {
 			return;
 		String value = "";
 		companys[mem_pos].clear();
+		System.out.println("readCompany cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Company company = new Company();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setFax((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setAddr((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setSaleEmail((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			company.setEngEmail((value == null) ? "" : value);
 						
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				company.setInDate(null);
 			else
 				company.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				company.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				company.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			company.setStatus(Integer.parseInt(value));
 			
@@ -153,6 +155,9 @@ public class ManageCompanys {
 	}
 	
 	public void insertCompany(Company company) {
+		String max_id = companys[memory_pos].get(companys[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		company.setId(max_id);
 		indexSearch = algo.binarySearchIndex(companys[memory_pos], company, new CompanyIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(company.getId() + ":는 존재하는 ID 입니다.");

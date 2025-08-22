@@ -4,18 +4,23 @@ import com.humancoffee.dao.*;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Objects;
+import java.util.Vector;
 
 import com.humancoffee.common.*;
 import com.humancoffee.manager.*;
 
 import com.humancoffee.model.*;
 
+import com.humancoffee.websocket.OrderWebSocket;
  
 public class HumanCoffee {
 
     private OraConnect oraConn;
     private CtrlScanner ctrlScanner = new CtrlScanner();
     
+    public List<OrderHead> mOrderHead;
     public ManageMemRolls mMemRolls;
     public ManageOrderDetails mOrderDetails;
     public ManageMyOrders mOrders;
@@ -41,89 +46,90 @@ public class HumanCoffee {
         }
         
 
+        mOrderHead = new Vector<>();
         mMemRolls = new ManageMemRolls();
-        System.out.println("new mMemRolls");
+//        System.out.println("new mMemRolls");
         mMemRolls.oraConn = this.oraConn;
-        System.out.println("mMemRolls.oraConn = this.oraConn");
+//        System.out.println("mMemRolls.oraConn = this.oraConn");
         mMemRolls.readMemRoll(mMemRolls.memory_pos);
-        System.out.println("mMemRolls.readMemRoll(" + mMemRolls.memory_pos + ")");
+//        System.out.println("mMemRolls.readMemRoll(" + mMemRolls.memory_pos + ")");
 
         mOrderDetails = new ManageOrderDetails();
-        System.out.println("new mOrderDetails");
+//        System.out.println("new mOrderDetails");
         mOrderDetails.oraConn = this.oraConn;
-        System.out.println("mOrderDetails.oraConn = this.oraConn");
+//        System.out.println("mOrderDetails.oraConn = this.oraConn");
         mOrderDetails.readOrderDetail(mOrderDetails.memory_pos);
-        System.out.println("mOrderDetails.readOrderDetail(" + mOrderDetails.memory_pos + ")");
+//        System.out.println("mOrderDetails.readOrderDetail(" + mOrderDetails.memory_pos + ")");
         
         mOrders = new ManageMyOrders();
-        System.out.println("new mOrders");
+//        System.out.println("new mOrders");
         mOrders.oraConn = this.oraConn;
-        System.out.println("mOrders.oraConn = this.oraConn");
+//        System.out.println("mOrders.oraConn = this.oraConn");
         mOrders.readMyOrder(mOrders.memory_pos);
-        System.out.println("mOrders.readMyOrder(" + mOrders.memory_pos + ")");
+//        System.out.println("mOrders.readMyOrder(" + mOrders.memory_pos + ")");
         
         mCupons = new ManageCupons();
-        System.out.println("new mCupons");
+//        System.out.println("new mCupons");
         mCupons.oraConn = this.oraConn;
-        System.out.println("mCupons.oraConn = this.oraConn");
+//        System.out.println("mCupons.oraConn = this.oraConn");
         mCupons.readCupon(mCupons.memory_pos);
-        System.out.println("mCupons.readCupon(" + mCupons.memory_pos + ")");
+//        System.out.println("mCupons.readCupon(" + mCupons.memory_pos + ")");
         
         mProductImgs = new ManageProductImgs();
-        System.out.println("new mProductImgs");
+//        System.out.println("new mProductImgs");
         mProductImgs.oraConn = this.oraConn;
-        System.out.println("mProductImgs.oraConn = this.oraConn");
+//        System.out.println("mProductImgs.oraConn = this.oraConn");
         mProductImgs.readProductImg(mProductImgs.memory_pos);
-        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
+//        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
         
         mProducts = new ManageProducts();
-        System.out.println("new mProducts");
+//        System.out.println("new mProducts");
         mProducts.oraConn = this.oraConn;
-        System.out.println("mProducts.oraConn = this.oraConn");
+//        System.out.println("mProducts.oraConn = this.oraConn");
         mProducts.readProduct(mProducts.memory_pos);
-        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
+//        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
         
         mComCis = new ManageComCis();
-        System.out.println("new mComCis");
+//        System.out.println("new mComCis");
         mComCis.oraConn = this.oraConn;
-        System.out.println("mComCis.oraConn = this.oraConn");
+//        System.out.println("mComCis.oraConn = this.oraConn");
         mComCis.readComCi(mComCis.memory_pos);
-        System.out.println("mComCis.readComCi(" + mComCis.memory_pos + ")");
+//        System.out.println("mComCis.readComCi(" + mComCis.memory_pos + ")");
         
         mComHistorys = new ManageComHistorys();
-        System.out.println("new mComHistorys");
+//        System.out.println("new mComHistorys");
         mComHistorys.oraConn = this.oraConn;
-        System.out.println("mComHistorys.oraConn = this.oraConn");
+//        System.out.println("mComHistorys.oraConn = this.oraConn");
         mComHistorys.readComHistory(mComHistorys.memory_pos);
-        System.out.println("mComHistorys.readComHistory(" + mComHistorys.memory_pos + ")");
+//        System.out.println("mComHistorys.readComHistory(" + mComHistorys.memory_pos + ")");
         
         mCompanys = new ManageCompanys();
-        System.out.println("new mCompanys");
+//        System.out.println("new mCompanys");
         mCompanys.oraConn = this.oraConn;
-        System.out.println("mCompanys.oraConn = this.oraConn");
+//        System.out.println("mCompanys.oraConn = this.oraConn");
         mCompanys.readCompany(mCompanys.memory_pos);
-        System.out.println("mCompanys.readCompany(" + mCompanys.memory_pos + ")");
+//        System.out.println("mCompanys.readCompany(" + mCompanys.memory_pos + ")");
         
         mComMems = new ManageComMembers();
-        System.out.println("new mComMems");
+//        System.out.println("new mComMems");
         mComMems.oraConn = this.oraConn;
-        System.out.println("mComMems.oraConn = this.oraConn");
+//        System.out.println("mComMems.oraConn = this.oraConn");
         mComMems.readComMember(mComMems.memory_pos);
-        System.out.println("mComMems.readComMember(" + mComMems.memory_pos + ")");
+//        System.out.println("mComMems.readComMember(" + mComMems.memory_pos + ")");
                 
         mSubComs = new ManageSubComs();
-        System.out.println("new ManageSubComs");
+//        System.out.println("new ManageSubComs");
         mSubComs.oraConn = this.oraConn;
-        System.out.println("mSubComs.oraConn = this.oraConn");
+//        System.out.println("mSubComs.oraConn = this.oraConn");
         mSubComs.readSubCom(mSubComs.memory_pos);
-        System.out.println("mSubComs.readSubCom(" + mSubComs.memory_pos + ")");
+//        System.out.println("mSubComs.readSubCom(" + mSubComs.memory_pos + ")");
         
         mCustomers = new ManageCustomers();
-        System.out.println("new ManageCustomers");
+//        System.out.println("new ManageCustomers");
         mCustomers.oraConn = this.oraConn;
-        System.out.println("mCustomers.oraConn = this.oraConn");
+//        System.out.println("mCustomers.oraConn = this.oraConn");
         mCustomers.readCustomer(mCustomers.memory_pos);
-        System.out.println("mCustomers.readCustomer(" + mCustomers.memory_pos + ")");
+//        System.out.println("mCustomers.readCustomer(" + mCustomers.memory_pos + ")");
         
         
         mLogin = new ManageLogin();
@@ -149,6 +155,38 @@ public class HumanCoffee {
         return rcvClass;
     }
     
+    private void putWebOrder(OrderHead orderhead) {
+    	int loop, sub;
+    	if(mOrderHead.size() <= 0) {
+    		mOrderHead.add(orderhead);
+    	}else {
+    		for(loop = 0; loop < mOrderHead.size(); loop++) {
+    			if(orderhead.order_id.equals(mOrderHead.get(loop).order_id)) {
+    				//	동일한 order_id가 있는 상황
+    				if(orderhead.order_bottom.size() > 0) {
+    					//	입력받은 orderhead의 order_bottom이 있는 경우에만 수행
+    					for(sub = 0; sub < mOrderHead.get(loop).order_bottom.size(); sub++) {
+    						if(orderhead.order_bottom.get(0).product_id.equals(mOrderHead.get(loop).order_bottom.get(sub).product_id)) {
+    							//	order_id와 product_id가 동일한게 존재. 즉, 수정.
+    							mOrderHead.get(loop).order_bottom.set(sub, orderhead.order_bottom.get(0));
+    							break;
+    						}
+    					}
+    					if(sub >= mOrderHead.get(loop).order_bottom.size())
+    						//	order_id는 동일하지만 product_id가 존재하지 않음.
+    						mOrderHead.get(loop).order_bottom.add((OrderBottom)orderhead.order_bottom);
+    				}else {
+//    					입력받은 orderhead의 order_bottom이 없는 경우. 즉, 주문 상품와 상태변경일 가능성이 높음.
+    					mOrderHead.set(loop, orderhead);
+    				}
+    				break;
+    			}
+    		}
+    		if(loop >= mOrderHead.size()) {
+    			mOrderHead.add(orderhead);
+    		}
+    	}
+    }
     private boolean chkDuplicateClass(String rcvClass) {
     	String myClass;
     	for(int loop = 0; loop < oraConn.queryEndsKey.size(); loop++) {
@@ -165,7 +203,7 @@ public class HumanCoffee {
                 return;
             if(oraConn.queryInfosKey.size() <= 0)
                 return;
-            System.out.println("oraConn.queryInfosKey : " + oraConn.queryInfosKey);
+//            System.out.println("oraConn.queryInfosKey : " + oraConn.queryInfosKey);
             System.out.println("oraConn.queryInfosKey.size() : " + oraConn.queryInfosKey.size());
             int loop;
             try {
@@ -175,33 +213,95 @@ public class HumanCoffee {
                     System.out.println("2 queryInfoExe key : " + key);
                     QueryInfo qi = oraConn.queryInfos.get(key);
                     if(qi.status == 0) {
+                    	System.out.println("rcv sql: " + qi.getSql());
                         PreparedStatement pstmt = oraConn.conn.prepareStatement(qi.getSql());
                         System.out.println("qi : " + qi.getParams() + ", len : " + qi.getParams().length);
                         if(qi.getParams() != null) {
                             for(loop = 0; loop < qi.getParams().length; loop++) {
-                            	System.out.println("pre pos[" + loop + "]");
+                            	System.out.println("pre pos[" + loop + "] : " + qi.getParams()[loop]);
                                 pstmt.setObject(loop + 1, qi.getParams()[loop]);
-                                System.out.println("next pos[" + loop + "]");
                             }
                         }
-                        System.out.println("pre addBatch");
+ //                       System.out.println("pre addBatch");
                         pstmt.addBatch();
-                        System.out.println("pre executeBatch");
+ //                       System.out.println("pre executeBatch");
                         pstmt.executeBatch();
                         qi.status = 1;
-                        System.out.println("pre replace");
+ //                       System.out.println("pre replace");
                         oraConn.queryInfos.replace(key, qi);
                     }
                     System.out.println("insert key : " + key);
                     String className = getKeyToClassName(key);
                     System.out.println("className : " + className);
+                    if(className.equals("ManageMyOrders")) {
+                    	//	주문 정보가 들어옴.
+                    	//	입력, 수정 판단이 필요.
+                    	OrderHead orderhead = new OrderHead();
+                    	String sql = qi.getSql().toLowerCase();
+                    	int idx = sql.indexOf("insert", 0);
+                    	if(idx >= 0) {
+                    		//	입력
+                    		orderhead.order_id = Objects.toString(qi.getParams()[0]);
+                    		orderhead.customer_id = Objects.toString(qi.getParams()[1]);
+                    		orderhead.status = 0;
+                    	}else {
+                    		//	수정
+                    		idx = sql.indexOf("customer_id", 0);
+                    		if(idx >= 0) {
+                    			//	전체 수정
+                    			orderhead.order_id = Objects.toString(qi.getParams()[8]);
+                        		orderhead.customer_id = Objects.toString(qi.getParams()[0]);
+                        		orderhead.status = 0;
+                    		}else {
+                    			//	status만 수정
+                    			orderhead.order_id = Objects.toString(qi.getParams()[1]);
+                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[0]));
+                    		}
+                    	}
+                    	putWebOrder(orderhead);
+                    }
+                    if(className.equals("ManageOrderDetails")) {
+//                    	주문 정보가 들어옴.
+                    	//	입력, 수정 판단이 필요.
+                    	OrderHead orderhead = new OrderHead();
+                    	OrderBottom orderbottom = new OrderBottom();
+                    	String sql = qi.getSql().toLowerCase();
+                    	int idx = sql.indexOf("insert", 0);
+                    	if(idx >= 0) {
+                    		//	입력
+                    		orderhead.order_id = Objects.toString(qi.getParams()[0]);
+                    		orderbottom.product_id = Objects.toString(qi.getParams()[1]);
+                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[2]));
+                    		orderhead.order_bottom.set(0, orderbottom);
+                    	}
+                    	idx = sql.indexOf("delete", 0);
+                    	if(idx >= 0)
+                    	{
+                    		//	주문취소
+                    		orderhead.order_id = Objects.toString(qi.getParams()[0]);
+                    		orderbottom.product_id = Objects.toString(qi.getParams()[1]);
+                    		orderbottom.cnt = 0;
+                    		orderbottom.delete = 1;
+                    		orderhead.order_bottom.set(0, orderbottom);
+                    	}
+                    	idx = sql.indexOf("update", 0);
+                    	if(idx >= 0)
+                    	{
+                    		//	수정
+                    		orderhead.order_id = Objects.toString(qi.getParams()[3]);
+                    		orderbottom.product_id = Objects.toString(qi.getParams()[0]);
+                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[1]));
+                    		orderhead.order_bottom.set(0, orderbottom);
+                    	}
+                    	putWebOrder(orderhead);
+                    }
                     if(!chkDuplicateClass(className)) {
                     	oraConn.queryEndsKey.add(className);
                     	System.out.println("Add className : " + className);
                     }else {
                     	System.out.println("Duplicate className : " + className);
                     }
-                    System.out.println("remove key : " + key);
+//                    System.out.println("remove key : " + key);
                     oraConn.queryInfos.remove(key);
                     oraConn.queryInfosKey.remove(key);
                 }
@@ -306,6 +406,7 @@ public class HumanCoffee {
                     	mOrderDetails.readOrderDetail(new_pos);
                     	mOrderDetails.memory_pos = new_pos;
                     	break;
+                    
     /* case "ManageOrders":
                             new_pos = (byte)(mOrders.memory_pos ^ 0x01);
                             mOrders.readOrder(new_pos);
@@ -337,7 +438,7 @@ public class HumanCoffee {
 //                System.out.println("oraConn.queryEndsKey.remove(key) : " + key);
                 oraConn.queryEndsKey.remove(className);
                 System.out.println("oraConn.queryEndsKey.remove(className) : " + className);
-                System.out.println("End oraConn.queryEndsKey : " + oraConn.queryEndsKey);
+//                System.out.println("End oraConn.queryEndsKey : " + oraConn.queryEndsKey);
                 System.out.println("End oraConn.queryEndsKey.size() : " + oraConn.queryEndsKey.size());
                 
             }
