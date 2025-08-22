@@ -111,7 +111,7 @@ body::before {
     transition: color 0.3s ease;
 }
 
-/* 입력 필드 스타일 */
+/* 입력 필드 스타일 - 모든 입력 필드를 동일한 색상으로 통일 */
 .login-form input[type="text"],
 .login-form input[type="password"] {
     width: 100%;
@@ -310,16 +310,6 @@ body::before {
 .login-form input:focus + label,
 .login-form input:focus ~ label {
     color: #5D4037;
-}
-
-/* 입력 필드에 값이 있을 때 스타일 */
-.login-form input:valid {
-    border-color: #4CAF50;
-    background: rgba(232, 245, 233, 0.9);
-}
-
-.login-form input:valid + label {
-    color: #2E7D32;
 }
 
 /* 로딩 상태 (선택적) */

@@ -6,12 +6,37 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Common {
 	final static String DEV_SUB_FOLDER = "\\src\\main\\webapp\\";
 	public static String strProjectPath = null;
+	
+	//	DB의 CLOB 타입을 문자열로 변환
+	public String getClobToString(Object obj) {
+		String str = "";
+		if(obj instanceof java.sql.Clob) {
+			java.sql.Clob clob = (java.sql.Clob) obj;
+			if(clob != null) {
+				try {
+					// CLOB 데이터를 문자열로 변환
+					str = clob.getSubString(1, (int) clob.length());
+				} catch (SQLException e) {
+					str = getStackTraceAsString(e);
+					System.out.println("ClobToString Exception\n : " + str);
+				}
+			}
+		}else if (obj != null) {
+			// CLOB 타입이 아닐 경우를 대비
+			str = Objects.toString(obj, "");
+		}
+		return str;
+	}
+	
+	//	Exception 발생 시 문자열로 변환
 //	public static String getStackTraceAsString(Throwable throwable) {
 	public String getStackTraceAsString(Throwable throwable) {
 		StringWriter sw = new StringWriter();
@@ -20,6 +45,9 @@ public class Common {
         return sw.toString();
 	}
 	
+	//	yyyyMMdd + Sequence(2) : 입력값은 현재 최대의 ID를 입력.
+	//	시스템의 현재날짜와 입력값의 날짜가 동일하다면 Sequence를 1증가하여 생성.
+	//	날짜가 다르다면 Sequence는 01 로 생성.
 	public String generateDateSequenceId10(String nowMaxId) {	// Product, Order 테이블의 ID 생성 함수
 		LocalDateTime nowDateTime = LocalDateTime.now();
 		int cnt = 1;
@@ -64,6 +92,7 @@ public class Common {
 		}
 		return (strId + String.format("%06d", cnt));
 	}
+	
 	//	파일을 저장하거나, 파일을 읽어들일 때 개발모드의 경우 절대경로로 해야 함.
 	//	밑의 readFileToString()는 해당 경로의 파일을 읽어 내용을 리턴하는데 동일함.  
 	public static String getProjectPath(String projectPath, String projectName) {

@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>Compose Coffee - 커피 메뉴</title>
- 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/menu-coffee.css" />
- 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-</head>
 
-<body>
-  <jsp:include page="/common-jsp/header-menu.jsp" />
-
-    <!-- 메뉴 타이틀 -->
-    <div class="menu-header">
+ <div class="menu-header">
         <h1>COFFEE MENU</h1>
         <p>따뜻한 휴먼커피의 진한 맛을 만나보세요</p>
     </div>
-    <!-- 메뉴 카테고리 -->
-    <div class="menu-section">
+ <div class="menu-section">
         <!-- 커피 -->
         <div class="category">
             <h2>☕ 커피</h2>
@@ -121,5 +108,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>

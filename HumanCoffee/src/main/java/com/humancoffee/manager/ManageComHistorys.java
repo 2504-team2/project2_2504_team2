@@ -19,6 +19,7 @@ public class ManageComHistorys {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class ComHistoryIdComparator implements Comparator<Com_History>{
 		@Override
@@ -82,8 +83,9 @@ public class ManageComHistorys {
 			value = Objects.toString(obj[row][col++]);
 			System.out.println(row + ":" + col + ":" + value);
 			com_history.setTitle((value == null) ? "" : value);
-			
-			value = Objects.toString(obj[row][col++]);
+				
+//			value = Objects.toString(obj[row][col++]);
+			value = common.getClobToString(obj[row][col++]);
 			System.out.println(row + ":" + col + ":" + value);
 			com_history.setContent((value == null) ? "" : value);
 			
