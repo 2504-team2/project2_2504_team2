@@ -1,5 +1,8 @@
 /* merchant-list 전용 스타일 */
-.merchant-list-page .inner {
+.merchant_list_page {
+	margin-top: 120px;
+}
+.merchant_list_page .inner {
     max-width: 1200px;
     margin: 0 auto;
     padding: 160px 20px 60px; /* 헤더 높이 고려 */
