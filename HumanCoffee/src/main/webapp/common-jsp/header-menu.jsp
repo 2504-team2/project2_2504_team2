@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- custom css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css" />
+
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
@@ -30,7 +31,7 @@
                   </form>
                   </li>
                   <li><a href="#">연혁</a></li>
-                  <li><a href="#">오시는 길</a></li>
+                  <li><a href="<%= request.getContextPath() %>/about/map.jsp">오시는 길</a></li>
                 </ul>
               </li>
             </ul>
