@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.*" %>    
+<%
+	String next_page = request.getParameter("page");
+	System.out.println("rcv : " + next_page);
+	if(next_page == null || next_page.isEmpty())
+		next_page = "./first.jsp";
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,35 +14,31 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HumanCoffee Korea</title>
-<link rel="icon" href="./favicon.png" />
-
-<!-- CSS -->
-<!-- CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-<!-- Swiper CSS를 먼저 로드 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.css">
-<!-- 그 다음에 커스텀 CSS 로드 -->
-<link rel="stylesheet" href="./css/header.css" />
-<link rel="stylesheet" href="./css/main.css" />
-
-<!-- JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/ScrollToPlugin.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
-<script defer src="./js/main.js"></script>
-<script defer src="./js/youtube.js"></script>
-<script src="./js/login.js"></script> 
-
+<link rel="stylesheet" href="./css/index.css" />
 </head>
 <body>
-<div class="desktop">
+<div class="index_desktop">
+	<div class="index_top_pos">
+	  <!-- header-menu.jsp include (경로 수정, 중복 <header> 제거) -->
+	  <jsp:include page="./common-jsp/header-menu.jsp" />
+	</div>
+  
+  	<div class="index_middle_pos">
+<%
+if (next_page != null && !next_page.isEmpty()) {
+%>
+    <jsp:include page="<%= next_page %>" />
+<%
+} else {
+%>
+    <jsp:include page="./first.jsp" />
+<%
+}
+%>
 
-  <!-- header-menu.jsp include (경로 수정, 중복 <header> 제거) -->
-  <jsp:include page="/common-jsp/header-menu.jsp" />
+	</div>
 
+<<<<<<< HEAD
   <!-- 메인 페이지 hero 섹션 -->
   <section class="hero-section">
     <div class="hero-video">
@@ -77,12 +80,12 @@
       </div>
     </section>
   </div>
+=======
+	<!-- footer include -->
+	<div class="index_bottom_pos">
+	  <jsp:include page="./common-jsp/footer.jsp" />
+	</div>
+>>>>>>> upstream/dev
 </div>
-
-<!-- footer include -->
-<div>
-  <jsp:include page="./common-jsp/footer.jsp" />
-</div>
-
 </body>
 </html>

@@ -21,32 +21,6 @@ String eng_email = "";
 Date indate = null;
 Date outdate = null;
 int status = 0;
-
-/*
-for(int loop = 0; loop < tot_cnt; loop++){
-	company = com.companys[com.memory_pos].get(loop);
-//	if(company.getStatus() == 0)
-//		break;
-	Id = company.getId();
-	name = company.getName();
-}
-if(loop >= tot_cnt){
-	
-}
-String com_id = company.getId();
-*/
-/*
-String Id = request.getParameter("id");
-String name = request.getParameter("name");
-String tel = request.getParameter("tel");
-String fax = request.getParameter("fax");
-String addr = request.getParameter("addr");
-String sale_email = request.getParameter("sale_email");
-String eng_email = request.getParameter("eng_email");
-String indate = request.getParameter("indate");
-String outdate = request.getParameter("outdate");
-String status = request.getParameter("status");
-	*/
 %> 
 <!DOCTYPE html>
 <html lang="ko">
@@ -54,82 +28,107 @@ String status = request.getParameter("status");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>회사 소개</title>
-<link rel="stylesheet" href="../css/Company.css" />
-
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/Company.css" />
 </head>
 <body>
-<div>
-</div>
 <div class="container">
-<h1 id="company-title">[회사명]</h1>
+<h1 id="company-title">[회사 소개]</h1>
 
-<div class="section-header">
-    <h2>1. 회사소개</h2>
-    <div class="btn-group">
-        <button type="button" class="btn btn-register" onclick="registerCompany()">등록</button>
-        <button type="button" class="btn btn-edit" onclick="editCompany()">수정</button>
-    </div>
+<!-- 상단 등록 버튼 -->
+<div class="top-btn">
+    <button class="btn btn-register" onclick="registerCompany()">등록</button>
 </div>
 
-<div class="company-info-box">
 <%
-	for(int loop = 0; loop < tot_cnt; loop++){
-		company = com.companys[com.memory_pos].get(loop);
+for(int loop = 0; loop < tot_cnt; loop++){
+    company = com.companys[com.memory_pos].get(loop);
 %>
 
+<div class="company-info-box">
     <div class="company-info-item">
-        <strong>ID:</strong> <span id="company-id"><%= company.getId() %></span>
+        <strong>ID:</strong> <span class="company-id"><%= company.getId() %></span>
     </div>
     <div class="company-info-item">
-        <strong>회사이름:</strong> <span id="company-name"><%= company.getName() %></span>
+        <strong>회사이름:</strong> <span class="company-name"><%= company.getName() %></span>
     </div>
     <div class="company-info-item">
-        <strong>tel:</strong> <span id="company-tel"><%= company.getTel() %></span>
+        <strong>tel:</strong> <span class="company-tel"><%= company.getTel() %></span>
     </div>
     <div class="company-info-item">
-        <strong>fax:</strong> <span id="company-fax"><%= company.getFax() %></span>
+        <strong>fax:</strong> <span class="company-fax"><%= company.getFax() %></span>
     </div>
     <div class="company-info-item">
-        <strong>회사주소:</strong> <span id="company-addr"><%= company.getAddr() %></span>
+        <strong>회사주소:</strong> <span class="company-addr"><%= company.getAddr() %></span>
     </div>
     <div class="company-info-item">
-        <strong>sale_email:</strong> <span id="company-sale-email"><%= company.getSaleEmail() %></span>
+        <strong>sale_email:</strong> <span class="company-sale-email"><%= company.getSaleEmail() %></span>
     </div>
     <div class="company-info-item">
-        <strong>eng_email:</strong> <span id="company-eng-email"><%= company.getEngEmail() %></span>
+        <strong>eng_email:</strong> <span class="company-eng-email"><%= company.getEngEmail() %></span>
     </div>
     <div class="company-info-item">
-        <strong>설립일:</strong> <span id="company-indate"><%= company.getInDate() %></span>
+        <strong>설립일:</strong> <span class="company-indate"><%= company.getInDate() %></span>
     </div>
     <div class="company-info-item">
-        <strong>종료일:</strong> <span id="company-outdate"><%= company.getOutDate() %></span>
+        <strong>종료일:</strong> <span class="company-outdate"><%= company.getOutDate() %></span>
     </div>
     <div class="company-info-item">
-        <strong>상태:</strong> <span id="company-status"> <%=
-               (company.getStatus() == 0) ? "운영중" : "폐업" %></span>
-     </div>
+        <strong>상태:</strong> <span class="company-status"><%= (company.getStatus() == 0) ? "운영중" : "폐업" %></span>
+    </div>
 
-
- <%
- break;
-	}
- %> 
+    <!-- 각 회사별 수정/삭제 버튼 -->
+    <div class="btn-group">
+        <button class="btn btn-edit" onclick="editCompany('<%= company.getId() %>')">수정</button>
+        <button class="btn btn-delete" onclick="deleteCompany('<%= company.getId() %>')">삭제</button>
+    </div>
 </div>
 
-
-</div>
+<%
+}
+%>
 
 <script>
+// 등록 버튼 클릭
 function registerCompany() {
-    // 회사 정보 등록 페이지로 이동하거나 모달 창 열기
-    // 예: location.href = 'company-register.jsp';
-    alert('회사 정보 등록 기능을 구현해주세요.');
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'company-register.jsp';
+    document.body.appendChild(form);
+    form.submit();
 }
 
-function editCompany() {
-    // 회사 정보 수정 페이지로 이동하거나 모달 창 열기
-    // 예: location.href = 'company-edit.jsp';
-    alert('회사 정보 수정 기능을 구현해주세요.');
+// 수정 버튼 클릭
+function editCompany(companyId) {
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'company-edit.jsp';
+
+    var idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'companyId';
+    idInput.value = companyId;
+    form.appendChild(idInput);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+// 삭제 버튼 클릭
+function deleteCompany(companyId) {
+    if(!confirm("정말 삭제하시겠습니까?")) return;
+
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'company-delete.jsp';
+
+    var idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'companyId';
+    idInput.value = companyId;
+    form.appendChild(idInput);
+
+    document.body.appendChild(form);
+    form.submit();
 }
 </script>
 </body>
