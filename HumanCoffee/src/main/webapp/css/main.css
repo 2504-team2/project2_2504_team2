@@ -1,4 +1,4 @@
-/* ===================== 기본 스타일 ===================== */
+/* ===================== ê¸°ë³¸ ìŠ¤íƒ€ì¼ ===================== */
 * {
   margin: 0;
   padding: 0;
@@ -28,7 +28,7 @@ img {
     position: relative;
 }
 
-/* ===================== 버튼 스타일 ===================== */
+/* ===================== ë²„íŠ¼ ìŠ¤íƒ€ì¼ ===================== */
 .btn {
     padding: 10px;
     border: 2px solid #592B18;
@@ -57,16 +57,17 @@ img {
     color: #333;
 }
 
-/* ===================== HERO / YOUTUBE 섹션 ===================== */
+/* ===================== HERO / YOUTUBE ì„¹ì…˜ ===================== */
 .hero-section {
     position: relative;
     width: 100%;
-    height: 700px;
+    /* 데스크톱: 고정 높이 사용 */
+    height: 600px;
     overflow: hidden;
     margin-top: 120px;
     margin-bottom: 0;
     z-index: 1;
-    display: block; /* 인라인 여백 제거 */
+    display: block;
 }
 
 .hero-video {
@@ -76,7 +77,7 @@ img {
     width: 100%;
     height: 100%;
     z-index: 1;
-    display: block; /* 인라인 여백 제거 */
+    display: block;
 }
 
 .hero-video iframe {
@@ -84,7 +85,7 @@ img {
     height: 100%;
     pointer-events: none;
     border: none;
-    display: block; /* 인라인 여백 제거 */
+    display: block;
     margin: 0;
     padding: 0;
 }
@@ -180,30 +181,35 @@ img {
     box-shadow: 0 10px 35px rgba(249, 168, 37, 0.5);
 }
 
-/* ===================== 메인 콘텐츠 영역 ===================== */
+/* ===================== ë©"ì¸ ì½˜í…ì¸  ì˜ì—­ ===================== */
 .main-content {
     position: relative;
     z-index: 2;
     background: #f5f5f5;
-    padding: 0;
-    margin: 0; /* 모든 여백 제거 */
+    padding: 0 20px; /* 좌우 패딩 추가 */
+    margin: 0;
     display: block;
+    width: 100%; /* 추가 */
+    max-width: 1200px; /* 최대 너비 제한 */
+    margin: 0 auto; /* 중앙 정렬 */
+    box-sizing: border-box; /* 패딩 포함 계산 */
 }
 
-/* ===================== 슬라이더 섹션 ===================== */
+/* ===================== ìŠ¬ë¼ì´ë" ì„¹ì…˜ ===================== */
 .swiper-section {
-    padding: 0 0 60px 0; /* 상단 패딩 완전 제거 */
+    padding: 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     position: relative;
-    width: 100%;
-    margin: 0; /* 모든 여백 제거 */
-    display: block;
+    width: 100%; /* 부모 너비에 맞춤 */
+    margin: 0;
+    aspect-ratio: 16/6; /* 고정 높이 대신 비율 사용 */
+    min-height: 250px; /* 최소 높이 */
+    max-height: 400px; /* 최대 높이 */
 }
-
 .swiper-section::before {
     content: '';
     position: absolute;
-    top: 0; /* 바로 맨 위부터 시작 */
+    top: 0;
     left: 0;
     right: 0;
     height: 4px;
@@ -212,13 +218,17 @@ img {
 }
 
 .swiper-container {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: none;
-    margin: 0;
-    padding: 40px 60px 0 60px; /* 상단 패딩 추가 */
-    position: relative;
-    z-index: 2;
-    height: 450px;
+    height: 100%;
+    z-index: 10;
+    overflow: visible;
+}
+
+.swiper-wrapper {
+    height: 100%;
 }
 
 .swiper-slide {
@@ -226,12 +236,15 @@ img {
     justify-content: center;
     align-items: center;
     background: #fff;
-    border-radius: 20px;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-    height: 100%;
+    box-shadow: none;
+    height: 100% !important;
+    width: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    z-index: 1;
+    margin: 0 20px;
 }
 
 .swiper-slide::before {
@@ -244,13 +257,13 @@ img {
     background: linear-gradient(135deg, rgba(249, 168, 37, 0.1) 0%, rgba(89, 43, 24, 0.1) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 1;
+    z-index: 2;
     pointer-events: none;
 }
 
 .swiper-slide:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.25);
 }
 
 .swiper-slide:hover::before {
@@ -258,57 +271,70 @@ img {
 }
 
 .swiper-slide img {
-    width: 100%;
+    width: 92%;
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: 20px;
+    border-radius: 0;
     transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .swiper-slide:hover img {
     transform: scale(1.05);
 }
 
-/* 네비게이션 버튼 스타일링 */
+/* ë„¤ë¹„ê²Œì´ì…˜ ë²„íŠ¼ ìŠ¤íƒ€ì¼ë§ */
 .swiper-button-next,
 .swiper-button-prev {
-    color: #fff;
-    background: linear-gradient(135deg, #592B18 0%, #8B4513 100%);
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    box-shadow: 0 4px 20px rgba(89, 43, 24, 0.4);
-    transition: all 0.3s ease;
-    border: 3px solid rgba(249, 168, 37, 0.3);
+    color: #fff !important;
+    background: linear-gradient(135deg, #592B18 0%, #8B4513 100%) !important;
+    width: 55px !important;
+    height: 55px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 20px rgba(89, 43, 24, 0.4) !important;
+    transition: all 0.3s ease !important;
+    border: 3px solid rgba(249, 168, 37, 0.3) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    z-index: 20 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    background: linear-gradient(135deg, #f9a825 0%, #ffc107 100%);
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 8px 25px rgba(249, 168, 37, 0.6);
-    border-color: rgba(255,255,255,0.5);
+    background: linear-gradient(135deg, #f9a825 0%, #ffc107 100%) !important;
+    transform: translateY(-50%) translateY(-2px) scale(1.1) !important;
+    box-shadow: 0 8px 25px rgba(249, 168, 37, 0.6) !important;
+    border-color: rgba(255,255,255,0.5) !important;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 18px;
-    font-weight: bold;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-size: 20px !important;
+    font-weight: bold !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+    color: #fff !important;
 }
 
 .swiper-button-next {
-    right: 10px;
+    right: 30px !important;
 }
 
 .swiper-button-prev {
-    left: 10px;
+    left: 30px !important;
 }
 
-/* 페이지네이션 스타일링 */
+/* íŽ˜ì´ì§€ë„¤ì´ì…˜ ìŠ¤íƒ€ì¼ë§ */
 .swiper-pagination {
-    bottom: -50px !important;
+    bottom: 20px !important;
+    position: absolute !important;
+    text-align: center !important;
+    z-index: 10 !important;
 }
 
 .swiper-pagination-bullet {
@@ -332,60 +358,60 @@ img {
     transform: scale(1.1);
 }
 
-/* ===================== 반응형 ===================== */
+/* ===================== ë°˜ì'í˜• ìˆ˜ì • ===================== */
 @media (max-width: 1200px) {
     .inner {
-        width: 90%;
+        width: 95%;
         padding: 0 20px;
+        max-width: 1100px;
     }
     
-    .swiper-container {
-        padding: 0 50px; /* 큰 화면에서도 여백 유지 */
+    /* 유튜브 박스 축소 */
+    .hero-section {
+        height: 500px; /* 600px → 500px */
+        margin-top: 120px;
     }
     
     .hero-content .stats {
         gap: 40px;
-    }
-}
-
-@media (max-width: 900px) {
-    .hero-content .stats {
-        flex-direction: column;
-        gap: 25px;
-        align-items: center;
     }
     
     .hero-content .stat {
         padding: 20px 30px;
     }
     
-    .hero-section {
-        height: 600px;
-        border-radius: 0 0 15px 15px;
+    .hero-content .stat h3 {
+        font-size: 17px;
     }
     
-    .swiper-container {
-        height: 400px;
-        padding: 0 40px;
+    .hero-content .stat p {
+        font-size: 32px;
     }
     
-    .swiper-button-next,
-    .swiper-button-prev {
-        width: 45px;
-        height: 45px;
+    .btn-apply {
+        padding: 16px 45px;
+        font-size: 17px;
     }
     
-    .swiper-button-next:after,
-    .swiper-button-prev:after {
-        font-size: 16px;
+    /* 슬라이더 박스 축소 */
+    .swiper-section {
+        height: 350px; /* 400px → 350px */
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
+    /* 유튜브 더 축소 */
     .hero-section {
-        margin-top: 80px;
-        height: 500px;
-        border-radius: 0 0 10px 10px;
+        height: 450px; /* 500px → 450px */
+        margin-top: 120px;
+    }
+    
+    .hero-content .stats {
+        gap: 30px;
+    }
+    
+    .hero-content .stat {
+        padding: 18px 25px;
     }
     
     .hero-content .stat h3 {
@@ -396,45 +422,96 @@ img {
         font-size: 28px;
     }
     
-    .hero-content .stat {
-        padding: 15px 25px;
-    }
-    
     .btn-apply {
         padding: 15px 40px;
         font-size: 16px;
     }
     
+    /* 슬라이더 더 축소 */
     .swiper-section {
-        padding: 0 0 40px 0; /* 모바일에서도 상단 패딩 완전 제거 */
+        height: 300px; /* 350px → 300px */
     }
     
+    /* 슬라이더 컨테이너를 relative로 변경 */
     .swiper-container {
-        height: 350px;
-        padding: 30px 30px 0 30px; /* 모바일 상단 패딩 */
-    }
-    
-    .swiper-slide {
-        border-radius: 15px;
-    }
-    
-    .swiper-slide img {
-        border-radius: 15px;
+        position: relative !important;
+        padding: 20px 0;
     }
     
     .swiper-button-next,
     .swiper-button-prev {
-        width: 40px;
-        height: 40px;
+        width: 50px !important;
+        height: 50px !important;
     }
     
     .swiper-button-next:after,
     .swiper-button-prev:after {
-        font-size: 14px;
+        font-size: 18px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 유튜브 모바일 크기 */
+    .hero-section {
+        height: 350px; /* 450px → 350px */
+        margin-top: 80px; /* 헤더 높이에 맞춰 축소 */
     }
     
-    .swiper-pagination {
-        bottom: -40px !important;
+    .hero-content .stats {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .hero-content .stat {
+        padding: 15px 25px;
+    }
+    
+    .hero-content .stat h3 {
+        font-size: 15px;
+    }
+    
+    .hero-content .stat p {
+        font-size: 24px;
+    }
+    
+    .btn-apply {
+        padding: 14px 35px;
+        font-size: 15px;
+    }
+    
+    /* 슬라이더 모바일 크기 */
+    .swiper-section {
+        height: 250px; /* 300px → 250px */
+    }
+    
+    .swiper-slide {
+        margin: 0 10px;
+        border-radius: 12px;
+        box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    }
+    
+    .swiper-slide img {
+        border-radius: 12px;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 16px !important;
+    }
+    
+    .swiper-button-next {
+        right: 15px !important;
+    }
+    
+    .swiper-button-prev {
+        left: 15px !important;
     }
     
     .swiper-pagination-bullet {
@@ -442,4 +519,70 @@ img {
         height: 12px;
         margin: 0 6px !important;
     }
+}
+
+@media (max-width: 480px) {
+    /* 매우 작은 화면 - 최대 축소 */
+    .hero-section {
+        height: 280px; /* 350px → 280px */
+        margin-top: 80px;
+    }
+    
+    .hero-content .stat {
+        padding: 12px 20px;
+    }
+    
+    .hero-content .stat h3 {
+        font-size: 14px;
+    }
+    
+    .hero-content .stat p {
+        font-size: 20px;
+    }
+    
+    .btn-apply {
+        padding: 12px 30px;
+        font-size: 14px;
+    }
+    
+    /* 슬라이더 최대 축소 */
+    .swiper-section {
+        height: 200px; /* 250px → 200px */
+    }
+    
+    .swiper-slide {
+        margin: 0 8px;
+        border-radius: 10px;
+    }
+    
+    .swiper-slide img {
+        border-radius: 10px;
+    }
+    
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: 35px !important;
+        height: 35px !important;
+    }
+    
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        font-size: 14px !important;
+    }
+    
+    .swiper-button-next {
+        right: 10px !important;
+    }
+    
+    .swiper-button-prev {
+        left: 10px !important;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+        margin: 0 5px !important;
+    }
+    
+    
 }
