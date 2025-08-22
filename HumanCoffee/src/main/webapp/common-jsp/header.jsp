@@ -10,7 +10,7 @@
 <header>
   <div class="header">
     <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
-      <img src="/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
+      <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
     </a>
     <ul class="main-menu">
       <li class="item">
@@ -21,9 +21,11 @@
               <li>
 
                   <ul>
+
                   <li><a href="<%= request.getContextPath() %>/about/company.jsp">휴먼커피에 대하여</a></li>
                   <li><a href="<%= request.getContextPath() %>/about/comhistory.jsp">연혁</a></li>
                   <li><a href="<%= request.getContextPath() %>/about/map.jsp">오시는 길</a></li>
+
                 </ul>
                </li>
             </ul>
@@ -53,8 +55,8 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <li><a href="<%= request.getContextPath() %>/merchant/merchantList.jsp">가맹점 리스트</a></li>
-                  <li><a href="#">창업신청</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantList.jsp">가맹점 리스트</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantApply.jsp">창업신청</a></li>
                 </ul>
                 </li>
             </ul>

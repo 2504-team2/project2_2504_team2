@@ -18,7 +18,7 @@
         List<Sub_Com> merchantList = mSubComs.sub_coms[mSubComs.memory_pos];
 %>
 
-<main class="merchant-list-page">
+<main class="merchant_list_page">
     <div class="inner">
         <h1>가맹점 리스트</h1>
         <div class="merchant-grid">
