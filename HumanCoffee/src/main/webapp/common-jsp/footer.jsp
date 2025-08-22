@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
 
-    <footer>
-    
-        <div class="footer">
+<footer>
+       <div class="footer">
                <div class="footer_com_intro">
                 <ul class="footer_menu">회사소개
                     <li><a href="javascript:void(0)" class="footer_tree">휴먼커피 소개</a></li>

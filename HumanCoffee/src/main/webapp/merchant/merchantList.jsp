@@ -18,7 +18,6 @@
         List<Sub_Com> merchantList = mSubComs.sub_coms[mSubComs.memory_pos];
 %>
 
-<jsp:include page="/common-jsp/header-menu.jsp" />
 <main class="merchant-list-page">
     <div class="inner">
         <h1>가맹점 리스트</h1>
