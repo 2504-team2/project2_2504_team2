@@ -5,7 +5,7 @@
 <%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
 <%@ page import = "com.humancoffee.*" %>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/merchantList.css" />
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <%
     // ServletContext에서 HumanCoffee 객체를 가져옴
