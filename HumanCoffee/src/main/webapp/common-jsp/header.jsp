@@ -53,7 +53,7 @@
               <li>
                 <ul>
                   <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantList.jsp">가맹점 리스트</a></li>
-                  <li><a href="#">창업신청</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantApply.jsp">창업신청</a></li>
                 </ul>
                 </li>
             </ul>
