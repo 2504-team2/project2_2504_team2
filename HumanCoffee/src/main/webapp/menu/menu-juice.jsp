@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <jsp:include page="./common-jsp/header-menu.jsp" />
+  <jsp:include page="./common-jsp/header.jsp" />
   
     <!-- 메뉴 타이틀 -->
     <div class="menu-header">

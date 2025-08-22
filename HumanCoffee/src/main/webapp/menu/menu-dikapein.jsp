@@ -4,17 +4,8 @@
 <html lang="ko">
 <link rel="stylesheet" href="./css/menu-dikapein.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <title>Compose Coffee - 디카페인 메뉴</title>
 
-</head>
-
-<body>
-  <jsp:include page="./common-jsp/header-menu.jsp" />
-
-    <!-- 메뉴 타이틀 -->
-    <div class="menu-header">
+<div class="menu-header">
         <h1>DECAF MENU</h1>
         <p>편안한 휴식을 위한 디카페인 커피</p>
     </div>
@@ -49,6 +40,4 @@
             저녁 시간에도 커피를 즐기고 싶은 분들에게 완벽한 선택입니다. 
             커피 본연의 풍미는 그대로 유지하면서 편안한 휴식을 제공합니다.
         </p>
-    </div>
-</body>
-</html>
+</div>

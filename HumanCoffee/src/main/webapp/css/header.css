@@ -18,7 +18,8 @@ header:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-header > .inner {
+
+header > .header {
   height: 100%;
   display: flex;
   align-items: center;
@@ -29,7 +30,10 @@ header > .inner {
 }
 
 /* Logo Styling */
-header .inner .logo {
+/*
+  Changed from `.inner .logo` to `.header .logo`
+*/
+header .header .logo {
   height: 75px;
   margin: auto 0;
   transition: transform 0.3s ease;
@@ -38,7 +42,10 @@ header .inner .logo {
   z-index: 10000;
 }
 
-header .inner .logo::before {
+/*
+  Changed from `.inner .logo::before` to `.header .logo::before`
+*/
+header .header .logo::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -51,7 +58,10 @@ header .inner .logo::before {
   opacity: 0;
 }
 
-header .inner .logo:hover::before {
+/*
+  Changed from `.inner .logo:hover::before` to `.header .logo:hover::before`
+*/
+header .header .logo:hover::before {
   animation: shine 0.8s ease-in-out;
 }
 
@@ -61,18 +71,24 @@ header .inner .logo:hover::before {
   100% { transform: translateX(100%) translateY(100%) rotate(45deg); opacity: 0; }
 }
 
-header .inner .logo:hover {
+/*
+  Changed from `.inner .logo:hover` to `.header .logo:hover`
+*/
+header .header .logo:hover {
   transform: scale(1.05);
 }
 
-header .inner .logo img {
+/*
+  Changed from `.inner .logo img` to `.header .logo img`
+*/
+header .header .logo img {
   height: 100%;
   width: auto;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* Main Menu Styling */
-header .main-menu {
+header .header .main-menu {
   display: flex;
   position: absolute;
   left: 50%;
@@ -82,12 +98,12 @@ header .main-menu {
   gap: 10px;
 }
 
-header .main-menu .item {
+header .header .main-menu .item {
   position: relative;
   margin: 0 5px;
 }
 
-header .main-menu .item .item__name {
+header .header .main-menu .item .item__name {
   padding: 15px 25px 50px 25px;
   font-size: 16px;
   font-family: 'Nanum Gothic', Arial, sans-serif;
@@ -102,7 +118,7 @@ header .main-menu .item .item__name {
 }
 
 /* Hover effect with animated underline */
-header .main-menu .item .item__name::after {
+header .header .main-menu .item .item__name::after {
   content: '';
   position: absolute;
   bottom: 44px;
@@ -115,11 +131,11 @@ header .main-menu .item .item__name::after {
   border-radius: 2px;
 }
 
-header .main-menu .item:hover .item__name::after {
+header .header .main-menu .item:hover .item__name::after {
   width: 80%;
 }
 
-header .main-menu .item:hover .item__name {
+header .header .main-menu .item:hover .item__name {
   background: linear-gradient(135deg, #2c2a29, #1a1a1a);
   color: #8B4513;
   transform: translateY(-3px);
@@ -127,7 +143,7 @@ header .main-menu .item:hover .item__name {
 }
 
 /* Dropdown Content */
-header .main-menu .item .item__contents {
+header .header .main-menu .item .item__contents {
   width: 280px;
   position: absolute;
   left: 50%;
@@ -141,7 +157,7 @@ header .main-menu .item .item__contents {
   z-index: 10000;
 }
 
-header .main-menu .item:hover .item__contents {
+header .header .main-menu .item:hover .item__contents {
   display: block;
   animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -157,12 +173,12 @@ header .main-menu .item:hover .item__contents {
   }
 }
 
-header .main-menu .item .item__contents .contents__menu {
+header .header .main-menu .item .item__contents .contents__menu {
   background: linear-gradient(135deg, #2c2a29, #1e1e1e);
   position: relative;
 }
 
-header .main-menu .item .item__contents .contents__menu::before {
+header .header .main-menu .item .item__contents .contents__menu::before {
   content: '';
   position: absolute;
   top: 0;
@@ -173,29 +189,29 @@ header .main-menu .item .item__contents .contents__menu::before {
 }
 
 /* 드롭다운 메뉴 스타일 - HTML 구조에 맞게 수정 */
-header .main-menu .item .item__contents .contents__menu ul.inner {
+header .header .main-menu .item .item__contents .contents__menu ul.inner {
   padding: 20px 0;
   margin: 0;
   list-style: none;
 }
 
-header .main-menu .item .item__contents .contents__menu ul.inner > li {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li {
   padding: 0;
   margin: 0;
 }
 
-header .main-menu .item .item__contents .contents__menu ul.inner > li > ul {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li {
   padding: 0;
   margin: 0;
 }
 
-header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a {
   display: block;
   color: #ccc;
   font-size: 14px;
@@ -208,7 +224,7 @@ header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li 
   font-weight: 500;
 }
 
-header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a:hover {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a:hover {
   color: #8B4513;
   background: rgba(139, 69, 19, 0.1);
   transform: scale(1.05);
@@ -216,7 +232,7 @@ header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li 
 }
 
 /* Login Button */
-header .btn {
+header .header .btn {
   display: inline-block;
   padding: 12px 20px;
   border: 2px solid #8B4513;
@@ -235,7 +251,7 @@ header .btn {
   box-sizing: border-box;
 }
 
-header .btn::before {
+header .header .btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -246,22 +262,22 @@ header .btn::before {
   transition: left 0.5s ease;
 }
 
-header .btn:hover::before {
+header .header .btn:hover::before {
   left: 100%;
 }
 
-header .btn:hover {
+header .header .btn:hover {
   background: linear-gradient(135deg, #8B4513, #A0522D);
   color: #fff;
   box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
 }
 
-header .btn:active {
+header .header .btn:active {
   transform: translateY(-50%) scale(0.98);
 }
 
 /* loginService 영역 스타일 */
-header .loginService {
+header .header .loginService {
   position: absolute;
   right: 20px;
   top: 50%;
@@ -270,7 +286,7 @@ header .loginService {
 }
 
 /* 로그인된 사용자 정보 영역 스타일 */
-header .loginService .id-info {
+header .header .loginService .id-info {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -285,7 +301,7 @@ header .loginService .id-info {
 }
 
 /* 사용자 ID 표시 스타일 */
-header .loginService .id-info span {
+header .header .loginService .id-info span {
   font-size: 14px;
   color: #5D4037;
   font-weight: 600;
@@ -307,47 +323,56 @@ header .loginService .id-info span {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  header .inner {
+  /*
+    Changed from `.inner` to `.header`
+  */
+  header .header {
     width: 95%;
     max-width: 1100px;
   }
   
-  header .main-menu .item .item__name {
+  header .header .main-menu .item .item__name {
     padding: 15px 20px 50px 20px;
     font-size: 15px;
   }
 }
 
 @media (max-width: 992px) {
-  header .main-menu {
+  header .header .main-menu {
     gap: 5px;
   }
   
-  header .main-menu .item .item__name {
+  header .header .main-menu .item .item__name {
     padding: 15px 15px 50px 15px;
     font-size: 14px;
   }
   
-  header .btn {
+  header .header .btn {
     width: 100px;
     font-size: 14px;
   }
 }
 
 @media (max-width: 768px) {
-  header > .inner {
+  /*
+    Changed from `.inner` to `.header`
+  */
+  header > .header {
     height: 80px;
   }
   
-  header .inner .logo {
+  /*
+    Changed from `.inner .logo` to `.header .logo`
+  */
+  header .header .logo {
     height: 50px;
   }
   
-  header .main-menu {
+  header .header .main-menu {
     display: none; /* Mobile menu would need separate implementation */
   }
   
-  header .btn {
+  header .header .btn {
     width: 80px;
     padding: 8px 15px;
     font-size: 13px;
