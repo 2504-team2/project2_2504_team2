@@ -5,8 +5,6 @@
 <%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.common.*" %>
 <%@ page import = "com.humancoffee.*" %>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/merchantList.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 <%
     // ServletContext에서 HumanCoffee 객체를 가져옴
     HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
@@ -22,31 +20,30 @@
     <div class="inner">
         <h1>가맹점 리스트</h1>
         <div class="merchant-grid">
-		    <%
-		        if (merchantList != null && !merchantList.isEmpty()) {
-		            for (int i = 0; i < merchantList.size(); i++) {
-		                Sub_Com sub_com = merchantList.get(i);
-		                // 이미지 번호 = i+1
-		                String imgPath = request.getContextPath() + "/images/merchant/human" + (i+1) + ".png";
-		    %>
-            <div class="merchant-card">
-                <img src="<%= imgPath %>" alt="<%=sub_com.getName()%>" />
-                <div class="info">
-                    <h2><%=sub_com.getName()%></h2>
-                    <p><%=sub_com.getAddr()%></p>
-                    <p>전화: <%=sub_com.getTel()%></p>
-                    <p>이메일: <%=sub_com.getEmail()%></p>
-                </div>
+    <%
+        if (merchantList != null && !merchantList.isEmpty()) {
+            for (int i = 0; i < merchantList.size(); i++) {
+                Sub_Com sub_com = merchantList.get(i);
+                String imgPath = request.getContextPath() + "/images/merchant/human" + (i+1) + ".png";
+    %>
+        <div class="merchant-card">
+            <img src="<%= imgPath %>" alt="<%=sub_com.getName()%>" />
+            <div class="info">
+                <h2><%=sub_com.getName()%></h2>
+                <p><%=sub_com.getAddr()%></p>
+                <p>전화: <%=sub_com.getTel()%></p>
+                <p>이메일: <%=sub_com.getEmail()%></p>
             </div>
-            <%
-                    }
-                } else {
-            %>
-            <p>등록된 가맹점이 없습니다.</p>
-            <%
-                }
-            %>
         </div>
+    <%
+            }
+        } else {
+    %>
+        <p>등록된 가맹점이 없습니다.</p>
+    <%
+        }
+    %>
+</div>
     </div>
 </main>
 

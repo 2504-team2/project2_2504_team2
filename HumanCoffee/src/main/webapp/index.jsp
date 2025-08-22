@@ -35,6 +35,7 @@
 <link rel="stylesheet" href="./css/menu-juice.css" />
 <link rel="stylesheet" href="./css/map.css" />
 <link rel="stylesheet" href="./css/merchantApply.css" />
+<link rel="stylesheet" href="./css/merchantList.css" />
 <link rel="stylesheet" href="./css/menu-juice.css" />
 
 </head>
