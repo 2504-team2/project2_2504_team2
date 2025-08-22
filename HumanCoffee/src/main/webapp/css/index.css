@@ -7,12 +7,14 @@
   	box-sizing: border-box;
   	background-color: #333;
   	font-size: 24px;
+  	display: flex;
+  	flex-direction:column;
 }
 
 .index_desktop .index_top_pos {
 	top: 0;
     width: 100%;
-    height: auto;
+    height: 120px;
     color: white;
     display: flex;
     align-items: center;
@@ -25,10 +27,11 @@
 .index_desktop .index_middle_pos {
     width: 100%;
     height: calc(100vh - (120px + 150px));
-    display: flex;
     align-items: center;
     justify-content: center;
-    overflow: scroll;
+    margin-top: 120px;
+    flex:1 ;
+    overflow: auto;
 
     scrollbar-width: none;
     
@@ -47,9 +50,7 @@
     align-items: center;
     justify-content: center;
     
-    /* 특정 위치에 고정 */
     position: fixed;
     bottom: 0;
-/*    top: 970px;  120px (top_pos) + 650px (middle_pos) */
 	z-index: 100;
 }
