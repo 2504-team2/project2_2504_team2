@@ -19,6 +19,7 @@
           <div class="contents__menu">
             <ul class="inner">
               <li>
+
                   <ul>
                   <li><a href="<%= request.getContextPath() %>/index.jsp">휴먼커피에 대하여</a></li>
                   <li><a href="#">연혁</a></li>
@@ -83,6 +84,7 @@
   </div>
   <script>
   	function movePage(form){
+
   		alert(form); console.log(form);
   		document.getElementById(form).submit();
   	}

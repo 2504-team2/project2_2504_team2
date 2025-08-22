@@ -18,9 +18,7 @@ header:hover {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/*
-  Changed from `.inner` to `.header`
-*/
+
 header > .header {
   height: 100%;
   display: flex;
