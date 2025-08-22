@@ -4,9 +4,9 @@ footer {
     border-top: 1px solid #333;
     min-height: 300px;
     height: auto;
-    position: fixed;
+/*    position: fixed;
     bottom: 0;
-    left: 0;
+    left: 0;*/
     width: 100%;
     display: flex;
     justify-content: center;
@@ -36,12 +36,12 @@ footer .footer ul {
     font-size: 17px;
 }
 
-footer .footer .menu a {
+footer .footer .footer_menu a {
     padding: 0px;
     margin-bottom: 10px;
 }
 
-footer .footer .tree {
+footer .footer .footer_tree {
     margin-top: 50px;
 }
 
@@ -52,13 +52,13 @@ footer .LOGIN .bottom_login {
     font-size: 17px;
 }
 
-footer .footer .menu li {
+footer .footer .footer_menu li {
     display: block;
     white-space: nowrap;
     margin-top: 10px;
 }
 
-footer .menu li::before {
+footer .footer .footer_menu li::before {
     width: 3px;
     height: 3px;
     background-color: #555;
@@ -69,18 +69,18 @@ footer .menu li::before {
     margin: auto;
 }
 
-footer .menu li:last-child::before {
+footer .footer .footer_menu li:last-child::before {
     display: none;
 }
 
-footer .menu li a {
+footer .footer .footer_menu li a {
     display: block;
     color: rgba(147, 147, 147);
     font-size: 14px;
     padding: 5px;
 }
 
-footer .menu li a.green {
+footer .footer .footer_menu li a.green {
     color: #669900;
 }
 
@@ -88,7 +88,7 @@ footer ul {
     color: white;
 }
 
-footer .info {
+footer .footer .footer_info {
     margin-top: 50px;
     white-space: nowrap;
     border-left: solid 0.2px #999;
@@ -96,29 +96,29 @@ footer .info {
     margin-bottom: 50px;
 }
 
-footer .info button {
+footer .footer .footer_info button {
     height: 30px;
     width: 200px;
     background-color: #999;
     border: none;
 }
 
-footer .info .infotext {
+footer .footer .footer_info .footer_infotext {
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
-footer .info div {
+footer .footer .footer_info div {
     margin-bottom: 5px;
     color: white;
     font-size: 12px;
 }
 
-footer .info span:last-child {
+footer .footer .footer_info span:last-child {
     margin-right: 0;
 }
 
-footer .copyright {
+footer .footer .footer_info .footer_copyright {
     color: #999;
     font-size: 15px;
     text-align: center;
@@ -147,7 +147,7 @@ footer .logo {
         max-width: 100%;
     }
     
-    footer .info {
+    footer .footer .footer_info {
         padding-left: 30px;
         margin-top: 30px;
     }
@@ -183,11 +183,11 @@ footer .logo {
     }
     
     /* 모바일에서 info를 제외한 모든 요소 숨기기 */
-    footer .footer > *:not(.info) {
+    footer .footer > *:not(.footer_info) {
         display: none;
     }
     
-    footer .info {
+    footer .footer .footer_info {
         border-left: none;
         border-top: none;
         padding: 0 15px;
@@ -198,7 +198,7 @@ footer .logo {
         box-sizing: border-box;
     }
     
-    footer .info button {
+    footer .footer .footer_info button {
         width: 100%;
         max-width: 250px;
     }
@@ -216,26 +216,26 @@ footer .logo {
     }
     
     /* 모바일에서 info를 제외한 모든 요소 숨기기 */
-    footer .footer > *:not(.info) {
+    footer .footer > *:not(.footer_info) {
         display: none;
     }
     
-    footer .info {
+    footer .footer .footer_info {
         text-align: center;
         padding: 0 10px;
         box-sizing: border-box;
     }
     
-    footer .info div {
+    footer .footer .footer_info div {
         font-size: 11px;
     }
     
-    footer .info button {
+    footer .footer .footer_info button {
         width: 100%;
         max-width: 200px;
     }
     
-    footer .copyright {
+    footer .footer .footer_info .footer_copyright {
         font-size: 13px;
         margin-top: 8px;
     }

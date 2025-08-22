@@ -1,7 +1,5 @@
 package com.humancoffee.model;
 
-import java.util.Date;
-
 
 public class Order_Detail implements Comparable<Order_Detail>{
 	private String order_id;

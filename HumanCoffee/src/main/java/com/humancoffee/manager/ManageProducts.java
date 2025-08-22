@@ -21,6 +21,7 @@ public class ManageProducts {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class ProductIdComparator implements Comparator<Product>{
 		@Override
@@ -81,7 +82,8 @@ public class ManageProducts {
 			value = (value == null) ? "0" : value;
 			product.setDiv(Integer.parseInt(value));
 			
-			value = Objects.toString(obj[row][col++]);
+//			value = Objects.toString(obj[row][col++]);
+			value = common.getClobToString(obj[row][col++]);
 			System.out.println(row + ":" + col + ":" + value);
 			product.setContent((value == null) ? "" : value);
 			

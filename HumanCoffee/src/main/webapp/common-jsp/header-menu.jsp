@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- custom css -->
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css" />
+
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
@@ -23,9 +24,14 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <li><a href="#">휴먼커피에 대하여</a></li>
+                  <li>
+                  <form action="<%= request.getContextPath() %>/index.jsp" method="post" id="form_com" >
+                  <input type="hidden" name="page" value="<%= request.getContextPath() %>/menu/menu-dikapein.jsp"  />
+                  <a href="javascript: movePage('form_com');">휴먼커피에 대하여</a>
+                  </form>
+                  </li>
                   <li><a href="#">연혁</a></li>
-                  <li><a href="#">오시는 길</a></li>
+                  <li><a href="<%= request.getContextPath() %>/about/map.jsp">오시는 길</a></li>
                 </ul>
               </li>
             </ul>
@@ -84,4 +90,12 @@
     </div>
 
   </div>
+  <script>
+  	function movePage(form){
+  		alert(form);
+  		console.log(form);
+  		document.getElementById(form).submit();
+  	}
+  
+  </script>
 </header>
