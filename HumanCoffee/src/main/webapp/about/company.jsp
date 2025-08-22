@@ -7,7 +7,7 @@ pageEncoding="UTF-8"%>
 <%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.*" %>
 <%@ page import="java.util.Date" %>
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/Company.css" />
+<link rel="stylesheet" href="../css/company.css" />
 <%
 HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 ManageCompanys com = hcInstance.mCompanys;
