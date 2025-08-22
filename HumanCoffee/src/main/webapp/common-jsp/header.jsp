@@ -21,8 +21,8 @@
               <li>
 
                   <ul>
-                  <li><a href="<%= request.getContextPath() %>/index.jsp">휴먼커피에 대하여</a></li>
-                  <li><a href="#">연혁</a></li>
+                  <li><a href="<%= request.getContextPath() %>/about/company.jsp">휴먼커피에 대하여</a></li>
+                  <li><a href="<%= request.getContextPath() %>/about/comhistory.jsp">연혁</a></li>
                   <li><a href="<%= request.getContextPath() %>/about/map.jsp">오시는 길</a></li>
                 </ul>
                </li>

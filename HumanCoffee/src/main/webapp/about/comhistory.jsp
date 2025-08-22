@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <%@ page import = "com.humancoffee.model.*" %>
 <%@ page import = "com.humancoffee.*" %>
 <%@ page import="java.util.Date" %>
-<link rel="stylesheet" href="../css/ComHistory.css" />
+<link rel="stylesheet" href="../css/comhistory.css" />
 
 <%
 HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
