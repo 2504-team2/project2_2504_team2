@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- custom css -->
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/header.css" />
 
-<!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
 <%
@@ -11,11 +8,10 @@
 %> 
 
 <header>
-  <div class="inner">
+  <div class="header">
     <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
-      <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
+      <img src="/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
     </a>
-
     <ul class="main-menu">
       <li class="item">
         <div class="item__name">회사소개</div>
@@ -23,17 +19,12 @@
           <div class="contents__menu">
             <ul class="inner">
               <li>
-                <ul>
-                  <li>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post" id="form_com" >
-                  <input type="hidden" name="page" value="<%= request.getContextPath() %>/menu/menu-dikapein.jsp"  />
-                  <a href="javascript: movePage('form_com');">휴먼커피에 대하여</a>
-                  </form>
-                  </li>
+                  <ul>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp">휴먼커피에 대하여</a></li>
                   <li><a href="#">연혁</a></li>
                   <li><a href="<%= request.getContextPath() %>/about/map.jsp">오시는 길</a></li>
                 </ul>
-              </li>
+               </li>
             </ul>
           </div>
         </div>
@@ -43,12 +34,12 @@
         <div class="item__contents">
           <div class="contents__menu">
             <ul class="inner">
-              <li>
+               <li>
                 <ul>
-                  <li><a href="<%= request.getContextPath() %>/menu/menu-coffee.jsp">커피</a></li>
-                  <li><a href="<%= request.getContextPath() %>/menu/menu-dikapein.jsp">디카페인</a></li>
-                  <li><a href="<%= request.getContextPath() %>/menu/menu-juice.jsp">쥬스</a></li>
-                </ul>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-coffee.jsp">커피</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-dikapein.jsp">디카페인</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-juice.jsp">쥬스</a></li>
+                 </ul>
               </li>
             </ul>
           </div>
@@ -64,7 +55,7 @@
                   <li><a href="<%= request.getContextPath() %>/merchant/merchantList.jsp">가맹점 리스트</a></li>
                   <li><a href="#">창업신청</a></li>
                 </ul>
-              </li>
+                </li>
             </ul>
           </div>
         </div>
@@ -92,8 +83,7 @@
   </div>
   <script>
   	function movePage(form){
-  		alert(form);
-  		console.log(form);
+  		alert(form); console.log(form);
   		document.getElementById(form).submit();
   	}
   

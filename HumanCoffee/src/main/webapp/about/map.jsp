@@ -62,7 +62,7 @@
 <body>
 	<div class="desktop">
 		<div>
-			<jsp:include page="../common-jsp/header-menu.jsp" /> 
+			<jsp:include page="../common-jsp/header.jsp" /> 
 		</div>
 		<div class="main">
 			<div class="title">
