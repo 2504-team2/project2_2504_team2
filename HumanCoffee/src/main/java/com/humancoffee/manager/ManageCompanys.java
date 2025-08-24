@@ -155,7 +155,9 @@ public class ManageCompanys {
 	}
 	
 	public void insertCompany(Company company) {
-		String max_id = companys[memory_pos].get(companys[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(companys[memory_pos].size() > 0)
+			max_id = companys[memory_pos].get(companys[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		company.setId(max_id);
 		indexSearch = algo.binarySearchIndex(companys[memory_pos], company, new CompanyIdComparator());

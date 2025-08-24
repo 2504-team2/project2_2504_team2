@@ -154,7 +154,9 @@ public class ManageProducts {
 	}
 	
 	public void insertProduct(Product product) {
-		String max_id = products[memory_pos].get(products[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(products[memory_pos].size() > 0)
+			max_id = products[memory_pos].get(products[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		product.setId(max_id);
 		indexSearch = algo.binarySearchIndex(products[memory_pos], product, new ProductIdComparator());

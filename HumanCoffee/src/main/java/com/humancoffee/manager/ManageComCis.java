@@ -143,7 +143,9 @@ public class ManageComCis {
 	}
 	
 	public void insertComCi(Com_Ci com_ci) {
-		String max_id = com_cis[memory_pos].get(com_cis[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(com_cis[memory_pos].size() > 0)
+			max_id = com_cis[memory_pos].get(com_cis[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		com_ci.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_cis[memory_pos], com_ci, new ComCiIdComparator());

@@ -135,7 +135,9 @@ public class ManageCupons {
 	}
 	
 	public void insertCupon(Cupon cupon) {
-		String max_id = cupons[memory_pos].get(cupons[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(cupons[memory_pos].size() > 0)
+			max_id = cupons[memory_pos].get(cupons[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		cupon.setId(max_id);
 		indexSearch = algo.binarySearchIndex(cupons[memory_pos], cupon, new CuponIdComparator());

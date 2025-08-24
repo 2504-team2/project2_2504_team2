@@ -152,7 +152,9 @@ public class ManageProductImgs {
 	}
 	
 	public void insertProductImg(Product_Img product_img) {
-		String max_id = product_imgs[memory_pos].get(product_imgs[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(product_imgs[memory_pos].size() > 0)
+			max_id = product_imgs[memory_pos].get(product_imgs[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		product_img.setId(max_id);
 		indexSearch = algo.binarySearchIndex(product_imgs[memory_pos], product_img, new ProductImgIdComparator());

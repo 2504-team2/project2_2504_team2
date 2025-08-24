@@ -156,9 +156,6 @@ public class ManageComMembers {
 	}
 	
 	public void insertComMember(Com_Member com_member) {
-		String max_id = com_members[memory_pos].get(com_members[memory_pos].size() - 1).getId();
-		max_id = common.generateDateSequenceId10(max_id);
-		com_member.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_member.getId() + ":는 com_member 존재하는 ID 입니다.");

@@ -155,7 +155,9 @@ public class ManageSubComs {
 	}
 	
 	public void insertSubCom(Sub_Com sub_com) {
-		String max_id = sub_coms[memory_pos].get(sub_coms[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(sub_coms[memory_pos].size() > 0)
+			max_id = sub_coms[memory_pos].get(sub_coms[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		sub_com.setId(max_id);
 		indexSearch = algo.binarySearchIndex(sub_coms[memory_pos], sub_com, new SubComIdComparator());

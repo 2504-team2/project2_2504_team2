@@ -79,7 +79,7 @@ public class Common {
 		String strId = String.format("%04d%02d%02d", 
 				nowDateTime.getYear(), nowDateTime.getMonthValue(), nowDateTime.getDayOfMonth(), nowDateTime.getHour(), nowDateTime.getMinute(), nowDateTime.getSecond());
 		
-		if(nowMaxId.substring(0, strId.length()).equals(strId)) {
+		if(nowMaxId != null && nowMaxId.substring(0, strId.length()).equals(strId)) {
 			String strSequence;
 			strSequence = nowMaxId.substring(strId.length());
 			cnt = Integer.parseInt(strSequence);
@@ -94,7 +94,7 @@ public class Common {
 		String strId = String.format("%04d%02d%02d%02d%02d%02d", 
 				nowDateTime.getYear(), nowDateTime.getMonthValue(), nowDateTime.getDayOfMonth(), nowDateTime.getHour(), nowDateTime.getMinute(), nowDateTime.getSecond());
 		
-		if(nowMaxId.substring(0, strId.length()).equals(strId)) {
+		if(nowMaxId != null && nowMaxId.substring(0, strId.length()).equals(strId)) {
 			String strSequence;
 			strSequence = nowMaxId.substring(strId.length());
 			cnt = Integer.parseInt(strSequence);
@@ -109,7 +109,7 @@ public class Common {
 		String strId = String.format("%04d%02d%02d%02d%02d%02d", 
 				nowDateTime.getYear(), nowDateTime.getMonthValue(), nowDateTime.getDayOfMonth(), nowDateTime.getHour(), nowDateTime.getMinute(), nowDateTime.getSecond());
 		
-		if(nowMaxId.substring(0, strId.length()).equals(strId)) {
+		if(nowMaxId != null && nowMaxId.substring(0, strId.length()).equals(strId)) {
 			String strSequence;
 			strSequence = nowMaxId.substring(strId.length());
 			cnt = Integer.parseInt(strSequence);

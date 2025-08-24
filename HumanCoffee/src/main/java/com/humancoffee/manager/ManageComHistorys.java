@@ -142,7 +142,9 @@ public class ManageComHistorys {
 	}
 	
 	public void insertComHistory(Com_History com_history) {
-		String max_id = com_historys[memory_pos].get(com_historys[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(com_historys[memory_pos].size() > 0)
+			max_id = com_historys[memory_pos].get(com_historys[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		com_history.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_historys[memory_pos], com_history, new ComHistoryIdComparator());

@@ -135,7 +135,9 @@ public class ManageMemRolls {
 	}
 	
 	public void insertMemRoll(Mem_Roll mem_roll) {
-		String max_id = mem_rolls[memory_pos].get(mem_rolls[memory_pos].size() - 1).getId();
+		String max_id = null;
+		if(mem_rolls[memory_pos].size() > 0)
+			max_id = mem_rolls[memory_pos].get(mem_rolls[memory_pos].size() - 1).getId();
 		max_id = common.generateDateSequenceId10(max_id);
 		mem_roll.setId(max_id);
 		indexSearch = algo.binarySearchIndex(mem_rolls[memory_pos], mem_roll, new MemRollIdComparator());
