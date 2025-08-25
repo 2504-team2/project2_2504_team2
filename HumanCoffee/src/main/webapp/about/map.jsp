@@ -5,10 +5,6 @@
 <%@ page import = "com.humancoffee.*" %>
 <%@ page import="com.humancoffee.model.Company" %>
 <%@ page import="com.humancoffee.manager.ManageCompanys" %>
-<!-- css -->
-<link rel="stylesheet" href="../css/map.css" />
-<!-- 브라우저 스타일 초기화 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
 
 <%
     String companyName = "";
@@ -53,93 +49,79 @@
     }
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title><%= companyName %> - 오시는 길</title>
-</head>
-<body>
-	<div class="desktop">
-		<div>
-			<jsp:include page="../common-jsp/header-menu.jsp" /> 
-		</div>
-		<div class="main">
-			<div class="title">
-        		<h1>오시는 길</h1>
-        			<p><%= companyName %> 본사로 오시는 길을 안내드립니다</p>
-   			</div>
+<div class="map">
+    <div class="title">
+        <h1>오시는 길</h1>
+        <p><%= companyName %> 본사로 오시는 길을 안내드립니다</p>
+    </div>
 
-    		<div class="container">
-        		<div class="content-wrapper">
-            		<div class="left-container">
-                		<div class="company-info">
-                    		<h3>본사 위치</h3>
+    <div class="container">
+        <div class="content-wrapper">
+            <div class="left-container">
+                <div class="company-info">
+                    <h3>본사 위치</h3>
                     
-                    		<div class="info-item">
-                        		<div class="info-label">회사명</div>
-                        		<div class="info-value"><%= companyName %></div>
-                    		</div>
+                    <div class="info-item">
+                        <div class="info-label">회사명</div>
+                        <div class="info-value"><%= companyName %></div>
+                    </div>
                     
-                    		<div class="info-item">
-                        		<div class="info-label">주소</div>
-                        		<div class="info-value"><%= companyAddr %></div>
-                    		</div>
+                    <div class="info-item">
+                        <div class="info-label">주소</div>
+                        <div class="info-value"><%= companyAddr %></div>
+                    </div>
                     
-                    		<div class="info-item">
-                        		<div class="info-label">전화번호</div>
-                        		<div class="info-value">Tel. <%= companyTel %></div>
-                    		</div>
+                    <div class="info-item">
+                        <div class="info-label">전화번호</div>
+                        <div class="info-value">Tel. <%= companyTel %></div>
+                    </div>
                     
-                    		<div class="info-item">
-                        		<div class="info-label">팩스</div>
-                        		<div class="info-value">Fax. <%= companyFax %></div>
-                    		</div>
-                		</div>
+                    <div class="info-item">
+                        <div class="info-label">팩스</div>
+                        <div class="info-value">Fax. <%= companyFax %></div>
+                    </div>
+                </div>
                 
-                		<div class="navigation-buttons">
-                    		<a href="#" class="nav-btn naver" onclick="openNaverMap()">
-                        		네이버 지도
-                    		</a>
-                    		<a href="#" class="nav-btn kakao" onclick="openKakaoMap()">
-                        		카카오 지도
-                    		</a>
-                		</div>
-            		</div>
+                <div class="navigation-buttons">
+                    <a href="#" class="nav-btn naver" onclick="openNaverMap()">
+                        네이버 지도
+                    </a>
+                    <a href="#" class="nav-btn kakao" onclick="openKakaoMap()">
+                        카카오 지도
+                    </a>
+                </div>
+            </div>
             
-					<div class="right-container">
-                		<div class="map-container">
-                    		<!-- Google Maps 임베드 -->
-                    		<iframe class="embedded-map" 
-                        		src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3174.7628025087824!2d127.02498751151211!3d37.27705144055839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b434db893bab1%3A0x9aa2101d832e4a89!2z6rK96riw64-EIOyImOybkOyLnCDtjJTri6zqtawg7KSR67aA64yA66GcIDEwMA!5e0!3m2!1sko!2skr!4v1755741288181!5m2!1sko!2skr" width="600" height="450" style="border:0;" 
-                        		allowfullscreen="" 
-                        		loading="lazy" 
-                        		referrerpolicy="no-referrer-when-downgrade">
-                    		</iframe>
-                		</div>
-            		</div>
-        		</div>
-    		</div>
-    		<script>
-        	// 네이버 지도 열기
-        	function openNaverMap() {
-            	const address = encodeURIComponent('<%= companyAddr %>');
-            	const url = `https://naver.me/57QrU6RF`;
-            window.open(url, '_blank');
-        	}
-        
-        	// 카카오 지도 열기
-       		function openKakaoMap() {
-            	const address = encodeURIComponent('<%= companyAddr %>');
-            	const url = `https://kko.kakao.com/xQRrrpFEzO`;
-            	window.open(url, '_blank');
-        	}
-    	</script>
-		</div>
-		<div>
-			<jsp:include page="../common-jsp/footer.jsp" /> 
-		</div>
-	</div>
- 
-</body>
-</html>
+            <div class="right-container">
+                <div class="map-container">
+                    <!-- Google Maps 임베드 -->
+                    <iframe class="embedded-map" 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3174.7628025087824!2d127.02498751151211!3d37.27705144055839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b434db893bab1%3A0x9aa2101d832e4a89!2z6rK96riw64-EIOyImOybkOyLnCDtjJTri6zqtawg7KSR67aA64yA66GcIDEwMA!5e0!3m2!1sko!2skr!4v1755741288181!5m2!1sko!2skr" 
+                        width="600" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 네이버 지도 열기
+    function openNaverMap() {
+        const address = encodeURIComponent('<%= companyAddr %>');
+        const url = `https://naver.me/57QrU6RF`;
+        window.open(url, '_blank');
+    }
+    
+    // 카카오 지도 열기
+    function openKakaoMap() {
+        const address = encodeURIComponent('<%= companyAddr %>');
+        const url = `https://kko.kakao.com/xQRrrpFEzO`;
+        window.open(url, '_blank');
+    }
+</script>

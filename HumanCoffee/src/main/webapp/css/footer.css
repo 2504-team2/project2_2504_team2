@@ -1,24 +1,18 @@
 /* FOOTER - 반응형 버전 */
-footer {
+.footer_root {
     background-color: #272727;
     border-top: 1px solid #333;
-    min-height: 300px;
-    height: auto;
-/*    position: fixed;
-    bottom: 0;
-    left: 0;*/
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px;
     box-sizing: border-box;
 }
 
-footer:hover {
+.footer_root:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-footer .footer {
+.footer_container {
     display: flex;
     gap: 100px;
     justify-content: center;
@@ -27,38 +21,32 @@ footer .footer {
     max-width: 2000px;
 }
 
-footer .footer a {
+.footer_container a {
     padding-left: 0px;
 }
 
-footer .footer ul {
-    margin-top: 60px;
+.footer_container ul {
+    margin-top: 20px;
     font-size: 17px;
 }
 
-footer .footer .footer_menu a {
+.footer_menu a {
     padding: 0px;
     margin-bottom: 10px;
 }
 
-footer .footer .footer_tree {
+.footer_tree {
     margin-top: 50px;
 }
 
-footer .LOGIN .bottom_login {
-    color: white;
-    justify-content: center;
-    margin-top: 60px;
-    font-size: 17px;
-}
-
-footer .footer .footer_menu li {
+.footer_menu li {
     display: block;
     white-space: nowrap;
     margin-top: 10px;
+    position: relative;
 }
 
-footer .footer .footer_menu li::before {
+.footer_menu li::before {
     width: 3px;
     height: 3px;
     background-color: #555;
@@ -69,95 +57,72 @@ footer .footer .footer_menu li::before {
     margin: auto;
 }
 
-footer .footer .footer_menu li:last-child::before {
+.footer_menu li:last-child::before {
     display: none;
 }
 
-footer .footer .footer_menu li a {
+.footer_menu li a {
     display: block;
     color: rgba(147, 147, 147);
     font-size: 14px;
     padding: 5px;
 }
 
-footer .footer .footer_menu li a.green {
+.footer_menu li a.green {
     color: #669900;
 }
 
-footer ul {
-    color: white;
-}
-
-footer .footer .footer_info {
-    margin-top: 50px;
+.footer_info {
+    margin-top: 20px;
     white-space: nowrap;
     border-left: solid 0.2px #999;
     padding-left: 60px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
-footer .footer .footer_info button {
+.footer_info .footer_button {
     height: 30px;
     width: 200px;
     background-color: #999;
     border: none;
 }
 
-footer .footer .footer_info .footer_infotext {
+.footer_infotext {
     margin-top: 10px;
     margin-bottom: 20px;
 }
 
-footer .footer .footer_info div {
+.footer_info div {
     margin-bottom: 5px;
     color: white;
     font-size: 12px;
 }
 
-footer .footer .footer_info span:last-child {
+.footer_info span:last-child {
     margin-right: 0;
 }
 
-footer .footer .footer_info .footer_copyright {
+.footer_copyright {
     color: #999;
     font-size: 15px;
     text-align: center;
     margin-top: 12px;
 }
 
-footer .logo {
-    margin: 30px auto 0;
-}
-
-.footer .sky {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.footer .sky img {
-    height: 30px;
-}
-
 /* 태블릿 화면 (768px - 1024px) */
 @media (max-width: 1024px) {
-    footer .footer {
+    .footer_container {
         gap: 30px;
         flex-wrap: wrap;
         max-width: 100%;
     }
     
-    footer .footer .footer_info {
+    .footer_info {
         padding-left: 30px;
         margin-top: 30px;
     }
     
-    footer .footer ul {
-        margin-top: 40px;
-        font-size: 16px;
-    }
-    
-    footer .LOGIN .bottom_login {
+    .footer_container ul {
         margin-top: 40px;
         font-size: 16px;
     }
@@ -165,29 +130,25 @@ footer .logo {
 
 /* 모바일 화면 (최대 768px) */
 @media (max-width: 768px) {
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
+    .footer_root {
         width: 100%;
         min-height: auto;
         padding: 15px 0;
         margin: 0;
     }
     
-    footer .footer {
+    .footer_container {
         flex-direction: column;
         gap: 20px;
         align-items: center;
         text-align: center;
     }
     
-    /* 모바일에서 info를 제외한 모든 요소 숨기기 */
-    footer .footer > *:not(.footer_info) {
+    .footer_container > *:not(.footer_info) {
         display: none;
     }
     
-    footer .footer .footer_info {
+    .footer_info {
         border-left: none;
         border-top: none;
         padding: 0 15px;
@@ -198,7 +159,7 @@ footer .logo {
         box-sizing: border-box;
     }
     
-    footer .footer .footer_info button {
+    .footer_info .footer_button {
         width: 100%;
         max-width: 250px;
     }
@@ -206,36 +167,32 @@ footer .logo {
 
 /* 작은 모바일 화면 (최대 480px) */
 @media (max-width: 480px) {
-    footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px 0;
-        margin: 0;
-    }
+.footer_root {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
     
-    /* 모바일에서 info를 제외한 모든 요소 숨기기 */
-    footer .footer > *:not(.footer_info) {
+    .footer_container > *:not(.footer_info) {
         display: none;
     }
     
-    footer .footer .footer_info {
+    .footer_info {
         text-align: center;
         padding: 0 10px;
         box-sizing: border-box;
     }
     
-    footer .footer .footer_info div {
+    .footer_info div {
         font-size: 11px;
     }
     
-    footer .footer .footer_info button {
+    .footer_info .footer_button {
         width: 100%;
         max-width: 200px;
     }
     
-    footer .footer .footer_info .footer_copyright {
+    .footer_copyright {
         font-size: 13px;
         margin-top: 8px;
     }
