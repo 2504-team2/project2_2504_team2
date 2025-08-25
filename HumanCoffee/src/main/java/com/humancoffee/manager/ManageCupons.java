@@ -19,6 +19,7 @@ public class ManageCupons {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class CuponIdComparator implements Comparator<Cupon>{
 		@Override
@@ -51,44 +52,45 @@ public class ManageCupons {
 			return;
 		String value = "";
 		cupons[mem_pos].clear();
+		System.out.println("readCupon cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Cupon cupon = new Cupon();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			cupon.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			cupon.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			cupon.setPoint(Integer.parseInt(value));
 
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				cupon.setInDate(null);
 			else
 				cupon.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				cupon.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				cupon.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			cupon.setStatus(Integer.parseInt(value));
 			
@@ -133,6 +135,11 @@ public class ManageCupons {
 	}
 	
 	public void insertCupon(Cupon cupon) {
+		String max_id = null;
+		if(cupons[memory_pos].size() > 0)
+			max_id = cupons[memory_pos].get(cupons[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		cupon.setId(max_id);
 		indexSearch = algo.binarySearchIndex(cupons[memory_pos], cupon, new CuponIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(cupon.getId() + ":는 존재하는 ID 입니다.");

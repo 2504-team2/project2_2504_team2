@@ -54,58 +54,57 @@ public class ManageCustomers {
 			return;
 		String value = "";
 		customers[mem_pos].clear();
+		System.out.println("readCustomer cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Customer customer = new Customer();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setPwd((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setPoint(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setCupon(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				customer.setInDate(null);
 			else
 				customer.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				customer.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				customer.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setStatus(Integer.parseInt(value));
 			
