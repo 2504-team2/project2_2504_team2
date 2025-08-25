@@ -90,7 +90,7 @@ position: relative;
 }
 
 /* Swiper 기본 클래스와 커스텀 클래스 모두 지원 */
-.swiper-slide**,**
+.swiper-slide,
 .home_swiper-slide {
 width: 100%;
 height: 100%;
@@ -159,6 +159,14 @@ content: '←';
 font-size: 16px;
 font-weight: bold;
 color: #fff;
+}
+
+.home_swiper-button-next {
+  right: 20px; /* 오른쪽에서 10px */
+}
+
+.home_swiper-button-prev {
+  left: 20px; /* 왼쪽에서 10px */
 }
 
 /* 페이지네이션 스타일 */
