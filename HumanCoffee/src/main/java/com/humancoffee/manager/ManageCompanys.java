@@ -175,8 +175,8 @@ public class ManageCompanys {
 				company.getTel(), 
 				company.getFax(),
 				company.getAddr(),
-				company.getEngEmail(),
 				company.getSaleEmail(),
+				company.getEngEmail(),
 				company.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
