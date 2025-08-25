@@ -40,10 +40,10 @@ for(int loop = 0; loop < tot_cnt; loop++){
 
 <div class="company-info-box">
     <div class="company-info-item">
-        <strong>ID:</strong> <span class="company-id"><%= company.getId() %></span>
+        <strong>ID:</strong> <span class="company-id""><%= company.getId() %></span>
     </div>
     <div class="company-info-item">
-        <strong>회사이름:</strong> <span class="company-name"><%= company.getName() %></span>
+        <strong>회사이름:</strong> <span class="company-name""><%= company.getName() %></span>
     </div>
     <div class="company-info-item">
         <strong>tel:</strong> <span class="company-tel"><%= company.getTel() %></span>
@@ -95,7 +95,7 @@ function registerCompany() {
 function editCompany(companyId) {
     var form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'company-edit.jsp';
+    form.action = '<%= request.getContextPath() %>/about/manageCompany/editCompany_form.jsp';
 
     var idInput = document.createElement('input');
     idInput.type = 'hidden';
