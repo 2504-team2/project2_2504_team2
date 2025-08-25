@@ -25,6 +25,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 
 <script src="./js/login.js"></script> 
+<script src="./js/home.js"></script> 
 
 <link rel="stylesheet" href="./css/index.css" />
 <link rel="stylesheet" href="./css/header.css" />
