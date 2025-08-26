@@ -67,11 +67,13 @@ border-radius: 8px;
 text-decoration: none;
 font-weight: bold;
 transition: 0.3s;
+cursor: pointer;
 }
 
 .home_btn-apply:hover {
 background: 
 #ffc107;
+cursor: pointer;
 }
 
 /* 반응형 */
