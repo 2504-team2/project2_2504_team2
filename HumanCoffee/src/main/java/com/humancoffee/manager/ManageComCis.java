@@ -20,6 +20,7 @@ public class ManageComCis {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class ComCiIdComparator implements Comparator<Com_Ci>{
 		@Override
@@ -51,20 +52,21 @@ public class ManageComCis {
 			return;
 		String value = "";
 		com_cis[mem_pos].clear();
+		System.out.println("readComCi cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Com_Ci com_ci = new Com_Ci();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_ci.setComId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_ci.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				com_ci.setInDate(null);
 			else
@@ -73,28 +75,28 @@ public class ManageComCis {
 			value = Objects.toString(obj[row][col++], null);
 			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				com_ci.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				com_ci.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_ci.setFilename((value == null) ? "" : value);
 			
-			System.out.println(row + ":" + col + ":" + value);
-			if( obj[row][col++] == null ) {
-				System.out.println("null 입력");
+			Object bFile = obj[row][col++];
+			if( bFile == null ) {
+//				System.out.println("null 입력");
 				com_ci.setBFile(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
-				com_ci.setBFile((Blob) obj[row][col++]);
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+				com_ci.setBFile((Blob) bFile);
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			com_ci.setStatus(Integer.parseInt(value));
 			
@@ -141,6 +143,11 @@ public class ManageComCis {
 	}
 	
 	public void insertComCi(Com_Ci com_ci) {
+		String max_id = null;
+		if(com_cis[memory_pos].size() > 0)
+			max_id = com_cis[memory_pos].get(com_cis[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		com_ci.setId(max_id);
 		indexSearch = algo.binarySearchIndex(com_cis[memory_pos], com_ci, new ComCiIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_ci.getId() + ":는 존재하는 ID 입니다.");

@@ -6,22 +6,46 @@
     <div class="footer_container">
         <div class="footer_com_intro">
             <ul class="footer_menu">회사소개
-                <li><a href="javascript:void(0)" class="footer_tree">휴먼커피 소개</a></li>
-                <li><a href="javascript:void(0)">연혁</a></li>
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/about/map.jsp">오시는 길</a></li>
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="footer_tree">
+					<input type="hidden" name="next_page" value="/about/company.jsp" />
+					<button type="submit" class="link-button">휴먼커피에 대하여</button>
+				</form>
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+					<input type="hidden" name="next_page" value="/about/comhistory.jsp" />
+					<button type="submit" class="link-button">연혁</button>
+				</form>
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+					<input type="hidden" name="next_page" value="/about/map.jsp" />
+					<button type="submit" class="link-button">오시는 길</button>
+				</form>
             </ul>
         </div>
         <div class="footer_product">
             <ul class="footer_menu">제품
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-coffee.jsp" class="footer_tree">커피</a></li>
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-dikapein.jsp">디카페인</a></li>
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-juice.jsp">쥬스</a></li>
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="footer_tree">
+					<input type="hidden" name="next_page" value="/menu/menu-coffee.jsp" />
+					<button type="submit" class="link-button">커피</button>
+				</form>
+				<form action="<%= request.getContextPath() %>/index.jsp" method="post">
+					<input type="hidden" name="next_page" value="/menu/menu-dikapein.jsp" />
+					<button type="submit" class="link-button">디카페인</button>
+				</form> 
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+					<input type="hidden" name="next_page" value="/menu/menu-juice.jsp" />
+					<button type="submit" class="link-button">주스</button>
+				</form> 
             </ul>
         </div>
         <div class="footer_franchise">
             <ul class="footer_menu">가맹점
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantList.jsp" class="footer_tree">가맹점 리스트</a></li>
-                <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/merchant/merchantApply.jsp">창업신청</a></li>
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="footer_tree">
+					<input type="hidden" name="next_page" value="/merchant/merchantList.jsp" />
+					<button type="submit" class="link-button">가맹점 리스트</button>
+				  </form> 
+                <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
+					<button type="submit" class="link-button">창업신청</button>
+				</form>
             </ul>
         </div>
         <div class="footer_info">
