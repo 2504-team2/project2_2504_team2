@@ -4,7 +4,19 @@
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
 <%@ page import = "java.sql.*" %>
 <%
-    String id = request.getParameter("id");
+    String id = (String) session.getAttribute("id");
+	String name = (String) session.getAttribute("name");
+	Integer rollObj = (Integer) session.getAttribute("roll");
+	System.out.println("session roll: " + session.getAttribute("roll"));
+	System.out.println("session obj roll: " + rollObj);
+	String div = (String) session.getAttribute("div");
+	Integer pointObj = (Integer) session.getAttribute("point");
+	Integer couponObj = (Integer) session.getAttribute("coupon");
+	
+	// null 체크 후 int 변환
+	int roll = (rollObj != null) ? rollObj.intValue() : 0;
+    int point = (pointObj != null) ? pointObj.intValue() : 0;
+    int coupon = (couponObj != null) ? couponObj.intValue() : 0;
 %> 
 
 <header>
@@ -68,14 +80,62 @@
       %>
         <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
       <%
-      } else {
-          id = (String) session.getAttribute("id");
+      // 일반 사용자 로그인
+      } else if (div.equals("customer")) {
       %>
         <div class="id-info">
-          <span>이용자: <%= id %></span>
+          <span>쿠폰: <%= coupon %>개</span>
+          <span>point: <%= point %></span>
+          <span>이용자: <%= name %></span>
           <a href="javascript: Logout();" class="btn">로그아웃</a>
         </div>
       <%
+      } else {
+      %>
+      	<div class="id-info">
+      		<%
+		     if (roll == 0) {
+		    %>
+          		<span>직책: 일반</span>
+          	<%
+		     } else if (roll == 1) {
+		    %>
+		    	<span>직책: 상품 등록 및 관리</span>
+		    <%
+		     } else if (roll == 2) {
+		    %>
+		    	<span>직책: 가맹점 등록 및 관리</span>
+		    <%
+		     } else if (roll == 3) {
+		    %>
+		    	<span>직책: 상품 및 가맹점 등록 및 관리</span>
+		    <%
+		     } else if (roll == 4) {
+		    %>
+		    	<span>직책: 본사 관리 및 매출현황 관리</span>
+		    <%
+		     } else if (roll == 5) {
+		    %>
+		    	<span>직책: 상품 및 본사 등록 및 관리 매출현황 관리</span>
+		    <%
+		     } else if (roll == 6) {
+		    %>
+		    	<span>직책: 가맹점 및 본사 등록 및 관리 매출현황 관리</span>
+		    <%
+		     } else if (roll == 7) {
+		    %>
+		    	<span>직책: 총괄 관리</span>
+		    <%
+		     } else {
+		    %>
+		    	<span>직책: 기타</span>
+		    <%
+		     }
+		    %>
+          <span>관리자: <%= name %></span>
+          <a href="javascript: Logout();" class="btn">로그아웃</a>
+        </div>
+       <%
       }
       %>
     </div>
