@@ -9,6 +9,14 @@ pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date" %>
 <link rel="stylesheet" href="../css/company.css" />
 <%
+//세션에서 권한 정보 가져오기
+String div = (String) session.getAttribute("div");
+Integer rollObj = (Integer) session.getAttribute("roll");
+int roll = (rollObj != null) ? rollObj.intValue() : 0;
+
+//관리 권한 체크 (4, 5, 6, 7번 권한만 등록/수정/삭제 가능)
+boolean ManageCheck = (roll == 4 || roll == 5 || roll == 6 || roll == 7);
+
 HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 ManageCompanys com = hcInstance.mCompanys;
 
@@ -28,10 +36,13 @@ int status = 0;
 
 <div class="container">
 <h1 id="company-title">[회사 소개]</h1>
+
 <!-- 상단 등록 버튼 -->
+<% if(ManageCheck) { %>
 <div class="top-btn">
     <button class="btn btn-register" onclick="registerCompany()">등록</button>
 </div>
+<% } %>
 
 <%
 for(int loop = 0; loop < tot_cnt; loop++){
@@ -71,10 +82,12 @@ for(int loop = 0; loop < tot_cnt; loop++){
     </div>
 
     <!-- 각 회사별 수정/삭제 버튼 -->
+    <% if(ManageCheck) { %>
     <div class="btn-group">
         <button class="btn btn-edit" onclick="editCompany('<%= company.getId() %>')">수정</button>
         <button class="btn btn-delete" onclick="deleteCompany('<%= company.getId() %>')">삭제</button>
     </div>
+    <% } %>
 </div>
 
 <%
