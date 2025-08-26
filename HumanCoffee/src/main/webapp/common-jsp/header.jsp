@@ -7,9 +7,8 @@
     String id = (String) session.getAttribute("id");
 	String name = (String) session.getAttribute("name");
 	Integer rollObj = (Integer) session.getAttribute("roll");
-	System.out.println("session roll: " + session.getAttribute("roll"));
-	System.out.println("session obj roll: " + rollObj);
 	String div = (String) session.getAttribute("div");
+	System.out.println("session div: " + session.getAttribute("div"));
 	Integer pointObj = (Integer) session.getAttribute("point");
 	Integer couponObj = (Integer) session.getAttribute("coupon");
 	
@@ -21,9 +20,23 @@
 
 <header>
   <div class="header">
-    <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
-      <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
-    </a>
+    <!-- 로고와 관리자 서비스 버튼을 포함하는 왼쪽 영역 -->
+    <div class="left-section">
+      <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+        <img src="<%= request.getContextPath() %>/images/HumanCoffee_Logo.png" alt="HumanCoffee" />
+      </a>
+      
+      <div class="adminService">
+        <%
+        if (div != null && div.equals("member")) {
+        %>
+          <a href="<%= request.getContextPath() %>/index.jsp?next_page=/admin/main.jsp" class="btn">관리자 페이지</a>
+        <%
+        }
+        %>
+      </div>
+    </div>
+    
     <ul class="main-menu">
       <li class="item">
         <div class="item__name">회사소개</div>
@@ -50,7 +63,7 @@
                 <ul>
                   <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-coffee.jsp">커피</a></li>
                   <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-dikapein.jsp">디카페인</a></li>
-                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-juice.jsp">쥬스</a></li>
+                  <li><a href="<%= request.getContextPath() %>/index.jsp?next_page=/menu/menu-juice.jsp">주스</a></li>
                  </ul>
               </li>
             </ul>
@@ -76,18 +89,19 @@
 
     <div class="loginService">
       <%
-      if (session.getAttribute("id") == null || session.getAttribute("id").equals("")) {
+      if (id == null || id.equals("")) {
       %>
         <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
       <%
       // 일반 사용자 로그인
-      } else if (div.equals("customer")) {
+      } else if (div != null && div.equals("customer")) {
       %>
         <div class="id-info">
-          <span>쿠폰: <%= coupon %>개</span>
-          <span>point: <%= point %></span>
           <span>이용자: <%= name %></span>
-          <a href="javascript: Logout();" class="btn">로그아웃</a>
+          <span>쿠폰: <%= coupon %>개  point: <%= point %></span>
+        </div>
+        <div class="login-btn-container">
+        	<a href="javascript: Logout();" class="btn">로그아웃</a>
         </div>
       <%
       } else {
@@ -133,8 +147,11 @@
 		     }
 		    %>
           <span>관리자: <%= name %></span>
-          <a href="javascript: Logout();" class="btn">로그아웃</a>
         </div>
+          <div class="login-btn-container">
+          	<a href="javascript: Logout();" class="btn">로그아웃</a>
+          </div>
+        
        <%
       }
       %>
