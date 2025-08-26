@@ -13,11 +13,6 @@ pageEncoding="UTF-8"%>
 <%
 
 
-
-
-
-
-
 HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 ManageComHistorys com = hcInstance.mComHistorys;
 int pos = hcInstance.mComHistorys.memory_pos;
