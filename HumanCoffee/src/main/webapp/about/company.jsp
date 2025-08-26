@@ -27,7 +27,7 @@ int status = 0;
 %>
 
 <div class="container">
-<h1 id="company-title">[회사 소개]</h1>
+
 <!-- 상단 등록 버튼 -->
 <div class="top-btn">
     <button class="btn btn-register" onclick="registerCompany()">등록</button>
