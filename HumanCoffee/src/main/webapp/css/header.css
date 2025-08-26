@@ -215,7 +215,8 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
   margin: 0;
 }
 
-header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a,
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li form button {
   display: block;
   color: #ccc;
   font-size: 14px;
@@ -228,7 +229,31 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
   font-weight: 500;
 }
 
-header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a:hover {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li form button:hover {
+  color: #8B4513;
+  background: rgba(139, 69, 19, 0.1);
+  transform: scale(1.05);
+  padding-left: 25px;
+}
+
+.link-button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  color: #ccc;
+  font-size: 14px;
+  padding: 12px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.link-button:hover {
   color: #8B4513;
   background: rgba(139, 69, 19, 0.1);
   transform: scale(1.05);
@@ -238,11 +263,11 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
 /* Login Button */
 header .header .btn {
   display: inline-block;
-  padding: 12px 20px;
+  padding: 15px 25px;
   border: 2px solid #8B4513;
   border-radius: 25px;
   color: #8B4513;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   text-align: center;
   cursor: pointer;
@@ -251,7 +276,7 @@ header .header .btn {
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  min-width: 80px;
+  min-width: 100px;
   box-sizing: border-box;
   white-space: nowrap;
 }
