@@ -100,10 +100,9 @@ height: 100%;
 .home_swiper-slide img {
 width: 100%;
 height: 100%;
-object-fit: cover; /* 이미지 비율 유지하며 꽉 채우기 */
+object-fit: cover; 
 }
 
-/* 간단한 화살표 스타일 (JavaScript 없이) */
 .home_swiper-button-next,
 .home_swiper-button-prev {
   color: #fff;
@@ -162,11 +161,11 @@ color: #fff;
 }
 
 .home_swiper-button-next {
-  right: 20px; /* 오른쪽에서 10px */
+  right: 20px; 
 }
 
 .home_swiper-button-prev {
-  left: 20px; /* 왼쪽에서 10px */
+  left: 20px; 
 }
 
 /* 페이지네이션 스타일 */
@@ -179,7 +178,7 @@ display: flex;
 gap: 10px;
 }
 
-.home_swiper-pagination span {
+.home_swiper-pagination .swiper-pagination-bullet {
 width: 12px;
 height: 12px;
 border-radius: 50%;
@@ -188,6 +187,6 @@ cursor: pointer;
 transition: 0.3s;
 }
 
-.home_swiper-pagination span*.active* {
+.home_swiper-pagination .swiper-pagination-bullet-active {
 background: #fff;
 }

@@ -78,13 +78,13 @@ public class ManageProductImgs {
 //			System.out.println(row + ":" + col + ":" + value);
 			product_img.setFilename((value == null) ? "" : value);
 			
-//			System.out.println(row + ":" + col + ":" + value);
-			if( obj[row][col++] == null ) {
+			Object bFile = obj[row][col++];
+			if( bFile == null ) {
 //				System.out.println("null 입력");
 				product_img.setBFile(null); 
 			}else {
 //				System.out.println("setOutDate: " + Timestamp.valueOf(value));
-				product_img.setBFile((Blob) obj[row][col++]);
+				product_img.setBFile((Blob) bFile);
 			}
 			
 			value = Objects.toString(obj[row][col++], null);

@@ -86,13 +86,13 @@ public class ManageComCis {
 //			System.out.println(row + ":" + col + ":" + value);
 			com_ci.setFilename((value == null) ? "" : value);
 			
-//			System.out.println(row + ":" + col + ":" + value);
-			if( obj[row][col++] == null ) {
+			Object bFile = obj[row][col++];
+			if( bFile == null ) {
 //				System.out.println("null 입력");
 				com_ci.setBFile(null); 
 			}else {
 //				System.out.println("setOutDate: " + Timestamp.valueOf(value));
-				com_ci.setBFile((Blob) obj[row][col++]);
+				com_ci.setBFile((Blob) bFile);
 			}
 			
 			value = Objects.toString(obj[row][col++]);
