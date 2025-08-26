@@ -20,38 +20,174 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 List<Com_History> nowCom_HistoryList = new Vector<>(hcInstance.mComHistorys.com_historys[pos]);
 int tot_cnt = (nowCom_HistoryList != null) ? nowCom_HistoryList.size() : 0;
-%> 
+%>
 
 <div class="container comhistory_container">
-    <div class="comhistory_title">연혁</div>
+<div class="comhistory_title">연혁 관리</div>
 
-    <div class="comhistory-box comhistory_box">
-        <div class="comhistory-header">
-            <div class="comhistory-columns">
-                <div class="comhistory-column">회사 ID</div>
-                <div class="comhistory-column">ID</div>
-                <div class="comhistory-column">개업일</div>
-                <div class="comhistory-column">폐업일</div>
-                <div class="comhistory-column">기업활동</div>
-                <div class="comhistory-column">내용</div>
-                <div class="comhistory-column">상태</div>
+<!-- 연혁 등록/수정 폼 -->
+<div class="comhistory-box comhistory_box">
+<!-- 연혁 목록 테이블 -->
+<div class="comhistory-list-box">
+    <div class="list-header">
+        <h3 class="list-title">연혁 목록 <span class="record-count">(총 <%= tot_cnt %>건)</span></h3>
+        <button class="btn btn-search">등록</button>
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요">
+            <button type="button" class="btn btn-search" onclick="searchHistory()">검색</button>
+        </div>
+    </div>
+    
+    <div class="table-container">
+        <div class="table-header">
+            <div class="table-columns">
+                <div class="table-column">회사 ID</div>
+                <div class="table-column">ID</div>
+                <div class="table-column">개업일</div>
+                <div class="table-column">폐업일</div>
+                <div class="table-column">기업활동</div>
+                <div class="table-column">내용</div>
+                <div class="table-column">상태</div>
+                <div class="table-column">관리</div>
             </div>
         </div>
-        <div class="comhistory-body">
+        
+        <div class="table-body" id="historyTableBody">
             <%
-            for (int loop = 0; loop < tot_cnt; loop++) {
-                Com_History history = nowCom_HistoryList.get(loop);
+            if (tot_cnt == 0) {
             %>
-            <div class="comhistory-row">
-                <div class="comhistory-cell"><%= (history.getComId() != null) ? history.getComId() : "" %></div>
-                <div class="comhistory-cell"><%= (history.getId() != null) ? history.getId() : "" %></div>
-                <div class="comhistory-cell"><%= (history.getStartDate() != null) ? sdf.format(history.getStartDate()) : "" %></div>
-                <div class="comhistory-cell"><%= (history.getEndDate() != null) ? sdf.format(history.getEndDate()) : "" %></div>
-                <div class="comhistory-cell"><%= (history.getTitle() != null) ? history.getTitle() : "" %></div>
-                <div class="comhistory-cell"><%= (history.getContent() != null) ? history.getContent() : "" %></div>
-                <div class="comhistory-cell"><%= history.getStatus() %></div>
+            <div class="empty-state">
+                등록된 연혁이 없습니다.
             </div>
-            <% } %>
+            <%
+            } else {
+                for (int loop = 0; loop < tot_cnt; loop++) {
+                    Com_History history = nowCom_HistoryList.get(loop);
+            %>
+            <div class="table-row" data-id="<%= history.getId() %>">
+                <div class="table-cell" name="comId"><%= (history.getComId() != null) ? history.getComId() : "" %></div>
+                <div class="table-cell" name="id"><%= (history.getId() != null) ? history.getId() : "" %></div>
+                <div class="table-cell" name="startDate"><%= (history.getStartDate() != null) ? sdf.format(history.getStartDate()) : "" %></div>
+                <div class="table-cell" name="endDate"><%= (history.getEndDate() != null) ? sdf.format(history.getEndDate()) : "" %></div>
+                <div class="table-cell" name="title"><%= (history.getTitle() != null) ? history.getTitle() : "" %></div>
+                <div class="table-cell content-cell" name="content" title="<%= (history.getContent() != null) ? history.getContent() : "" %>">
+                    <%= (history.getContent() != null) ? history.getContent() : "" %>
+                </div>
+                <div class="table-cell">
+                    <span class="status-badge status-<%= history.getStatus() %>"><%= (history.getStatus() == 0) ? "운영중" : "폐업" %></span>
+                </div>
+                <div class="table-cell">
+                    <div class="btn-group">
+                        <a href="comhistory_update_form.jsp;"><button class="btn btn-edit" onclick="com('<%= history.getId() %>')">수정</button></a>
+                      
+                    </div>
+                </div>
+            </div>
+            <%
+                }
+            }
+            %>
         </div>
     </div>
 </div>
+</div>
+
+<script>
+// 폼 초기화
+function resetForm() {
+    document.getElementById('comHistoryForm').reset();
+    document.getElementById('mode').value = 'insert';
+    document.getElementById('originalId').value = '';
+    document.querySelector('.form-title').textContent = '연혁 정보 입력';
+}
+
+// 연혁 수정
+function editHistory(historyId) {
+    // AJAX를 통해 해당 연혁 정보를 가져와서 폼에 채움
+    fetch('getComHistory.jsp?id=' + historyId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const history = data.history;
+                document.getElementById('comId').value = history.comId || '';
+                document.getElementById('historyId').value = history.id || '';
+                document.getElementById('startDate').value = history.startDate || '';
+                document.getElementById('endDate').value = history.endDate || '';
+                document.getElementById('title').value = history.title || '';
+                document.getElementById('content').value = history.content || '';
+                document.getElementById('status').value = history.status || '';
+                
+                document.getElementById('mode').value = 'update';
+                document.getElementById('originalId').value = historyId;
+                document.querySelector('.form-title').textContent = '연혁 정보 수정';
+                
+                // 폼 위치로 스크롤
+                document.querySelector('.comhistory_box').scrollIntoView({ behavior: 'smooth' });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('연혁 정보를 불러오는 중 오류가 발생했습니다.');
+        });
+}
+
+// 연혁 삭제
+function deleteHistory(historyId) {
+    if (confirm('정말로 이 연혁을 삭제하시겠습니까?')) {
+        fetch('deleteComHistory.jsp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'id=' + encodeURIComponent(historyId)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('연혁이 성공적으로 삭제되었습니다.');
+                location.reload();
+            } else {
+                alert('삭제 중 오류가 발생했습니다: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+        });
+    }
+}
+
+// 검색 기능
+function searchHistory() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('.table-row');
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// 엔터키로 검색
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchHistory();
+    }
+});
+
+// 폼 유효성 검사
+document.getElementById('comHistoryForm').addEventListener('submit', function(e) {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    if (startDate && endDate && startDate > endDate) {
+        e.preventDefault();
+        alert('개업일은 폐업일보다 이전이어야 합니다.');
+        return false;
+    }
+});
+</script>

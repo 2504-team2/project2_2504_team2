@@ -38,7 +38,11 @@
 <link rel="stylesheet" href="./css/merchantApply.css" />
 <link rel="stylesheet" href="./css/merchantList.css" />
 <link rel="stylesheet" href="./css/menu-juice.css" />
-
+<link rel="stylesheet" href="./css/comhistory.css" />
+<link rel="stylesheet" href="./css/company.css" />
+<link rel="stylesheet" href="./css/adminMain.css">
+<link rel="stylesheet" href="./css/merchantManage.css">
+<link rel="stylesheet" href="./css/merchantUpdate.css">
 </head>
 <body>
 <div class="index_desktop">

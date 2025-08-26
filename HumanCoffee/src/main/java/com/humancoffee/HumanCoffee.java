@@ -79,14 +79,14 @@ public class HumanCoffee {
 //        System.out.println("new mProductImgs");
         mProductImgs.oraConn = this.oraConn;
 //        System.out.println("mProductImgs.oraConn = this.oraConn");
-        mProductImgs.readProductImg(mProductImgs.memory_pos);
+//        mProductImgs.readProductImg(mProductImgs.memory_pos);
 //        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
         
         mProducts = new ManageProducts();
 //        System.out.println("new mProducts");
         mProducts.oraConn = this.oraConn;
 //        System.out.println("mProducts.oraConn = this.oraConn");
-        mProducts.readProduct(mProducts.memory_pos);
+//        mProducts.readProduct(mProducts.memory_pos);
 //        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
         
         mComCis = new ManageComCis();
@@ -176,7 +176,7 @@ public class HumanCoffee {
     						//	order_id는 동일하지만 product_id가 존재하지 않음.
     						mOrderHead.get(loop).order_bottom.add((OrderBottom)orderhead.order_bottom);
     				}else {
-//    					입력받은 orderhead의 order_bottom이 없는 경우. 즉, 주문 상품와 상태변경일 가능성이 높음.
+//    					입력받은 orderhead의 order_bottom이 없는 경우. 즉, 주문 상품의 상태변경일 가능성이 높음.
     					mOrderHead.set(loop, orderhead);
     				}
     				break;
@@ -234,6 +234,7 @@ public class HumanCoffee {
                     String className = getKeyToClassName(key);
                     System.out.println("className : " + className);
                     if(className.equals("ManageMyOrders")) {
+                    	// 	Query문 변경 시(항목위치) 확인 필요.
                     	//	주문 정보가 들어옴.
                     	//	입력, 수정 판단이 필요.
                     	OrderHead orderhead = new OrderHead();
@@ -261,7 +262,8 @@ public class HumanCoffee {
                     	putWebOrder(orderhead);
                     }
                     if(className.equals("ManageOrderDetails")) {
-//                    	주문 정보가 들어옴.
+                    	//	Query문 변경 시(항목위치) 확인 필요.
+                    	// 	주문 정보가 들어옴.
                     	//	입력, 수정 판단이 필요.
                     	OrderHead orderhead = new OrderHead();
                     	OrderBottom orderbottom = new OrderBottom();
