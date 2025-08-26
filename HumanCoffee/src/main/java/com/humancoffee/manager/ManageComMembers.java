@@ -155,18 +155,18 @@ public class ManageComMembers {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertComMember(Com_Member com_member) {
+	public Com_Member insertComMember(Com_Member com_member) {
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_member.getId() + ":는 com_member 존재하는 ID 입니다.");
-			return;
+			return null;
 		}else {
 			Customer customer = new Customer();
 			customer.setId(com_member.getId());
 			indexSearch = algo.binarySearchIndex(mCustomers.customers[mCustomers.memory_pos], customer, mCustomerIdComparator);
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(com_member.getId() + ":는 customer 존재하는 ID 입니다.");
-				return;
+				return null;
 			}
 		}
 
@@ -185,6 +185,7 @@ public class ManageComMembers {
 
 				));
 		oraConn.queryInfosKey.add(key);
+		return com_member;
 	}
 	
 	public Com_Member searchComMemberById(Com_Member com_member) {

@@ -118,7 +118,7 @@ public class Common {
 		return (strId + String.format("%06d", cnt));
 	}
 	
-	//	파일을 저장하거나, 파일을 읽어들일 때 개발모드의 경우 절대경로로 해야 함.
+	//	파일을 저장할 때 개발모드의 경우 절대경로로 해야 함.
 	//	밑의 readFileToString()는 해당 경로의 파일을 읽어 내용을 리턴하는데 동일함.  
 	public static String getProjectPath(String projectPath, String projectName) {
 		

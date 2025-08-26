@@ -20,7 +20,9 @@ public class HumanCoffee {
     private OraConnect oraConn;
     private CtrlScanner ctrlScanner = new CtrlScanner();
     
+    private OrderWebSocket mOrderWebSocket;
     public List<OrderHead> mOrderHead;
+    
     public ManageMemRolls mMemRolls;
     public ManageOrderDetails mOrderDetails;
     public ManageMyOrders mOrders;
@@ -45,8 +47,9 @@ public class HumanCoffee {
             System.exit(0);
         }
         
-
+        mOrderWebSocket = new OrderWebSocket();
         mOrderHead = new Vector<>();
+        
         mMemRolls = new ManageMemRolls();
 //        System.out.println("new mMemRolls");
         mMemRolls.oraConn = this.oraConn;
@@ -187,6 +190,12 @@ public class HumanCoffee {
     		}
     	}
     }
+    private void sendOrder() {
+    	if(mOrderHead.size() >= 0) {
+    		System.out.println("sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
+    		mOrderWebSocket.broadcast(mOrderHead);
+    	}
+    }
     private boolean chkDuplicateClass(String rcvClass) {
     	String myClass;
     	for(int loop = 0; loop < oraConn.queryEndsKey.size(); loop++) {
@@ -252,7 +261,7 @@ public class HumanCoffee {
                     			//	전체 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[8]);
                         		orderhead.customer_id = Objects.toString(qi.getParams()[0]);
-                        		orderhead.status = 0;
+                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[7]));
                     		}else {
                     			//	status만 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[1]);

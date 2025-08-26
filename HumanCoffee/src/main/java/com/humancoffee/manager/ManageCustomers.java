@@ -151,18 +151,18 @@ public class ManageCustomers {
 		oraConn.queryInfosKey.add(key);
 	}
 
-	public void insertCustomer(Customer customer) {
+	public Customer insertCustomer(Customer customer) {
 		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
-			return;
+			return null;
 		}else {
 			Com_Member com_member = new Com_Member();
 			com_member.setId(customer.getId());
 			indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
-				return;
+				return null;
 			}
 		}
 		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
@@ -176,6 +176,7 @@ public class ManageCustomers {
 				customer.getTel()
 				));
 		oraConn.queryInfosKey.add(key);
+		return customer;
 	}
 	
 	public Customer searchCustomerById(Customer customer) {
