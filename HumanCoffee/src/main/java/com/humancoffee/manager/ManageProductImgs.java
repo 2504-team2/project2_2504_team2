@@ -62,50 +62,51 @@ public class ManageProductImgs {
 //			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			product_img.setProductId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			product_img.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product_img.setDiv(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			product_img.setFilename((value == null) ? "" : value);
 			
-//			System.out.println(row + ":" + col + ":" + value);
-			if( obj[row][col++] == null ) {
-//				System.out.println("null 입력");
+			System.out.println(row + ":" + (col + 1) + ":" + obj[row][col]);
+			Object bFile = obj[row][col++];
+			if( bFile == null ) {
+				System.out.println("null 입력");
 				product_img.setBFile(null); 
 			}else {
-//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
-				product_img.setBFile((Blob) obj[row][col++]);
+				System.out.println("bFile Input ");
+				product_img.setBFile((Blob) bFile);
 			}
 			
 			value = Objects.toString(obj[row][col++], null);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				product_img.setInDate(null);
 			else
 				product_img.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-//				System.out.println("null 입력");
+				System.out.println("null 입력");
 				product_img.setOutDate(null); 
 			}else {
-//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				product_img.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-//			System.out.println(row + ":" + col + ":" + value);
+			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			product_img.setStatus(Integer.parseInt(value));
 						
