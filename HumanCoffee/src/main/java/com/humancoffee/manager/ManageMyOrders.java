@@ -159,16 +159,16 @@ public class ManageMyOrders {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertMyOrder(My_Order my_order) {
+	public My_Order insertMyOrder(My_Order my_order) {
 		String max_id = null;
 		if(my_orders[memory_pos].size() > 0)
 			max_id = my_orders[memory_pos].get(my_orders[memory_pos].size() - 1).getId();
-		max_id = common.generateDateTimeSequenceId16(max_id);
+		max_id = common.generateDateSequenceId16(max_id);
 		my_order.setId(max_id);
 		indexSearch = algo.binarySearchIndex(my_orders[memory_pos], my_order, new MyOrderIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(my_order.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into my_order (id, customer_id, tot_price, pay_div, cupon, card, cash, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, sysdate) ";
@@ -184,6 +184,7 @@ public class ManageMyOrders {
 				my_order.getCash()
 				));
 		oraConn.queryInfosKey.add(key);
+		return my_order;
 	}
 	
 	public My_Order searchMyOrderById(My_Order my_order) {
