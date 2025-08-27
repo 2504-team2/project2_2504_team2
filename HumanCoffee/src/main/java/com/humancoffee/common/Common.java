@@ -96,6 +96,21 @@ public class Common {
 		return (strId + String.format("%02d", cnt));
 	}
 	
+	public String generateDateSequenceId16(String nowMaxId) {	// Product, Order 테이블의 ID 생성 함수
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		int cnt = 1;
+		String strId = String.format("%04d%02d%02d", 
+				nowDateTime.getYear(), nowDateTime.getMonthValue(), nowDateTime.getDayOfMonth());
+		
+		if(nowMaxId != null && nowMaxId.substring(0, strId.length()).equals(strId)) {
+			String strSequence;
+			strSequence = nowMaxId.substring(strId.length());
+			cnt = Integer.parseInt(strSequence);
+			cnt++;
+		}
+		return (strId + String.format("%08d", cnt));
+	}
+	
 	public String generateDateTimeSequenceId16(String nowMaxId) {	// Product, Order 테이블의 ID 생성 함수
 		LocalDateTime nowDateTime = LocalDateTime.now();
 		int cnt = 1;

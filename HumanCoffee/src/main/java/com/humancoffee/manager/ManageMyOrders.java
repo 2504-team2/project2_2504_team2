@@ -163,7 +163,7 @@ public class ManageMyOrders {
 		String max_id = null;
 		if(my_orders[memory_pos].size() > 0)
 			max_id = my_orders[memory_pos].get(my_orders[memory_pos].size() - 1).getId();
-		max_id = common.generateDateTimeSequenceId16(max_id);
+		max_id = common.generateDateSequenceId16(max_id);
 		my_order.setId(max_id);
 		indexSearch = algo.binarySearchIndex(my_orders[memory_pos], my_order, new MyOrderIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
