@@ -48,5 +48,5 @@
     }
 
     // 수정 완료 후 리스트 페이지로 이동
-    response.sendRedirect(request.getContextPath() + "/admin/merchant/merchantManage.jsp");
+    response.sendRedirect(request.getContextPath() + "/?next_page=/admin/merchant/merchantManage.jsp");
 %>

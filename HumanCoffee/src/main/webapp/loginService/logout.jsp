@@ -13,7 +13,6 @@
 %>
 
 <script>
-	alert("로그아웃되었습니다.");
 	var form = document.createElement('form');
     form.method = 'POST';
     form.action = '<%= request.getContextPath() %>/';

@@ -1,17 +1,25 @@
 package com.humancoffee.common;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import com.humancoffee.HumanCoffee;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.Part;
 
 public class Common {
 	final static String DEV_SUB_FOLDER = "\\src\\main\\webapp\\";
@@ -88,6 +96,21 @@ public class Common {
 		return (strId + String.format("%02d", cnt));
 	}
 	
+	public String generateDateSequenceId16(String nowMaxId) {	// Product, Order 테이블의 ID 생성 함수
+		LocalDateTime nowDateTime = LocalDateTime.now();
+		int cnt = 1;
+		String strId = String.format("%04d%02d%02d", 
+				nowDateTime.getYear(), nowDateTime.getMonthValue(), nowDateTime.getDayOfMonth());
+		
+		if(nowMaxId != null && nowMaxId.substring(0, strId.length()).equals(strId)) {
+			String strSequence;
+			strSequence = nowMaxId.substring(strId.length());
+			cnt = Integer.parseInt(strSequence);
+			cnt++;
+		}
+		return (strId + String.format("%08d", cnt));
+	}
+	
 	public String generateDateTimeSequenceId16(String nowMaxId) {	// Product, Order 테이블의 ID 생성 함수
 		LocalDateTime nowDateTime = LocalDateTime.now();
 		int cnt = 1;
@@ -118,7 +141,7 @@ public class Common {
 		return (strId + String.format("%06d", cnt));
 	}
 	
-	//	파일을 저장하거나, 파일을 읽어들일 때 개발모드의 경우 절대경로로 해야 함.
+	//	파일을 저장할 때 개발모드의 경우 절대경로로 해야 함.
 	//	밑의 readFileToString()는 해당 경로의 파일을 읽어 내용을 리턴하는데 동일함.  
 	public static String getProjectPath(String projectPath, String projectName) {
 		
@@ -144,7 +167,7 @@ public class Common {
 	public static String readFileToString(String filePath) throws IOException {
 		// Path 객체를 생성하여 파일 경로를 나타냅니다.
 		System.out.println("filePath: " + filePath);
-		filePath = "C:\\ThisIsJava\\workspace\\starbucks_web2\\src\\main\\webapp\\uploads\\html_tag정리.txt";
+//		filePath = "C:\\ThisIsJava\\workspace\\starbucks_web2\\src\\main\\webapp\\uploads\\html_tag정리.txt";
         Path path = Paths.get(filePath);
         // 파일이 존재하지 않으면 예외를 던집니다.
         if (!Files.exists(path)) {
@@ -157,5 +180,29 @@ public class Common {
         try (var lines = Files.lines(path)) {
             return lines.collect(Collectors.joining(System.lineSeparator()));
         }
+	}
+	
+	public Blob getPartToBlob(Part part, ServletContext servletContext) {
+		// ServletContext에서 HumanCoffee 객체를 가져옴
+		HumanCoffee hcInstance;
+		Blob blob = null;
+		try {
+			hcInstance = (HumanCoffee)servletContext.getAttribute("HumanCoffee");
+			InputStream is = null;
+			is = part.getInputStream();
+			
+			blob = hcInstance.oraConn.conn.createBlob();
+			OutputStream os = blob.setBinaryStream(1);
+			byte[] bytes = is.readAllBytes();
+			os.write(bytes);
+			os.close();
+			is.close();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return blob;
 	}
 }

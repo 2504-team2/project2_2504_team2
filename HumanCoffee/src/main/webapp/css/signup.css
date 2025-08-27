@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-body {
+.signup-wrapper {
     font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif;
     background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #CD853F 100%);
     min-height: 100vh;
@@ -17,7 +17,7 @@ body {
 }
 
 /* 커피 빈 배경 효과 */
-body::before {
+.signup-wrapper::before {
     content: '';
     position: absolute;
     top: 0;

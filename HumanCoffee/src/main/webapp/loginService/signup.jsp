@@ -127,7 +127,11 @@
             <script>
                 alert('회원가입에 성공했습니다.');
                 setTimeout(function() {
-                    window.location.href = '<%= request.getContextPath() %>/loginService/login_form.jsp';
+                	var form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '<%= request.getContextPath() %>/loginService/login_form.jsp';
+                    document.body.appendChild(form);
+                    form.submit();
                 }, 100);
             </script>
 <%

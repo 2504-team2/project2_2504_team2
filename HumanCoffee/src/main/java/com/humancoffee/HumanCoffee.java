@@ -17,10 +17,13 @@ import com.humancoffee.websocket.OrderWebSocket;
  
 public class HumanCoffee {
 
-    private OraConnect oraConn;
+	private Common common;
+    public OraConnect oraConn;
     private CtrlScanner ctrlScanner = new CtrlScanner();
     
+    private OrderWebSocket mOrderWebSocket;
     public List<OrderHead> mOrderHead;
+    
     public ManageMemRolls mMemRolls;
     public ManageOrderDetails mOrderDetails;
     public ManageMyOrders mOrders;
@@ -39,14 +42,16 @@ public class HumanCoffee {
     private volatile boolean running = true;
     
     public HumanCoffee() {
+    	common = new Common();
         oraConn = new OraConnect("oracle.jdbc.OracleDriver", "jdbc:oracle:thin:@1.220.247.78:1522/orcl", "project2_2504_team2", "1234");
         if(!oraConn.connect()) {
             System.out.println("Database connect error");
             System.exit(0);
         }
         
-
+        mOrderWebSocket = new OrderWebSocket();
         mOrderHead = new Vector<>();
+        
         mMemRolls = new ManageMemRolls();
 //        System.out.println("new mMemRolls");
         mMemRolls.oraConn = this.oraConn;
@@ -79,14 +84,14 @@ public class HumanCoffee {
 //        System.out.println("new mProductImgs");
         mProductImgs.oraConn = this.oraConn;
 //        System.out.println("mProductImgs.oraConn = this.oraConn");
-//        mProductImgs.readProductImg(mProductImgs.memory_pos);
+        mProductImgs.readProductImg(mProductImgs.memory_pos);
 //        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
         
         mProducts = new ManageProducts();
 //        System.out.println("new mProducts");
         mProducts.oraConn = this.oraConn;
 //        System.out.println("mProducts.oraConn = this.oraConn");
-//        mProducts.readProduct(mProducts.memory_pos);
+        mProducts.readProduct(mProducts.memory_pos);
 //        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
         
         mComCis = new ManageComCis();
@@ -189,6 +194,12 @@ public class HumanCoffee {
     		}
     	}
     }
+    private void sendOrder() {
+    	if(mOrderHead.size() >= 0) {
+    		System.out.println("sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
+    		mOrderWebSocket.broadcast(mOrderHead);
+    	}
+    }
     private boolean chkDuplicateClass(String rcvClass) {
     	String myClass;
     	for(int loop = 0; loop < oraConn.queryEndsKey.size(); loop++) {
@@ -216,21 +227,26 @@ public class HumanCoffee {
                     QueryInfo qi = oraConn.queryInfos.get(key);
                     if(qi.status == 0) {
                     	System.out.println("rcv sql: " + qi.getSql());
-                        PreparedStatement pstmt = oraConn.conn.prepareStatement(qi.getSql());
-                        System.out.println("qi : " + qi.getParams() + ", len : " + qi.getParams().length);
-                        if(qi.getParams() != null) {
-                            for(loop = 0; loop < qi.getParams().length; loop++) {
-                            	System.out.println("pre pos[" + loop + "] : " + qi.getParams()[loop]);
-                                pstmt.setObject(loop + 1, qi.getParams()[loop]);
-                            }
+                        try(PreparedStatement pstmt = oraConn.conn.prepareStatement(qi.getSql())){
+	                        System.out.println("qi : " + qi.getParams() + ", len : " + qi.getParams().length);
+	                        if(qi.getParams() != null) {
+	                            for(loop = 0; loop < qi.getParams().length; loop++) {
+	                            	System.out.println("pre pos[" + loop + "] : " + qi.getParams()[loop]);
+	                                pstmt.setObject(loop + 1, qi.getParams()[loop]);
+	                            }
+	                        }
+	 //                       System.out.println("pre addBatch");
+	                        pstmt.addBatch();
+	 //                       System.out.println("pre executeBatch");
+	                        pstmt.executeBatch();
+	                        qi.status = 1;
+	 //                       System.out.println("pre replace");
+	                        oraConn.queryInfos.replace(key, qi);
+                        }catch(Exception e) {
+                        	String strException = common.getStackTraceAsString(e);
+                        	System.out.println("queryReadExe Exception:\n" + strException);
                         }
- //                       System.out.println("pre addBatch");
-                        pstmt.addBatch();
- //                       System.out.println("pre executeBatch");
-                        pstmt.executeBatch();
-                        qi.status = 1;
- //                       System.out.println("pre replace");
-                        oraConn.queryInfos.replace(key, qi);
+                        
                     }
                     System.out.println("insert key : " + key);
                     String className = getKeyToClassName(key);
@@ -254,7 +270,7 @@ public class HumanCoffee {
                     			//	전체 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[8]);
                         		orderhead.customer_id = Objects.toString(qi.getParams()[0]);
-                        		orderhead.status = 0;
+                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[7]));
                     		}else {
                     			//	status만 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[1]);
@@ -305,9 +321,10 @@ public class HumanCoffee {
                     }else {
                     	System.out.println("Duplicate className : " + className);
                     }
-//                    System.out.println("remove key : " + key);
+                    System.out.println("remove key : " + key);
                     oraConn.queryInfos.remove(key);
                     oraConn.queryInfosKey.remove(key);
+//                    String strScanner = ctrlScanner.getStrByScanner();
                 }
                 oraConn.conn.commit();
             } catch (SQLException e) {

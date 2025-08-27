@@ -121,7 +121,11 @@
       <%
       if (id == null || id.equals("")) {
       %>
-        <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
+        <!-- index.jsp를 통한 로그인 폼 로딩 방식으로 변경 -->
+        <form action="<%= request.getContextPath() %>/" method="post">
+          <input type="hidden" name="next_page" value="/loginService/login_form.jsp" />
+          <button type="submit" class="btn">로그인</button>
+        </form>
       <%
       // 일반 사용자 로그인
       } else if (div != null && div.equals("customer")) {
@@ -131,7 +135,9 @@
           <span>쿠폰: <%= coupon %>개  point: <%= point %></span>
         </div>
         <div class="login-btn-container">
-        	<a href="javascript: Logout();" class="btn">로그아웃</a>
+        	<form action="<%= request.getContextPath() %>/loginService/logout.jsp" method="post" style="display: inline;">
+        		<button type="submit" class="btn">로그아웃</button>
+        	</form>
         </div>
       <%
       } else {
@@ -179,7 +185,9 @@
           <span>관리자: <%= name %></span>
         </div>
           <div class="login-btn-container">
-          	<a href="javascript: Logout();" class="btn">로그아웃</a>
+          	<form action="<%= request.getContextPath() %>/loginService/logout.jsp" method="post" style="display: inline;">
+          		<button type="submit" class="btn">로그아웃</button>
+          	</form>
           </div>
         
        <%
