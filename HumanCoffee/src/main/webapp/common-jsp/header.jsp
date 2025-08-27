@@ -30,7 +30,7 @@
         <%
         if (div != null && div.equals("member")) {
         %>
-          <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+          <form action="<%= request.getContextPath() %>/" method="post">
     		<input type="hidden" name="next_page" value="/admin/main.jsp" />
 	        <!-- 가맹점 관리 페이지로 이동 -->
 	        <button type="submit" class="btn">
@@ -51,15 +51,15 @@
             <ul class="inner">
               <li>
                 <ul>
-	              <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+	              <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/company.jsp" />
 					<button type="submit" class="link-button">휴먼커피에 대하여</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/comhistory.jsp" />
 					<button type="submit" class="link-button">연혁</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/map.jsp" />
 					<button type="submit" class="link-button">오시는 길</button>
 				  </form>
@@ -76,15 +76,15 @@
             <ul class="inner">
                <li>
                 <ul>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-coffee.jsp" />
 					<button type="submit" class="link-button">커피</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-dikapein.jsp" />
 					<button type="submit" class="link-button">디카페인</button>
 				  </form> 
-				  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+				  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-juice.jsp" />
 					<button type="submit" class="link-button">주스</button>
 				  </form> 
@@ -101,11 +101,11 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/merchant/merchantList.jsp" />
 					<button type="submit" class="link-button">가맹점 리스트</button>
 				  </form> 
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
 					<button type="submit" class="link-button">창업신청</button>
 				  </form>

@@ -138,7 +138,9 @@ public class HumanCoffee {
         mLogin.mMemRolls = this.mMemRolls;
         mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
         
+        mComMems.mCustomers = this.mCustomers;
         mComMems.mCustomerIdComparator = this.mCustomers.new CustomerIdComparator();
+        mCustomers.mComMembers = this.mComMems;
         mCustomers.mComMemberIdComparator = this.mComMems.new ComMemberIdComparator();
 
     }

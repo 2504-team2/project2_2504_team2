@@ -152,14 +152,23 @@ public class ManageCustomers {
 	}
 
 	public void insertCustomer(Customer customer) {
-		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
+		if(customers[memory_pos].size() > 0)
+			indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
+		else {
+			indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
+		}
+			
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
 			return;
 		}else {
 			Com_Member com_member = new Com_Member();
 			com_member.setId(customer.getId());
-			indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
+			System.out.println("mComMembers:" + mComMembers);
+			if(mComMembers.com_members[mComMembers.memory_pos].size() > 0)
+				indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
+			else
+				indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
 				return;

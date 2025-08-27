@@ -28,7 +28,6 @@
     int status = Integer.parseInt(request.getParameter("status"));
     
     boolean success = false;
-    String message = "";
     
     try {
         // Company 객체 생성 및 데이터 설정
@@ -51,7 +50,7 @@
             company.setOutDate(null);
         }
         
-     	// 회사 정보 수정 실행
+        // 회사 정보 수정 실행
         com.updateCompany(company);
         
         // 메모리 데이터 다시 로드
@@ -60,20 +59,35 @@
         com.memory_pos = nextMemPos;
         
         success = true;
-        message = "회사 정보가 성공적으로 수정되었습니다.";
         
     } catch (Exception e) {
-    	e.printStackTrace();
+        e.printStackTrace();
+        success = false;
     }
 %>
 
-<%
-    // 처리 완료 후 리다이렉트
-    if (success) {
-        // 성공 시 회사 목록 페이지로 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/index.jsp?next_page=/about/company.jsp?msg=" + java.net.URLEncoder.encode(message, "UTF-8"));
-    } else {
-        // 실패 시 이전 페이지로 리다이렉트 (에러 메시지와 함께)
-        response.sendRedirect(request.getContextPath() + "/index.jsp?next_page=/about/manageCompany/editCompany_form.jsp?companyId=" + companyId + "&error=" + java.net.URLEncoder.encode(message, "UTF-8"));
-    }
-%>
+<!-- POST 방식으로 리다이렉트하는 HTML 폼 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>처리 중...</title>
+</head>
+<body>
+    <% if (success) { %>
+        <form id="redirectForm" action="<%= request.getContextPath() %>/" method="post">
+            <input type="hidden" name="next_page" value="/about/company.jsp">
+        </form>
+        <script>
+            document.getElementById('redirectForm').submit();
+        </script>
+    <% } else { %>
+        <form id="errorForm" action="<%= request.getContextPath() %>/about/manageCompany/editCompany_form.jsp" method="post">
+            <input type="hidden" name="companyId" value="<%= companyId %>">
+        </form>
+        <script>
+            document.getElementById('errorForm').submit();
+        </script>
+    <% } %>
+</body>
+</html>
