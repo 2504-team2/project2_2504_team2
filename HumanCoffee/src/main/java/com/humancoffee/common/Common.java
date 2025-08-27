@@ -1,17 +1,25 @@
 package com.humancoffee.common;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import com.humancoffee.HumanCoffee;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.Part;
 
 public class Common {
 	final static String DEV_SUB_FOLDER = "\\src\\main\\webapp\\";
@@ -144,7 +152,7 @@ public class Common {
 	public static String readFileToString(String filePath) throws IOException {
 		// Path 객체를 생성하여 파일 경로를 나타냅니다.
 		System.out.println("filePath: " + filePath);
-		filePath = "C:\\ThisIsJava\\workspace\\starbucks_web2\\src\\main\\webapp\\uploads\\html_tag정리.txt";
+//		filePath = "C:\\ThisIsJava\\workspace\\starbucks_web2\\src\\main\\webapp\\uploads\\html_tag정리.txt";
         Path path = Paths.get(filePath);
         // 파일이 존재하지 않으면 예외를 던집니다.
         if (!Files.exists(path)) {
@@ -157,5 +165,29 @@ public class Common {
         try (var lines = Files.lines(path)) {
             return lines.collect(Collectors.joining(System.lineSeparator()));
         }
+	}
+	
+	public Blob getPartToBlob(Part part, ServletContext servletContext) {
+		// ServletContext에서 HumanCoffee 객체를 가져옴
+		HumanCoffee hcInstance;
+		Blob blob = null;
+		try {
+			hcInstance = (HumanCoffee)servletContext.getAttribute("HumanCoffee");
+			InputStream is = null;
+			is = part.getInputStream();
+			
+			blob = hcInstance.oraConn.conn.createBlob();
+			OutputStream os = blob.setBinaryStream(1);
+			byte[] bytes = is.readAllBytes();
+			os.write(bytes);
+			os.close();
+			is.close();
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return blob;
 	}
 }
