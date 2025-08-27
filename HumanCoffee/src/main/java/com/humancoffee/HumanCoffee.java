@@ -143,7 +143,9 @@ public class HumanCoffee {
         mLogin.mMemRolls = this.mMemRolls;
         mLogin.mMemRollIdComparator = this.mMemRolls.new MemRollIdComparator();
         
+        mComMems.mCustomers = this.mCustomers;
         mComMems.mCustomerIdComparator = this.mCustomers.new CustomerIdComparator();
+        mCustomers.mComMembers = this.mComMems;
         mCustomers.mComMemberIdComparator = this.mComMems.new ComMemberIdComparator();
 
     }
@@ -193,9 +195,11 @@ public class HumanCoffee {
     	}
     }
     private void sendOrder() {
+    	System.out.println("mOrderHead size: " + mOrderHead.size());
     	if(mOrderHead.size() >= 0) {
     		System.out.println("sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
     		mOrderWebSocket.broadcast(mOrderHead);
+    		mOrderHead.clear();
     	}
     }
     private boolean chkDuplicateClass(String rcvClass) {
@@ -346,7 +350,7 @@ public class HumanCoffee {
                     }
                 }
             }
-            
+            sendOrder();
             System.out.println("oraConn.queryEndsKey size : " + oraConn.queryEndsKey.size());
             while(oraConn.queryEndsKey.size() > 0) {
 /*                String key = oraConn.queryEndsKey.get(0);

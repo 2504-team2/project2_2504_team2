@@ -138,8 +138,9 @@ public class ManageComMembers {
 		}
 
 		String sql = "update com_member set com_id = ?, pwd = ?, name = ?, tel = ?, roll_id = ?, outdate = ?, status = ? " +
-
 				" where id = ?";
+		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());
+		com_member.setPwd(pwd);
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
@@ -169,7 +170,8 @@ public class ManageComMembers {
 				return null;
 			}
 		}
-
+		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());
+		com_member.setPwd(pwd);
 		String sql = "insert into com_member (com_id, id, pwd, name, tel, roll_id, indate) values " +
 
 				" (?, ?, ?, ?, ?, ?, sysdate) ";

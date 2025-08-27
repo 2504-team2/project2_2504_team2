@@ -135,6 +135,8 @@ public class ManageCustomers {
 			System.out.println(customer.getId() + ":는 없는 ID 입니다.");
 			return;
 		}
+		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
+		customer.setPwd(pwd);
 		String sql = "update customer set pwd = ?, name = ?, tel = ?, point = ?, cupon = ?, outdate = ?, status = ? " +
 				" where id = ?";
 		
@@ -165,6 +167,8 @@ public class ManageCustomers {
 				return null;
 			}
 		}
+		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
+		customer.setPwd(pwd);
 		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
 				" (?, ?, ?, ?, sysdate) ";
 		
