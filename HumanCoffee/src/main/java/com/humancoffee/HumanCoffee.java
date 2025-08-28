@@ -84,14 +84,14 @@ public class HumanCoffee {
 //        System.out.println("new mProductImgs");
         mProductImgs.oraConn = this.oraConn;
 //        System.out.println("mProductImgs.oraConn = this.oraConn");
-//        mProductImgs.readProductImg(mProductImgs.memory_pos);
+        mProductImgs.readProductImg(mProductImgs.memory_pos);
 //        System.out.println("mProductImgs.readProductImg(" + mProductImgs.memory_pos + ")");
         
         mProducts = new ManageProducts();
 //        System.out.println("new mProducts");
         mProducts.oraConn = this.oraConn;
 //        System.out.println("mProducts.oraConn = this.oraConn");
-//        mProducts.readProduct(mProducts.memory_pos);
+        mProducts.readProduct(mProducts.memory_pos);
 //        System.out.println("mProducts.readProduct(" + mProducts.memory_pos + ")");
         
         mComCis = new ManageComCis();
@@ -195,11 +195,9 @@ public class HumanCoffee {
     	}
     }
     private void sendOrder() {
-    	System.out.println("mOrderHead size: " + mOrderHead.size());
     	if(mOrderHead.size() >= 0) {
     		System.out.println("sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
     		mOrderWebSocket.broadcast(mOrderHead);
-    		mOrderHead.clear();
     	}
     }
     private boolean chkDuplicateClass(String rcvClass) {

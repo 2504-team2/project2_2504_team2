@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+//POST 방식의 한글 파라미터 처리를 위한 인코딩 설정
+request.setCharacterEncoding("UTF-8");
+
 //세션에서 권한 정보 가져오기
 Integer rollObj = (Integer) session.getAttribute("roll");
 int roll = (rollObj != null) ? rollObj.intValue() : 0;
@@ -17,7 +20,7 @@ boolean ManageCheck2 = (roll == 4 || roll == 5 || roll == 6 || roll == 7);
 	if (ManageCheck1) {
 	%>
     <div class="adminMain_buttons">
-    	<form action="<%= request.getContextPath() %>/index.jsp" method="post">
+    	<form action="<%= request.getContextPath() %>/" method="post">
     		<input type="hidden" name="next_page" value="/admin/merchant/merchantManage.jsp" />
 	        <!-- 가맹점 관리 페이지로 이동 -->
 	        <button type="submit" class="adminMain_btn">

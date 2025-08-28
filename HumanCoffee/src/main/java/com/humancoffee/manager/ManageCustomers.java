@@ -136,7 +136,7 @@ public class ManageCustomers {
 			return;
 		}
 		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
-        customer.setPwd(pwd);
+		customer.setPwd(pwd);
 		String sql = "update customer set pwd = ?, name = ?, tel = ?, point = ?, cupon = ?, outdate = ?, status = ? " +
 				" where id = ?";
 		
@@ -153,31 +153,22 @@ public class ManageCustomers {
 		oraConn.queryInfosKey.add(key);
 	}
 
-	public void insertCustomer(Customer customer) {
-		if(customers[memory_pos].size() > 0)
-			indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
-		else {
-			indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
-		}
-		
+	public Customer insertCustomer(Customer customer) {
+		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
 			return null;
 		}else {
 			Com_Member com_member = new Com_Member();
 			com_member.setId(customer.getId());
-			System.out.println("mComMembers:" + mComMembers);
-			if(mComMembers.com_members[mComMembers.memory_pos].size() > 0)
-				indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
-			else
-				indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
+			indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
 				return null;
 			}
 		}
 		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
-        customer.setPwd(pwd);
+		customer.setPwd(pwd);
 		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
 				" (?, ?, ?, ?, sysdate) ";
 		
