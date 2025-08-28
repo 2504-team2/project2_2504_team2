@@ -348,7 +348,7 @@ public class HumanCoffee {
                     }
                 }
             }
-            
+            sendOrder();
             System.out.println("oraConn.queryEndsKey size : " + oraConn.queryEndsKey.size());
             while(oraConn.queryEndsKey.size() > 0) {
 /*                String key = oraConn.queryEndsKey.get(0);

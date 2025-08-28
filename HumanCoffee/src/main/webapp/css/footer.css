@@ -30,7 +30,7 @@
     font-size: 17px;
 }
 
-.footer_menu a {
+.footer_menu form {
     padding: 0px;
     margin-bottom: 10px;
 }
@@ -61,14 +61,14 @@
     display: none;
 }
 
-.footer_menu li a {
+.footer_menu button {
     display: block;
     color: rgba(147, 147, 147);
     font-size: 14px;
     padding: 5px;
 }
 
-.footer_menu li a.green {
+.footer_menu button.green {
     color: #669900;
 }
 

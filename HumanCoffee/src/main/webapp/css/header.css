@@ -215,7 +215,8 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
   margin: 0;
 }
 
-header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a,
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li form button {
   display: block;
   color: #ccc;
   font-size: 14px;
@@ -228,21 +229,46 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
   font-weight: 500;
 }
 
-header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li a:hover {
+header .header .main-menu .item .item__contents .contents__menu ul.inner > li > ul > li form button:hover {
   color: #8B4513;
   background: rgba(139, 69, 19, 0.1);
   transform: scale(1.05);
   padding-left: 25px;
 }
 
-/* Login Button */
-header .header .btn {
-  display: inline-block;
+.link-button {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  color: #ccc;
+  font-size: 14px;
   padding: 12px 20px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.link-button:hover {
+  color: #8B4513;
+  background: rgba(139, 69, 19, 0.1);
+  transform: scale(1.05);
+  padding-left: 25px;
+}
+
+/* Login Button - 공통 스타일 (a 태그, button 태그 모두 적용) */
+header .header .btn,
+header .header form button.btn {
+  display: inline-block;
+  padding: 15px 25px;
   border: 2px solid #8B4513;
   border-radius: 25px;
   color: #8B4513;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   text-align: center;
   cursor: pointer;
@@ -251,12 +277,13 @@ header .header .btn {
   position: relative;
   overflow: hidden;
   text-decoration: none;
-  min-width: 80px;
+  min-width: 100px;
   box-sizing: border-box;
   white-space: nowrap;
 }
 
-header .header .btn::before {
+header .header .btn::before,
+header .header form button.btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -267,18 +294,27 @@ header .header .btn::before {
   transition: left 0.5s ease;
 }
 
-header .header .btn:hover::before {
+header .header .btn:hover::before,
+header .header form button.btn:hover::before {
   left: 100%;
 }
 
-header .header .btn:hover {
+header .header .btn:hover,
+header .header form button.btn:hover {
   background: linear-gradient(135deg, #8B4513, #A0522D);
   color: #fff;
   box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
 }
 
-header .header .btn:active {
+header .header .btn:active,
+header .header form button.btn:active {
   transform: translateY(-50%) scale(0.98);
+}
+
+/* 로그인 버튼을 위한 form 스타일 - 인라인으로 표시 */
+header .header .loginService form {
+  display: inline-block;
+  margin: 0;
 }
 
 /* 로그인된 사용자 정보 영역 스타일 - 세로로 배치 */
@@ -317,9 +353,8 @@ header .header .loginService .btn {
 }
 
 header .header .loginService .login-btn-container {
-  margin-left: 16px; /* 👈 오른쪽 여백 추가 */
+  margin-left: 16px; /* 오른쪽 여백 추가 */
 }
-
 
 /* 애니메이션 */
 @keyframes slideInRight {
@@ -360,7 +395,8 @@ header .header .loginService .login-btn-container {
     font-size: 14px;
   }
   
-  header .header .btn {
+  header .header .btn,
+  header .header form button.btn {
     width: 100px;
     font-size: 14px;
   }
@@ -383,7 +419,8 @@ header .header .loginService .login-btn-container {
     display: none; /* Mobile menu would need separate implementation */
   }
   
-  header .header .btn {
+  header .header .btn,
+  header .header form button.btn {
     width: 80px;
     padding: 8px 15px;
     font-size: 13px;

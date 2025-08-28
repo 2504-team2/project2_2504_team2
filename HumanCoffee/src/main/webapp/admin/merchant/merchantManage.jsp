@@ -13,9 +13,35 @@
             // TODO: 실제 삭제 기능은 추후 구현
         }
     }
+    
     // 수정 이동 함수
     function merchantManage_update(id) {
-        location.href = "<%= request.getContextPath() %>/index.jsp?next_page=/admin/merchant/merchantUpdate.jsp?id=" + id;
+        // form 생성
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '<%= request.getContextPath() %>/';
+        form.acceptCharset = 'UTF-8';
+        
+        // next_page 파라미터를 위한 hidden input
+        var nextPageInput = document.createElement('input');
+        nextPageInput.type = 'hidden';
+        nextPageInput.name = 'next_page';
+        nextPageInput.value = '/admin/merchant/merchantUpdate.jsp';
+        
+        // id 파라미터를 위한 hidden input
+        var idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = id;
+        
+        // form에 input들 추가
+        form.appendChild(nextPageInput);
+        form.appendChild(idInput);
+        
+        // body에 form 추가하고 submit 후 제거
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
 </script>
 

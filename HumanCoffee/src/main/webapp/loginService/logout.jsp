@@ -13,6 +13,9 @@
 %>
 
 <script>
-	alert("로그아웃되었습니다.");
-	location.href='<%= request.getContextPath() %>' + '/index.jsp';
+	var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '<%= request.getContextPath() %>/';
+    document.body.appendChild(form);
+    form.submit();
 </script>

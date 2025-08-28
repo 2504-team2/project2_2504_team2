@@ -2,9 +2,9 @@
 .comhistory_container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
+  
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: rgba(51, 51, 51);
   min-height: 100vh;
 }
 
@@ -15,8 +15,7 @@
   color: #2c3e50;
   margin-bottom: 30px;
   text-align: center;
-  padding: 20px 0;
-  border-bottom: 3px solid #3498db;
+
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -25,19 +24,15 @@
 
 /* 폼 컨테이너 */
 .comhistory_box {
-  background: white;
   border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
-  border: 1px solid #e9ecef;
+  
   overflow: hidden;
 }
 
 /* 폼 헤더 */
 .form-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,7 +51,7 @@
 
 /* 폼 바디 */
 .form-body {
-  padding: 30px;
+  
 }
 
 .form-row {
@@ -405,11 +400,11 @@
 /* 반응형 디자인 */
 @media (max-width: 1200px) {
   .comhistory_container {
-    padding: 15px;
+  
   }
   
   .form-body {
-    padding: 20px;
+    
   }
 }
 
