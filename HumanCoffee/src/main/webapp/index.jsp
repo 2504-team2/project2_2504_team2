@@ -46,7 +46,9 @@
 <link rel="stylesheet" href="./css/merchantManage.css">
 <link rel="stylesheet" href="./css/merchantUpdate.css">
 <link rel="stylesheet" href="./css/merchantModal.css">
+<link rel="stylesheet" href="./css/merchantCreate.css">
 </head>
+
 <body>
 <div class="index_desktop">
 	<div class="index_top_pos">

@@ -10,7 +10,7 @@
 	String div = (String) session.getAttribute("div");
 	System.out.println("session div: " + session.getAttribute("div"));
 	Integer pointObj = (Integer) session.getAttribute("point");
-	Integer couponObj = (Integer) session.getAttribute("coupon");
+	Integer couponObj = (Integer) session.getAttribute("cupon");
 	
 	// null 체크 후 int 변환
 	int roll = (rollObj != null) ? rollObj.intValue() : 0;
@@ -105,10 +105,6 @@
 					<input type="hidden" name="next_page" value="/merchant/merchantList.jsp" />
 					<button type="submit" class="link-button">가맹점 리스트</button>
 				  </form> 
-                  <form action="<%= request.getContextPath() %>/" method="post">
-					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
-					<button type="submit" class="link-button">창업신청</button>
-				  </form>
                 </ul>
                 </li>
             </ul>
