@@ -168,6 +168,11 @@ public class ManageSubComs {
 		String sql = "insert into sub_com (com_id, id, name, tel, fax, addr, email, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, ?) ";
 		
+		java.sql.Date sqlInDate = null;
+		if(sub_com.getInDate() != null) {
+		    sqlInDate = new java.sql.Date(sub_com.getInDate().getTime());
+		}
+		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
 				sub_com.getComId(),
@@ -177,7 +182,8 @@ public class ManageSubComs {
 				sub_com.getFax(),
 				sub_com.getAddr(),
 				sub_com.getEmail(),
-				sub_com.getInDate()
+//				sub_com.getInDate()
+				sqlInDate
 				));
 		oraConn.queryInfosKey.add(key);
 		return sub_com;
