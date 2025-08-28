@@ -136,7 +136,8 @@ public class ManageComMembers {
 			System.out.println(com_member.getId() + ":는 없는 ID 입니다.");
 			return;
 		}
-
+		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());
+		com_member.setPwd(pwd);
 		String sql = "update com_member set com_id = ?, pwd = ?, name = ?, tel = ?, roll_id = ?, outdate = ?, status = ? " +
 				" where id = ?";
 		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());

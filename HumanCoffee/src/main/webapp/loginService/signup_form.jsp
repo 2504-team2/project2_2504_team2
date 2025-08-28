@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="../css/signup.css" />
 <!-- 로그인 기능 관련 JS -->
 <script src="<%=request.getContextPath()%>/js/login.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,7 @@
     <h2>Human Coffee 회원가입</h2>
     
 
-    <form action="signup.jsp" method="post">
+    <form action="<%= request.getContextPath() %>/loginService/signup.jsp" method="post">
         <div>
             <label for="id">아이디 입력</label>
             <input type="text" id="id" name="id" placeholder="아이디를 입력해주세요." required>
@@ -32,7 +33,7 @@
             <input type="text" id="tel" name="tel" placeholder="전화번호를 입력해주세요." required>
         </div>
         <button type="submit">회원가입</button>
-        <a href="../index.jsp" class="btn">취소</a>
+        <a href="<%= request.getContextPath() %>/" class="btn">취소</a>
     </form>
 </div>
 </body>
