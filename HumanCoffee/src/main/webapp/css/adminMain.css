@@ -19,6 +19,7 @@
 
 .adminMain_buttons {
     display: flex;
+    flex-direction:column;
     justify-content: center;
     gap: 20px;
 }
