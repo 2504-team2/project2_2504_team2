@@ -45,6 +45,7 @@
 <link rel="stylesheet" href="./css/adminMain.css">
 <link rel="stylesheet" href="./css/merchantManage.css">
 <link rel="stylesheet" href="./css/merchantUpdate.css">
+<link rel="stylesheet" href="./css/merchantModal.css">
 </head>
 <body>
 <div class="index_desktop">
