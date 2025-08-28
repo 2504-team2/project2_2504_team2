@@ -27,6 +27,13 @@ boolean ManageCheck2 = (roll == 4 || roll == 5 || roll == 6 || roll == 7);
 	            가맹점 관리
 	        </button>
 		</form>
+		<form action="<%= request.getContextPath() %>/" method="post">
+    		<input type="hidden" name="next_page" value="/admin/menu/product_List.jsp" />
+	        <!-- 가맹점 관리 페이지로 이동 -->
+	        <button type="submit" class="adminMain_btn">
+	            제품 관리
+	        </button>
+		</form>
     </div>
     <%
 	}
