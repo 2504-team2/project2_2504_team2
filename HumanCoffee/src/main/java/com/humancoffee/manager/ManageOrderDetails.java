@@ -123,11 +123,11 @@ public class ManageOrderDetails {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertOrderDetail(Order_Detail order_detail) {
+	public Order_Detail insertOrderDetail(Order_Detail order_detail) {
 		indexSearch = algo.binarySearchIndex(order_details[memory_pos], order_detail, new OrderDetailIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println("주문ID [" + order_detail.getOrderId() + "], 상품ID [" + order_detail.getProductId() + "] :는 있는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into order_detail (order_id, product_id, cnt, tot_price ) values " +
 				" (?, ?, ?, ?) ";
@@ -140,6 +140,7 @@ public class ManageOrderDetails {
 				order_detail.getTotPrice()				
 				));
 		oraConn.queryInfosKey.add(key);
+		return order_detail;
 	}
 	
 	public Order_Detail searchOrderDetailByOrderIdNProductId(Order_Detail order_detail) {

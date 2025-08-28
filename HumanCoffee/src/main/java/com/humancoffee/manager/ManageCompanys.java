@@ -154,7 +154,7 @@ public class ManageCompanys {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertCompany(Company company) {
+	public Company insertCompany(Company company) {
 		String max_id = null;
 		if(companys[memory_pos].size() > 0)
 			max_id = companys[memory_pos].get(companys[memory_pos].size() - 1).getId();
@@ -163,7 +163,7 @@ public class ManageCompanys {
 		indexSearch = algo.binarySearchIndex(companys[memory_pos], company, new CompanyIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(company.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into company (id, name, tel, fax, addr, sale_email, eng_email, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, ?) ";
@@ -175,11 +175,12 @@ public class ManageCompanys {
 				company.getTel(), 
 				company.getFax(),
 				company.getAddr(),
-				company.getSaleEmail(),
 				company.getEngEmail(),
+				company.getSaleEmail(),
 				company.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
+		return company;
 	}
 	
 	public Company searchCompanyById(Company company) {

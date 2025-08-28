@@ -49,28 +49,24 @@ public class OrderWebSocket {
     // 서버에서 모든 연결된 클라이언트에게 메시지 전송
 //    public static void broadcast(String message) {
     public static void broadcast(List<OrderHead> T) {
-    	try {
-            // List<OrderHead> 객체를 JSON 문자열로 직렬화
-            String jsonMessage = mapper.writeValueAsString(T);
+    	// List<OrderHead> 객체를 JSON 문자열로 직렬화
+		String jsonMessage = mapper.writeValueAsString(T);
 
-            synchronized (clients) {
-                for (Session client : clients) {
-                    try {
-                        client.getBasicRemote().sendText(jsonMessage); // 텍스트로 전송
-                    } catch (IOException e) {
-                        System.err.println("Failed to send message to client: " + client.getId());
-                        clients.remove(client);
-                        try {
-                            client.close();
-                        } catch (IOException ex) {
-                            // ignore
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Failed to serialize object to JSON: " + e.getMessage());
-            e.printStackTrace();
-        }
+		synchronized (clients) {
+		    for (Session client : clients) {
+		        try {
+		        	System.out.println(client.getBasicRemote() + ":" + jsonMessage);
+		            client.getBasicRemote().sendText(jsonMessage); // 텍스트로 전송
+		        } catch (IOException e) {
+		            System.err.println("Failed to send message to client: " + client.getId());
+		            clients.remove(client);
+		            try {
+		                client.close();
+		            } catch (IOException ex) {
+		                // ignore
+		            }
+		        }
+		    }
+		}
     }
 }

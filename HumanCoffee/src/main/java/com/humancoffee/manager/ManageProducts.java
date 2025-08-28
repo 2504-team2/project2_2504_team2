@@ -153,7 +153,7 @@ public class ManageProducts {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertProduct(Product product) {
+	public Product insertProduct(Product product) {
 		String max_id = null;
 		if(products[memory_pos].size() > 0)
 			max_id = products[memory_pos].get(products[memory_pos].size() - 1).getId();
@@ -162,7 +162,7 @@ public class ManageProducts {
 		indexSearch = algo.binarySearchIndex(products[memory_pos], product, new ProductIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(product.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into product (id, name, price, point, div, content, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?) ";
@@ -178,6 +178,7 @@ public class ManageProducts {
 				product.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
+		return product;
 	}
 	public Product searchProductById(Product product) {
 		Product rcv_product = (Product)algo.binarySearchObj(products[memory_pos], product, new ProductIdComparator());
