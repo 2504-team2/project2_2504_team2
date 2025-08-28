@@ -134,7 +134,7 @@ public class ManageCupons {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertCupon(Cupon cupon) {
+	public Cupon insertCupon(Cupon cupon) {
 		String max_id = null;
 		if(cupons[memory_pos].size() > 0)
 			max_id = cupons[memory_pos].get(cupons[memory_pos].size() - 1).getId();
@@ -143,7 +143,7 @@ public class ManageCupons {
 		indexSearch = algo.binarySearchIndex(cupons[memory_pos], cupon, new CuponIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(cupon.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into cupon (id, name, point, indate) values " +
 				" (?, ?, ?, ?) ";
@@ -156,6 +156,7 @@ public class ManageCupons {
 				cupon.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
+		return cupon;
 	}
 
 	public Cupon searchCuponById(Cupon cupon) {

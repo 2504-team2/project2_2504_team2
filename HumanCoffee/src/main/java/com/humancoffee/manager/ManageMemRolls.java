@@ -134,7 +134,7 @@ public class ManageMemRolls {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertMemRoll(Mem_Roll mem_roll) {
+	public Mem_Roll insertMemRoll(Mem_Roll mem_roll) {
 		String max_id = null;
 		if(mem_rolls[memory_pos].size() > 0)
 			max_id = mem_rolls[memory_pos].get(mem_rolls[memory_pos].size() - 1).getId();
@@ -143,7 +143,7 @@ public class ManageMemRolls {
 		indexSearch = algo.binarySearchIndex(mem_rolls[memory_pos], mem_roll, new MemRollIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(mem_roll.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into mem_roll (id, name, roll, indate) values " +
 				" (?, ?, ?, sysdate) ";
@@ -155,6 +155,7 @@ public class ManageMemRolls {
 				mem_roll.getRoll()
 				));
 		oraConn.queryInfosKey.add(key);
+		return mem_roll;
 	}
 	public Mem_Roll searchMemRollById(Mem_Roll mem_roll) {
 		Mem_Roll rcv_mem_roll = (Mem_Roll)algo.binarySearchObj(mem_rolls[memory_pos], mem_roll, new MemRollIdComparator());

@@ -152,7 +152,7 @@ public class ManageProductImgs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertProductImg(Product_Img product_img) {
+	public Product_Img insertProductImg(Product_Img product_img) {
 		String max_id = null;
 		if(product_imgs[memory_pos].size() > 0)
 			max_id = product_imgs[memory_pos].get(product_imgs[memory_pos].size() - 1).getId();
@@ -161,7 +161,7 @@ public class ManageProductImgs {
 		indexSearch = algo.binarySearchIndex(product_imgs[memory_pos], product_img, new ProductImgIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(product_img.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into product_img (product_id, id, div, filename, bfile, indate) values " +
 				" (?, ?, ?, ?, ?, ?) ";
@@ -176,6 +176,7 @@ public class ManageProductImgs {
 				product_img.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
+		return product_img;
 	}
 	
 	public List<Product_Img> searchProductImgByProductId(String id) {

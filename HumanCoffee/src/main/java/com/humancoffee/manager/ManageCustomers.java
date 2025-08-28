@@ -159,10 +159,10 @@ public class ManageCustomers {
 		else {
 			indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
 		}
-			
+		
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
-			return;
+			return null;
 		}else {
 			Com_Member com_member = new Com_Member();
 			com_member.setId(customer.getId());
@@ -173,7 +173,7 @@ public class ManageCustomers {
 				indexSearch[algo.DEF_SEARCH_RESULT_POS] = 1;
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
-				return;
+				return null;
 			}
 		}
 		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
@@ -189,6 +189,7 @@ public class ManageCustomers {
 				customer.getTel()
 				));
 		oraConn.queryInfosKey.add(key);
+		return customer;
 	}
 	
 	public Customer searchCustomerById(Customer customer) {
