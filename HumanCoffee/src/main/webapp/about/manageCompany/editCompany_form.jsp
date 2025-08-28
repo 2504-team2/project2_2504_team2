@@ -16,7 +16,11 @@
 	HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 	ManageCompanys com = hcInstance.mCompanys;
 
+	// Parameter와 Attribute 모두 확인
 	String companyId = request.getParameter("companyId");
+	if(companyId == null || companyId.isEmpty()) {
+		companyId = (String) request.getAttribute("companyId");
+	}
 	
 	// 기본값 설정
     String name = "";
@@ -111,10 +115,26 @@
             
             <div class="btn-group">
                 <button type="submit">수정</button>
-                <a href="<%= request.getContextPath() %>/index.jsp?next_page=/about/company.jsp" class="btn">취소</a>
+                <button type="button" class="btn" onclick="cancelEdit()">취소</button>
             </div>
         </form>
     </div>
+    
+    <script>
+        function cancelEdit() {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '<%= request.getContextPath() %>/';
+            
+            var nextPageInput = document.createElement('input');
+            nextPageInput.type = 'hidden';
+            nextPageInput.name = 'next_page';
+            nextPageInput.value = '/about/company.jsp';
+            form.appendChild(nextPageInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
 </body>
-</html>
 </html>

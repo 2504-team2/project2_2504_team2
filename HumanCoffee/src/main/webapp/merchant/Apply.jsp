@@ -44,7 +44,14 @@
             // DB 삽입 시도
             mSubComs.insertSubCom(newSubCom);
 
-            out.println("<script>alert('가맹점 신청이 완료되었습니다.'); location.href='merchantApply.jsp';</script>");
+            out.println("<script>");
+            out.println("alert('가맹점 신청이 완료되었습니다.')");
+            out.println("var form = document.createElement('form');");
+            out.println("form.method = 'POST';");
+            out.println("form.action = 'merchantApply.jsp';");
+            out.println("document.body.appendChild(form);");
+            out.println("form.submit();");
+            out.println("</script>");
             
         } catch (Exception e) {
             e.printStackTrace(); // 서버 콘솔에 에러 로그 출력

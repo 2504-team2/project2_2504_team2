@@ -260,8 +260,9 @@ header .header .main-menu .item .item__contents .contents__menu ul.inner > li > 
   padding-left: 25px;
 }
 
-/* Login Button */
-header .header .btn {
+/* Login Button - 공통 스타일 (a 태그, button 태그 모두 적용) */
+header .header .btn,
+header .header form button.btn {
   display: inline-block;
   padding: 15px 25px;
   border: 2px solid #8B4513;
@@ -281,7 +282,8 @@ header .header .btn {
   white-space: nowrap;
 }
 
-header .header .btn::before {
+header .header .btn::before,
+header .header form button.btn::before {
   content: '';
   position: absolute;
   top: 0;
@@ -292,18 +294,27 @@ header .header .btn::before {
   transition: left 0.5s ease;
 }
 
-header .header .btn:hover::before {
+header .header .btn:hover::before,
+header .header form button.btn:hover::before {
   left: 100%;
 }
 
-header .header .btn:hover {
+header .header .btn:hover,
+header .header form button.btn:hover {
   background: linear-gradient(135deg, #8B4513, #A0522D);
   color: #fff;
   box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
 }
 
-header .header .btn:active {
+header .header .btn:active,
+header .header form button.btn:active {
   transform: translateY(-50%) scale(0.98);
+}
+
+/* 로그인 버튼을 위한 form 스타일 - 인라인으로 표시 */
+header .header .loginService form {
+  display: inline-block;
+  margin: 0;
 }
 
 /* 로그인된 사용자 정보 영역 스타일 - 세로로 배치 */
@@ -342,9 +353,8 @@ header .header .loginService .btn {
 }
 
 header .header .loginService .login-btn-container {
-  margin-left: 16px; /* 👈 오른쪽 여백 추가 */
+  margin-left: 16px; /* 오른쪽 여백 추가 */
 }
-
 
 /* 애니메이션 */
 @keyframes slideInRight {
@@ -385,7 +395,8 @@ header .header .loginService .login-btn-container {
     font-size: 14px;
   }
   
-  header .header .btn {
+  header .header .btn,
+  header .header form button.btn {
     width: 100px;
     font-size: 14px;
   }
@@ -408,7 +419,8 @@ header .header .loginService .login-btn-container {
     display: none; /* Mobile menu would need separate implementation */
   }
   
-  header .header .btn {
+  header .header .btn,
+  header .header form button.btn {
     width: 80px;
     padding: 8px 15px;
     font-size: 13px;
