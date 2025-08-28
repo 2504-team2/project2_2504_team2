@@ -39,9 +39,7 @@ int tot_cnt = (nowCom_HistoryList != null) ? nowCom_HistoryList.size() : 0;
 <div class="comhistory-list-box">
     <div class="list-header">
         <h3 class="list-title">연혁 목록 <span class="record-count">(총 <%= tot_cnt %>건)</span></h3>
-		<% if(ManageCheck) { %>
-        <button class="btn btn-search">등록</button>
-        <% } %>
+        <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_insert_form.jsp"><button class="btn btn-search">등록</button></a>
         <div class="search-box">
             <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요">
             <button type="button" class="btn btn-search" onclick="searchHistory()">검색</button>
@@ -86,14 +84,14 @@ int tot_cnt = (nowCom_HistoryList != null) ? nowCom_HistoryList.size() : 0;
                 <div class="table-cell">
                     <span class="status-badge status-<%= history.getStatus() %>"><%= (history.getStatus() == 0) ? "운영중" : "폐업" %></span>
                 </div>
-                <div class="table-cell">
-                	<% if(ManageCheck) { %>
-                    <div class="btn-group">
-                        <a href="comhistory_update_form.jsp;"><button class="btn btn-edit" onclick="com('<%= history.getId() %>')">수정</button></a>
-                      
-                    </div>
-                    <% } %>
-                </div>
+
+            <div class="table-cell">
+    <div class="btn-group">
+       <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_update_form.jsp">
+            <button class="btn btn-edit">수정</button>
+        </a>
+    </div>
+</div>
             </div>
             <%
                 }
