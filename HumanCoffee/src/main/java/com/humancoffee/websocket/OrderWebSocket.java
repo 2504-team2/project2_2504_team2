@@ -56,6 +56,7 @@ public class OrderWebSocket {
             synchronized (clients) {
                 for (Session client : clients) {
                     try {
+                    	System.out.println(client.getBasicRemote() + ":" + jsonMessage);
                         client.getBasicRemote().sendText(jsonMessage); // 텍스트로 전송
                     } catch (IOException e) {
                         System.err.println("Failed to send message to client: " + client.getId());

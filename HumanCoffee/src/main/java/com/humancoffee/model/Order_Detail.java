@@ -36,7 +36,16 @@ public class Order_Detail implements Comparable<Order_Detail>{
 //	Comparable 인터페이스 구현: ID를 기준으로 정렬 및 비교
  	@Override
  	public int compareTo(Order_Detail other){
- 		return this.order_id.compareTo(other.order_id);
-// 		return Integer.compare(this.age, other.age);
+//		return this.order_id.compareTo(other.order_id);
+ 		// First, compare by order_id
+ 	    int orderIdComparison = this.order_id.compareTo(other.order_id);
+
+ 	    // If order IDs are different, return the result
+ 	    if (orderIdComparison != 0) {
+ 	        return orderIdComparison;
+ 	    }
+
+ 	    // If order IDs are the same, compare by product_id
+ 	    return this.product_id.compareTo(other.product_id);
  	}
 }

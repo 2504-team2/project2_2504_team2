@@ -141,7 +141,7 @@ public class ManageComHistorys {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertComHistory(Com_History com_history) {
+	public Com_History insertComHistory(Com_History com_history) {
 		String max_id = null;
 		if(com_historys[memory_pos].size() > 0)
 			max_id = com_historys[memory_pos].get(com_historys[memory_pos].size() - 1).getId();
@@ -150,7 +150,7 @@ public class ManageComHistorys {
 		indexSearch = algo.binarySearchIndex(com_historys[memory_pos], com_history, new ComHistoryIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_history.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into com_history (com_id, id, startdate, enddate, title, content) values " +
 				" (?, ?, ?, ?, ?, ?) ";
@@ -165,6 +165,7 @@ public class ManageComHistorys {
 				com_history.getContent()
 				));
 		oraConn.queryInfosKey.add(key);
+		return com_history;
 	}
 	
 	public Com_History searchComHistoryById(Com_History com_history) {
