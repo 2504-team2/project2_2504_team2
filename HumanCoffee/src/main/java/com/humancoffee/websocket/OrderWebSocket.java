@@ -3,10 +3,14 @@ package com.humancoffee.websocket;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper; // ObjectMapper 클래스 임포트 추가
 import com.humancoffee.model.*;
 
@@ -21,6 +25,7 @@ public class OrderWebSocket {
     // 클라이언트가 연결되면 호출
     @OnOpen
     public void onOpen(Session session) {
+    	
         System.out.println("WebSocket opened: " + session.getId());
         clients.add(session); // 새로운 클라이언트 세션 추가
     }
@@ -48,14 +53,14 @@ public class OrderWebSocket {
 
     // 서버에서 모든 연결된 클라이언트에게 메시지 전송
 //    public static void broadcast(String message) {
-    public static void broadcast(List<OrderHead> T) {
+    public static void broadcast(List<OrderHead> T) throws JsonProcessingException {
     	// List<OrderHead> 객체를 JSON 문자열로 직렬화
 		String jsonMessage = mapper.writeValueAsString(T);
-
+		System.out.println("1-broadcast:" + jsonMessage);
 		synchronized (clients) {
 		    for (Session client : clients) {
 		        try {
-		        	System.out.println(client.getBasicRemote() + ":" + jsonMessage);
+		        	System.out.println("2-broadcast:" + client.getBasicRemote() + ":" + jsonMessage);
 		            client.getBasicRemote().sendText(jsonMessage); // 텍스트로 전송
 		        } catch (IOException e) {
 		            System.err.println("Failed to send message to client: " + client.getId());
