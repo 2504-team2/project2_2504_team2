@@ -18,13 +18,13 @@
             <div class="menu-list">
                 <div class="menu-item">
                     <div class="decaf-badge">Decaf</div>
-                    <img src="./images/커피/HOT_아메리카노.jpg" alt="디카페인 아메리카노">
+                    <img src="<%= request.getContextPath() %>/images/coffee/HOT_아메리카노.jpg" alt="아메리카노">
                     <h3>디카페인 아메리카노</h3>
                     <p>카페인을 제거한 부드럽고 은은한 맛의 아메리카노로, 언제든지 편안하게 즐길 수 있습니다.</p>
                 </div>
                 <div class="menu-item">
                     <div class="decaf-badge">Decaf</div>
-                    <img src="./images/커피/HOT_카페라떼.jpg" alt="디카페인 라떼">
+                    <img src="<%= request.getContextPath() %>/images/coffee/HOT_카페라떼.jpg" alt="라떼">
                     <h3>디카페인 라떼</h3>
                     <p>부드러운 우유와 디카페인 에스프레소가 어우러진 편안한 커피의 여유를 선사합니다.</p>
                 </div>

@@ -51,17 +51,38 @@
 			}		
 %>
 <script>
-			alert('로그인에 성공했습니다.');
-			location.href='<%= request.getContextPath() %>/index.jsp';
+    alert('로그인에 성공했습니다.');
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '<%= request.getContextPath() %>/';
+    document.body.appendChild(form);
+    form.submit();
 </script>
 <%
 		} else {
-			System.out.println("fail");
-			// 로그인 실패 시 로그인 폼으로 리다이렉션
 %>
 <script>
-			alert('아이디 또는 비밀번호가 올바르지 않습니다.');
-			location.href='<%= request.getContextPath() %>/loginService/login_form.jsp?error=invalid';
+    alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '<%= request.getContextPath() %>/';
+    
+ 	// hidden 파라미터로 page 값 전달
+    var hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'page';
+    hidden.value = 'login_form.jsp';
+    form.appendChild(hidden);
+    
+    // Create an input for the error parameter
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'error';
+    input.value = 'invalid';
+    form.appendChild(input);
+    
+    document.body.appendChild(form);
+    form.submit();
 </script>
 <%
 		}
@@ -70,4 +91,3 @@
 		common.getStackTraceAsString(e);
 	}
 %>
-

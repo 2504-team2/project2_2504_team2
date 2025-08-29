@@ -10,11 +10,11 @@
     HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 
     if(hcInstance != null){
-        // HumanCoffee 객체로부터 ManageSubComs 객체 가져오기
         ManageSubComs mSubComs = hcInstance.mSubComs;
-
         List<Sub_Com> merchantList = mSubComs.sub_coms[mSubComs.memory_pos];
 %>
+
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/merchantModal.css" />
 
 <main class="merchant_list_page">
     <div class="inner">
@@ -26,7 +26,8 @@
                 Sub_Com sub_com = merchantList.get(i);
                 String imgPath = request.getContextPath() + "/images/merchant/human" + (i+1) + ".png";
     %>
-        <div class="merchant-card">
+        <div class="merchant-card" 
+             onclick="openMerchantModal('<%=sub_com.getName()%>', '<%=sub_com.getAddr()%>', '<%=sub_com.getTel()%>', '<%=sub_com.getEmail()%>', '<%=imgPath%>')">
             <img src="<%= imgPath %>" alt="<%=sub_com.getName()%>" />
             <div class="info">
                 <h2><%=sub_com.getName()%></h2>
@@ -43,9 +44,32 @@
     <%
         }
     %>
-</div>
+        </div>
     </div>
 </main>
+
+<!-- ✅ 모달 JSP include -->
+<jsp:include page="./merchantModal.jsp" />
+
+<script>
+function openMerchantModal(name, addr, tel, email, imgPath) {
+    document.getElementById("merchantModal").style.display = "flex";
+    document.getElementById("modalName").innerText = name;
+    document.getElementById("modalAddr").innerText = addr;
+    document.getElementById("modalTel").innerText = "전화: " + tel;
+    document.getElementById("modalEmail").innerText = "이메일: " + email;
+    document.getElementById("modalImg").src = imgPath;
+
+    // ✅ 구글 지도 iframe src 업데이트
+    const mapUrl = "https://www.google.com/maps?q=" + encodeURIComponent(addr) + "&output=embed";
+    document.getElementById("modalMap").src = mapUrl;
+}
+
+
+    function closeMerchantModal() {
+        document.getElementById("merchantModal").style.display = "none";
+    }
+</script>
 
 <%
     } else {

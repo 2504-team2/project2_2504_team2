@@ -31,6 +31,8 @@
 <link rel="stylesheet" href="./css/header.css" />
 <link rel="stylesheet" href="./css/home.css" />
 <link rel="stylesheet" href="./css/footer.css">
+<link rel="stylesheet" href="./css/login.css" />
+<link rel="stylesheet" href="./css/signup.css" />
 <link rel="stylesheet" href="./css/menu-coffee.css" />
 <link rel="stylesheet" href="./css/menu-dikapein.css" />
 <link rel="stylesheet" href="./css/menu-juice.css" />
@@ -43,7 +45,10 @@
 <link rel="stylesheet" href="./css/adminMain.css">
 <link rel="stylesheet" href="./css/merchantManage.css">
 <link rel="stylesheet" href="./css/merchantUpdate.css">
+<link rel="stylesheet" href="./css/merchantModal.css">
+<link rel="stylesheet" href="./css/merchantCreate.css">
 </head>
+
 <body>
 <div class="index_desktop">
 	<div class="index_top_pos">

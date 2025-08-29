@@ -154,7 +154,7 @@ public class ManageSubComs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertSubCom(Sub_Com sub_com) {
+	public Sub_Com insertSubCom(Sub_Com sub_com) {
 		String max_id = null;
 		if(sub_coms[memory_pos].size() > 0)
 			max_id = sub_coms[memory_pos].get(sub_coms[memory_pos].size() - 1).getId();
@@ -163,10 +163,15 @@ public class ManageSubComs {
 		indexSearch = algo.binarySearchIndex(sub_coms[memory_pos], sub_com, new SubComIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(sub_com.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into sub_com (com_id, id, name, tel, fax, addr, email, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, ?) ";
+		
+		java.sql.Date sqlInDate = null;
+		if(sub_com.getInDate() != null) {
+		    sqlInDate = new java.sql.Date(sub_com.getInDate().getTime());
+		}
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
@@ -177,9 +182,11 @@ public class ManageSubComs {
 				sub_com.getFax(),
 				sub_com.getAddr(),
 				sub_com.getEmail(),
-				sub_com.getInDate()
+//				sub_com.getInDate()
+				sqlInDate
 				));
 		oraConn.queryInfosKey.add(key);
+		return sub_com;
 	}
 	
 	public Sub_Com searchSubComById(Sub_Com sub_com) {

@@ -11,6 +11,14 @@ pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="../css/comhistory.css" />
 
 <%
+//세션에서 권한 정보 가져오기
+String div = (String) session.getAttribute("div");
+Integer rollObj = (Integer) session.getAttribute("roll");
+int roll = (rollObj != null) ? rollObj.intValue() : 0;
+
+//관리 권한 체크 (4, 5, 6, 7번 권한만 등록/수정/삭제 가능)
+boolean ManageCheck = (roll == 4 || roll == 5 || roll == 6 || roll == 7);
+
 HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
 ManageComHistorys com = hcInstance.mComHistorys;
 int pos = hcInstance.mComHistorys.memory_pos;
@@ -31,7 +39,7 @@ int tot_cnt = (nowCom_HistoryList != null) ? nowCom_HistoryList.size() : 0;
 <div class="comhistory-list-box">
     <div class="list-header">
         <h3 class="list-title">연혁 목록 <span class="record-count">(총 <%= tot_cnt %>건)</span></h3>
-        <button class="btn btn-search">등록</button>
+        <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_insert_form.jsp"><button class="btn btn-search">등록</button></a>
         <div class="search-box">
             <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요">
             <button type="button" class="btn btn-search" onclick="searchHistory()">검색</button>
@@ -76,12 +84,14 @@ int tot_cnt = (nowCom_HistoryList != null) ? nowCom_HistoryList.size() : 0;
                 <div class="table-cell">
                     <span class="status-badge status-<%= history.getStatus() %>"><%= (history.getStatus() == 0) ? "운영중" : "폐업" %></span>
                 </div>
-                <div class="table-cell">
-                    <div class="btn-group">
-                        <a href="comhistory_update_form.jsp;"><button class="btn btn-edit" onclick="com('<%= history.getId() %>')">수정</button></a>
-                      
-                    </div>
-                </div>
+
+            <div class="table-cell">
+    <div class="btn-group">
+       <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_update_form.jsp">
+            <button class="btn btn-edit">수정</button>
+        </a>
+    </div>
+</div>
             </div>
             <%
                 }

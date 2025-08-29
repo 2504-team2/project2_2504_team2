@@ -142,7 +142,7 @@ public class ManageComCis {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertComCi(Com_Ci com_ci) {
+	public Com_Ci insertComCi(Com_Ci com_ci) {
 		String max_id = null;
 		if(com_cis[memory_pos].size() > 0)
 			max_id = com_cis[memory_pos].get(com_cis[memory_pos].size() - 1).getId();
@@ -151,7 +151,7 @@ public class ManageComCis {
 		indexSearch = algo.binarySearchIndex(com_cis[memory_pos], com_ci, new ComCiIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_ci.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into com_ci (com_id, id, indate, outdate, filename, bfile) values " +
 				" (?, ?, ?, ?, ?, ?) ";
@@ -166,6 +166,7 @@ public class ManageComCis {
 				com_ci.getBFile()
 				));
 		oraConn.queryInfosKey.add(key);
+		return com_ci;
 	}
 /*	
 	private List<Com_Ci> searchComHistoryByTitle(String title) {

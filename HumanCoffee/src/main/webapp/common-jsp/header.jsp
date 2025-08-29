@@ -10,7 +10,7 @@
 	String div = (String) session.getAttribute("div");
 	System.out.println("session div: " + session.getAttribute("div"));
 	Integer pointObj = (Integer) session.getAttribute("point");
-	Integer couponObj = (Integer) session.getAttribute("coupon");
+	Integer couponObj = (Integer) session.getAttribute("cupon");
 	
 	// null 체크 후 int 변환
 	int roll = (rollObj != null) ? rollObj.intValue() : 0;
@@ -30,7 +30,7 @@
         <%
         if (div != null && div.equals("member")) {
         %>
-          <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+          <form action="<%= request.getContextPath() %>/" method="post">
     		<input type="hidden" name="next_page" value="/admin/main.jsp" />
 	        <!-- 가맹점 관리 페이지로 이동 -->
 	        <button type="submit" class="btn">
@@ -51,15 +51,15 @@
             <ul class="inner">
               <li>
                 <ul>
-	              <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+	              <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/company.jsp" />
 					<button type="submit" class="link-button">휴먼커피에 대하여</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/comhistory.jsp" />
 					<button type="submit" class="link-button">연혁</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/about/map.jsp" />
 					<button type="submit" class="link-button">오시는 길</button>
 				  </form>
@@ -76,15 +76,15 @@
             <ul class="inner">
                <li>
                 <ul>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-coffee.jsp" />
 					<button type="submit" class="link-button">커피</button>
 				  </form>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-dikapein.jsp" />
 					<button type="submit" class="link-button">디카페인</button>
 				  </form> 
-				  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+				  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/menu/menu-juice.jsp" />
 					<button type="submit" class="link-button">주스</button>
 				  </form> 
@@ -101,14 +101,10 @@
             <ul class="inner">
               <li>
                 <ul>
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                  <form action="<%= request.getContextPath() %>/" method="post">
 					<input type="hidden" name="next_page" value="/merchant/merchantList.jsp" />
 					<button type="submit" class="link-button">가맹점 리스트</button>
 				  </form> 
-                  <form action="<%= request.getContextPath() %>/index.jsp" method="post">
-					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
-					<button type="submit" class="link-button">창업신청</button>
-				  </form>
                 </ul>
                 </li>
             </ul>
@@ -121,7 +117,11 @@
       <%
       if (id == null || id.equals("")) {
       %>
-        <a href="<%= request.getContextPath() %>/loginService/login_form.jsp" class="btn">로그인</a>
+        <!-- index.jsp를 통한 로그인 폼 로딩 방식으로 변경 -->
+        <form action="<%= request.getContextPath() %>/" method="post">
+          <input type="hidden" name="next_page" value="/loginService/login_form.jsp" />
+          <button type="submit" class="btn">로그인</button>
+        </form>
       <%
       // 일반 사용자 로그인
       } else if (div != null && div.equals("customer")) {
@@ -131,7 +131,9 @@
           <span>쿠폰: <%= coupon %>개  point: <%= point %></span>
         </div>
         <div class="login-btn-container">
-        	<a href="javascript: Logout();" class="btn">로그아웃</a>
+        	<form action="<%= request.getContextPath() %>/loginService/logout.jsp" method="post" style="display: inline;">
+        		<button type="submit" class="btn">로그아웃</button>
+        	</form>
         </div>
       <%
       } else {
@@ -179,7 +181,9 @@
           <span>관리자: <%= name %></span>
         </div>
           <div class="login-btn-container">
-          	<a href="javascript: Logout();" class="btn">로그아웃</a>
+          	<form action="<%= request.getContextPath() %>/loginService/logout.jsp" method="post" style="display: inline;">
+          		<button type="submit" class="btn">로그아웃</button>
+          	</form>
           </div>
         
        <%

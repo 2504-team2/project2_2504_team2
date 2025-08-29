@@ -100,7 +100,9 @@ for(int loop = 0; loop < tot_cnt; loop++){
 function registerCompany() {
     var form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'company-register.jsp';
+
+    form.action = 'insertCompany_form.jsp';
+
     document.body.appendChild(form);
     form.submit();
 }
@@ -127,7 +129,9 @@ function deleteCompany(companyId) {
 
     var form = document.createElement('form');
     form.method = 'POST';
-    form.action = 'company-delete.jsp';
+
+    form.action = '<%= request.getContextPath() %>/about/manageCompany/deleteCompany.jsp';
+
 
     var idInput = document.createElement('input');
     idInput.type = 'hidden';
@@ -139,4 +143,3 @@ function deleteCompany(companyId) {
     form.submit();
 }
 </script>
-
