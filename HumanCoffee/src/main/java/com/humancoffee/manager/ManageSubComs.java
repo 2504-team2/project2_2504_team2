@@ -16,6 +16,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageSubComs {
 	public List<Sub_Com>[] sub_coms = (List<Sub_Com>[]) new List[2];
+	public List<Sub_Com> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -35,11 +36,16 @@ public class ManageSubComs {
 			sub_coms[0].clear();
 		if(sub_coms[1] != null)
 			sub_coms[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageSubComs(){
 		sub_coms[0] = new Vector<>();
 		sub_coms[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -112,6 +118,7 @@ public class ManageSubComs {
 			
 			sub_coms[mem_pos].add(sub_com);
 		}
+		lists = sub_coms[mem_pos];
 	}
 	
 	public void updateSubComStatus(Sub_Com sub_com) {
@@ -168,6 +175,11 @@ public class ManageSubComs {
 		String sql = "insert into sub_com (com_id, id, name, tel, fax, addr, email, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, ?) ";
 		
+		java.sql.Date sqlInDate = null;
+		if(sub_com.getInDate() != null) {
+		    sqlInDate = new java.sql.Date(sub_com.getInDate().getTime());
+		}
+		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
 				sub_com.getComId(),
@@ -177,7 +189,8 @@ public class ManageSubComs {
 				sub_com.getFax(),
 				sub_com.getAddr(),
 				sub_com.getEmail(),
-				sub_com.getInDate()
+//				sub_com.getInDate()
+				sqlInDate
 				));
 		oraConn.queryInfosKey.add(key);
 		return sub_com;

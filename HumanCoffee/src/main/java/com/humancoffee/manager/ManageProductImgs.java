@@ -17,6 +17,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageProductImgs {
 	public List<Product_Img>[] product_imgs = (List<Product_Img>[]) new List[2];
+	public List<Product_Img> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -36,11 +37,16 @@ public class ManageProductImgs {
 			product_imgs[0].clear();
 		if(product_imgs[1] != null)
 			product_imgs[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageProductImgs(){
 		product_imgs[0] = new Vector<>();
 		product_imgs[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -112,6 +118,7 @@ public class ManageProductImgs {
 						
 			product_imgs[mem_pos].add(product_img);
 		}
+		lists = product_imgs[mem_pos];
 	}
 	
 	public void updateProductImgStatus(Product_Img product_img) {

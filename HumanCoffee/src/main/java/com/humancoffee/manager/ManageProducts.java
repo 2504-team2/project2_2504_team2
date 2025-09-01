@@ -16,6 +16,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageProducts {
 	public List<Product>[] products = (List<Product>[]) new List[2];
+	public List<Product> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -35,11 +36,16 @@ public class ManageProducts {
 			products[0].clear();
 		if(products[1] != null)
 			products[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageProducts(){
 		products[0] = new Vector<>();
 		products[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -112,6 +118,7 @@ public class ManageProducts {
 			
 			products[mem_pos].add(product);
 		}
+		lists = products[mem_pos];
 	}
 	
 	public void updateProductStatus(Product product) {

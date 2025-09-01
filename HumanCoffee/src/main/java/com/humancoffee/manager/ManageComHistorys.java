@@ -14,6 +14,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageComHistorys {
 	public List<Com_History>[] com_historys = (List<Com_History>[]) new List[2];
+	public List<Com_History> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -33,11 +34,16 @@ public class ManageComHistorys {
 			com_historys[0].clear();
 		if(com_historys[1] != null)
 			com_historys[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageComHistorys(){
 		com_historys[0] = new Vector<>();
 		com_historys[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 	public void readComHistory(byte mem_pos) {
@@ -99,6 +105,7 @@ public class ManageComHistorys {
 			
 			com_historys[mem_pos].add(com_history);
 		}
+		lists = com_historys[mem_pos];
 	}
 	
 

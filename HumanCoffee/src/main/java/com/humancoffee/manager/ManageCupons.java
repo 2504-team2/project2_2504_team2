@@ -14,6 +14,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageCupons {
 	public List<Cupon>[] cupons = (List<Cupon>[]) new List[2];
+	public List<Cupon> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -33,11 +34,16 @@ public class ManageCupons {
 			cupons[0].clear();
 		if(cupons[1] != null)
 			cupons[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageCupons(){
 		cupons[0] = new Vector<>();
 		cupons[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -96,6 +102,7 @@ public class ManageCupons {
 			
 			cupons[mem_pos].add(cupon);
 		}
+		lists = cupons[mem_pos];
 	}
 	
 	public void updateCuponStatus(Cupon cupon) {

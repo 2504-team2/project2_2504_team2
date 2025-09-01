@@ -33,12 +33,16 @@
 			ManageCustomers mCustomer = hcInstance.mCustomers;
 			Customer customer = new Customer();
 			customer.setId(Id);
+			System.out.println("id: " + Id);
 			Customer chk_customer = mCustomer.searchCustomerById(customer);
 			if(chk_customer != null){
 				session.setAttribute("name", chk_customer.getName());
 				session.setAttribute("div", "customer");
 				session.setAttribute("point", chk_customer.getPoint());
 				session.setAttribute("cupon", chk_customer.getCupon());
+				System.out.println("name: " + chk_customer.getName());
+				System.out.println("point: " + chk_customer.getPoint());
+				System.out.println("cupon: " + chk_customer.getCupon());
 			}else{
 				ManageComMembers mComMems = hcInstance.mComMems;
 				Com_Member com_member = new Com_Member();

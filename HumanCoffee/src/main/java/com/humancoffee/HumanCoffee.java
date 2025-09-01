@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.humancoffee.common.*;
 import com.humancoffee.manager.*;
 
@@ -163,41 +164,74 @@ public class HumanCoffee {
     }
     
     private void putWebOrder(OrderHead orderhead) {
-    	int loop, sub;
+    	boolean bComplete = false;
+    	int loop = 0, sub = 0;
+    	System.out.println("putWebOrder:" + orderhead);
     	if(mOrderHead.size() <= 0) {
     		mOrderHead.add(orderhead);
+    		if(orderhead.status == 1) {	//	처리완료
+    			System.out.println("1status:1");
+    			bComplete = true;
+    		}
+    			
     	}else {
     		for(loop = 0; loop < mOrderHead.size(); loop++) {
     			if(orderhead.order_id.equals(mOrderHead.get(loop).order_id)) {
     				//	동일한 order_id가 있는 상황
+    				int head_price = mOrderHead.get(loop).tot_price;
+    				int bottom_price = 0;
     				if(orderhead.order_bottom.size() > 0) {
     					//	입력받은 orderhead의 order_bottom이 있는 경우에만 수행
     					for(sub = 0; sub < mOrderHead.get(loop).order_bottom.size(); sub++) {
+    						
     						if(orderhead.order_bottom.get(0).product_id.equals(mOrderHead.get(loop).order_bottom.get(sub).product_id)) {
     							//	order_id와 product_id가 동일한게 존재. 즉, 수정.
     							mOrderHead.get(loop).order_bottom.set(sub, orderhead.order_bottom.get(0));
+    							bottom_price += orderhead.order_bottom.get(0).tot_price;
     							break;
     						}
+    						bottom_price += mOrderHead.get(loop).order_bottom.get(sub).tot_price;
     					}
-    					if(sub >= mOrderHead.get(loop).order_bottom.size())
+    					if(sub >= mOrderHead.get(loop).order_bottom.size()) {
     						//	order_id는 동일하지만 product_id가 존재하지 않음.
-    						mOrderHead.get(loop).order_bottom.add((OrderBottom)orderhead.order_bottom);
+    						mOrderHead.get(loop).order_bottom.add((OrderBottom)orderhead.order_bottom.get(0));
+    						bottom_price += orderhead.order_bottom.get(0).tot_price;
+    					}
     				}else {
 //    					입력받은 orderhead의 order_bottom이 없는 경우. 즉, 주문 상품의 상태변경일 가능성이 높음.
     					mOrderHead.set(loop, orderhead);
+    					head_price = orderhead.tot_price;
+    				}
+    				if(head_price == bottom_price) {
+    					System.out.println("head_price:" + head_price + ",bottom_price:" + bottom_price);
+    	    			bComplete = true;
     				}
     				break;
     			}
     		}
+    		
     		if(loop >= mOrderHead.size()) {
     			mOrderHead.add(orderhead);
+    			if(orderhead.status == 1) {	//	처리완료
+    				System.out.println("2status:1");
+    				bComplete = true;
+    			}
     		}
     	}
+    	if(bComplete)
+    		sendOrder();
     }
     private void sendOrder() {
+    	System.out.println("1sendOrder[" + mOrderHead.size() + "]");
     	if(mOrderHead.size() >= 0) {
-    		System.out.println("sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
-    		mOrderWebSocket.broadcast(mOrderHead);
+    		System.out.println("2sendOrder[" + mOrderHead.size() + "]: " + mOrderHead);
+    		try {
+				mOrderWebSocket.broadcast(mOrderHead);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		mOrderHead.clear();
     	}
     }
     private boolean chkDuplicateClass(String rcvClass) {
@@ -257,20 +291,31 @@ public class HumanCoffee {
                     	//	입력, 수정 판단이 필요.
                     	OrderHead orderhead = new OrderHead();
                     	String sql = qi.getSql().toLowerCase();
+                    	Customer customer = new Customer();
                     	int idx = sql.indexOf("insert", 0);
                     	if(idx >= 0) {
                     		//	입력
                     		orderhead.order_id = Objects.toString(qi.getParams()[0]);
-                    		orderhead.customer_id = Objects.toString(qi.getParams()[1]);
+                    		orderhead.member_id = Objects.toString(qi.getParams()[1]);
+                    		orderhead.customer_tel = Objects.toString(qi.getParams()[2]);
+                    		customer = mCustomers.searchCustomerByTel(orderhead.customer_tel);
+                    		if(customer != null)
+                    			orderhead.customer_name = customer.getName();
+                    		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[3]));
                     		orderhead.status = 0;
                     	}else {
                     		//	수정
-                    		idx = sql.indexOf("customer_id", 0);
+                    		idx = sql.indexOf("member_id", 0);
                     		if(idx >= 0) {
                     			//	전체 수정
-                    			orderhead.order_id = Objects.toString(qi.getParams()[8]);
-                        		orderhead.customer_id = Objects.toString(qi.getParams()[0]);
-                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[7]));
+                    			orderhead.order_id = Objects.toString(qi.getParams()[9]);
+                    			orderhead.member_id = Objects.toString(qi.getParams()[0]);
+                        		orderhead.customer_tel = Objects.toString(qi.getParams()[1]);
+                        		customer = mCustomers.searchCustomerByTel(orderhead.customer_tel);
+                        		if(customer != null)
+                        			orderhead.customer_name = customer.getName();
+                        		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[2]));
+                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[8]));
                     		}else {
                     			//	status만 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[1]);
@@ -285,14 +330,21 @@ public class HumanCoffee {
                     	//	입력, 수정 판단이 필요.
                     	OrderHead orderhead = new OrderHead();
                     	OrderBottom orderbottom = new OrderBottom();
+                    	Product product = new Product();
                     	String sql = qi.getSql().toLowerCase();
                     	int idx = sql.indexOf("insert", 0);
                     	if(idx >= 0) {
                     		//	입력
                     		orderhead.order_id = Objects.toString(qi.getParams()[0]);
                     		orderbottom.product_id = Objects.toString(qi.getParams()[1]);
+                    		product.setId(orderbottom.product_id);
+                    		product = mProducts.searchProductById(product);
+                    		if(product != null)
+                    			orderbottom.product_name = product.getName();
                     		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[2]));
-                    		orderhead.order_bottom.set(0, orderbottom);
+                    		orderbottom.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[3]));
+                    		orderhead.order_bottom.add(orderbottom);
+//                    		orderhead.order_bottom.set(0, orderbottom);
                     	}
                     	idx = sql.indexOf("delete", 0);
                     	if(idx >= 0)
@@ -300,18 +352,27 @@ public class HumanCoffee {
                     		//	주문취소
                     		orderhead.order_id = Objects.toString(qi.getParams()[0]);
                     		orderbottom.product_id = Objects.toString(qi.getParams()[1]);
+                    		product.setId(orderbottom.product_id);
+                    		product = mProducts.searchProductById(product);
+                    		if(product != null)
+                    			orderbottom.product_name = product.getName();
                     		orderbottom.cnt = 0;
                     		orderbottom.delete = 1;
-                    		orderhead.order_bottom.set(0, orderbottom);
+                    		orderhead.order_bottom.add(orderbottom);
                     	}
                     	idx = sql.indexOf("update", 0);
                     	if(idx >= 0)
                     	{
                     		//	수정
                     		orderhead.order_id = Objects.toString(qi.getParams()[3]);
-                    		orderbottom.product_id = Objects.toString(qi.getParams()[0]);
-                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[1]));
-                    		orderhead.order_bottom.set(0, orderbottom);
+                    		orderbottom.product_id = Objects.toString(qi.getParams()[2]);
+                    		product.setId(orderbottom.product_id);
+                    		product = mProducts.searchProductById(product);
+                    		if(product != null)
+                    			orderbottom.product_name = product.getName();
+                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[0]));
+                    		orderbottom.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[1]));
+                    		orderhead.order_bottom.add(orderbottom);
                     	}
                     	putWebOrder(orderhead);
                     }
@@ -348,7 +409,6 @@ public class HumanCoffee {
                     }
                 }
             }
-            sendOrder();
             System.out.println("oraConn.queryEndsKey size : " + oraConn.queryEndsKey.size());
             while(oraConn.queryEndsKey.size() > 0) {
 /*                String key = oraConn.queryEndsKey.get(0);

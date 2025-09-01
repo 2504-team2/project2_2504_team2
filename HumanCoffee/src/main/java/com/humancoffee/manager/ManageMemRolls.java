@@ -15,6 +15,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageMemRolls {
 	public List<Mem_Roll>[] mem_rolls = (List<Mem_Roll>[]) new List[2];
+	public List<Mem_Roll> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -34,11 +35,16 @@ public class ManageMemRolls {
 			mem_rolls[0].clear();
 		if(mem_rolls[1] != null)
 			mem_rolls[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageMemRolls(){
 		mem_rolls[0] = new Vector<>();
 		mem_rolls[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 	public void readMemRoll(byte mem_pos) {
@@ -95,6 +101,7 @@ public class ManageMemRolls {
 			
 			mem_rolls[mem_pos].add(mem_roll);
 		}
+		lists = mem_rolls[mem_pos];
 	}
 	
 	public void updateMemRollStatus(Mem_Roll mem_roll) {

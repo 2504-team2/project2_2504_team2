@@ -4,8 +4,15 @@
     width: 100%;
     padding: 20px;
     font-family: Arial, sans-serif;
-    background-color: #ffffff;  /* 페이지 배경을 흰색으로 */
+   	background-color: #ffffff;  
     color: #000000;             /* 글자색을 검은색으로 */
+}
+.merchantManage_titlecontainer {
+    display: flex;                /* 가로 배치 */
+    align-items: center;          /* 세로 가운데 정렬 */
+    justify-content: space-between; /* 좌우 끝으로 배치 */
+    gap: 20px;                    /* 요소 간 간격 (선택 사항) */
+    padding: 10px 0;              /* 위아래 여백 */
 }
 
 .merchantManage_title {
