@@ -296,26 +296,26 @@ public class HumanCoffee {
                     	if(idx >= 0) {
                     		//	입력
                     		orderhead.order_id = Objects.toString(qi.getParams()[0]);
-                    		orderhead.customer_id = Objects.toString(qi.getParams()[1]);
-                    		customer.setId(orderhead.customer_id);
-                    		customer = mCustomers.searchCustomerById(customer);
+                    		orderhead.member_id = Objects.toString(qi.getParams()[1]);
+                    		orderhead.customer_tel = Objects.toString(qi.getParams()[2]);
+                    		customer = mCustomers.searchCustomerByTel(orderhead.customer_tel);
                     		if(customer != null)
                     			orderhead.customer_name = customer.getName();
-                    		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[2]));
+                    		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[3]));
                     		orderhead.status = 0;
                     	}else {
                     		//	수정
-                    		idx = sql.indexOf("customer_id", 0);
+                    		idx = sql.indexOf("member_id", 0);
                     		if(idx >= 0) {
                     			//	전체 수정
-                    			orderhead.order_id = Objects.toString(qi.getParams()[8]);
-                        		orderhead.customer_id = Objects.toString(qi.getParams()[0]);
-                        		customer.setId(orderhead.customer_id);
-                        		customer = mCustomers.searchCustomerById(customer);
+                    			orderhead.order_id = Objects.toString(qi.getParams()[9]);
+                    			orderhead.member_id = Objects.toString(qi.getParams()[0]);
+                        		orderhead.customer_tel = Objects.toString(qi.getParams()[1]);
+                        		customer = mCustomers.searchCustomerByTel(orderhead.customer_tel);
                         		if(customer != null)
                         			orderhead.customer_name = customer.getName();
-                        		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[1]));
-                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[7]));
+                        		orderhead.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[2]));
+                        		orderhead.status = Integer.parseInt(Objects.toString(qi.getParams()[8]));
                     		}else {
                     			//	status만 수정
                     			orderhead.order_id = Objects.toString(qi.getParams()[1]);
@@ -365,13 +365,13 @@ public class HumanCoffee {
                     	{
                     		//	수정
                     		orderhead.order_id = Objects.toString(qi.getParams()[3]);
-                    		orderbottom.product_id = Objects.toString(qi.getParams()[0]);
+                    		orderbottom.product_id = Objects.toString(qi.getParams()[2]);
                     		product.setId(orderbottom.product_id);
                     		product = mProducts.searchProductById(product);
                     		if(product != null)
                     			orderbottom.product_name = product.getName();
-                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[1]));
-                    		orderbottom.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[2]));
+                    		orderbottom.cnt = Integer.parseInt(Objects.toString(qi.getParams()[0]));
+                    		orderbottom.tot_price = Integer.parseInt(Objects.toString(qi.getParams()[1]));
                     		orderhead.order_bottom.add(orderbottom);
                     	}
                     	putWebOrder(orderhead);

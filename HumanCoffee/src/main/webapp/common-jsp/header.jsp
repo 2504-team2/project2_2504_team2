@@ -91,6 +91,17 @@
 					<input type="hidden" name="next_page" value="/menu/menu-juice.jsp" />
 					<button type="submit" class="link-button">주스</button>
 				  </form> 
+<%
+if (div != null && div.equals("member")) {
+%>				  
+  <a href="<%= request.getContextPath() %>/order/receiveOrders.jsp" onclick="popupPage(this.href); return false;" class="link-button">주문받기</a>
+<%
+} else {
+%>				  
+  <a href="<%= request.getContextPath() %>/order/order.jsp" onclick="popupPage(this.href); return false;" class="link-button">주문하기</a>	
+<%
+}
+%>			  
                  </ul>
               </li>
             </ul>
@@ -208,5 +219,21 @@
   		document.getElementById(form).submit();
   	}
   
+  	function popupPage(url){
+  		const screenWidth = window.screen.width;
+  	    const screenHeight = window.screen.height;
+  	    
+  	    // 팝업창 위치와 크기를 설정합니다.
+  	    const options = `width=${screenWidth},height=${screenHeight},left=0,top=0,scrollbars=yes,resizable=yes`;
+  	    
+  	    // 팝업창을 엽니다.
+  	    const newWindow = window.open(url, 'fullScreenPopup', options);
+  	    
+  	    if (newWindow) {
+  	        // 팝업이 열린 후 크기와 위치를 강제로 재설정합니다.
+  	        newWindow.resizeTo(screenWidth, screenHeight);
+  	        newWindow.moveTo(0, 0);
+  	    }
+  	}
   </script>
 </header>

@@ -15,6 +15,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageCustomers {
 	public List<Customer>[] customers = (List<Customer>[]) new List[2];
+	public List<Customer>	lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -36,11 +37,15 @@ public class ManageCustomers {
 			customers[0].clear();
 		if(customers[1] != null)
 			customers[1].clear();
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageCustomers(){
 		customers[0] = new Vector<>();
 		customers[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 
 	public void readCustomer(byte mem_pos) {
@@ -110,6 +115,13 @@ public class ManageCustomers {
 			
 			customers[mem_pos].add(customer);
 		}
+		lists = customers[mem_pos];
+		
+		System.out.println("customers size:" + customers[mem_pos].size());
+		System.out.println("list size:" + lists.size());
+		
+		System.out.println("customers last : " + customers[mem_pos].get(customers[mem_pos].size() - 1));
+		System.out.println("lists last : " + lists.get(lists.size() - 1));
 	}
 
 	public void updateCustomerStatus(Customer customer) {
@@ -186,6 +198,17 @@ public class ManageCustomers {
 	public Customer searchCustomerById(Customer customer) {
 		Customer rcv_customer = (Customer)algo.binarySearchObj(customers[memory_pos], customer, new CustomerIdComparator());
 		return rcv_customer;
+	}
+	
+	public Customer searchCustomerByTel(String tel) {
+		Customer chk_customer = null;
+		for(Customer customer : customers[memory_pos]) {
+			if(customer.getTel().equals(tel)) {
+				chk_customer = customer;
+				break;
+			}
+		}
+		return chk_customer;
 	}
 	
 	public List<Customer> searchCustomerByName(String name) {

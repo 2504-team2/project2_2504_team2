@@ -15,6 +15,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageOrderDetails {
 	public List<Order_Detail>[] order_details = (List<Order_Detail>[]) new List[2];
+	public List<Order_Detail> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -40,11 +41,16 @@ public class ManageOrderDetails {
 			order_details[0].clear();
 		if(order_details[1] != null)
 			order_details[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageOrderDetails(){
 		order_details[0] = new Vector<>();
 		order_details[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -85,6 +91,7 @@ public class ManageOrderDetails {
 					
 			order_details[mem_pos].add(order_detail);
 		}
+		lists = order_details[mem_pos];
 	}
 	
 	public void deleteOrderDetail(Order_Detail order_detail) {
@@ -110,14 +117,14 @@ public class ManageOrderDetails {
 			System.out.println("주문ID [" + order_detail.getOrderId() + "], 상품ID [" + order_detail.getProductId() + "] :는 없는 ID 입니다.");
 			return;
 		}
-		String sql = "update order_detail set product_id = ?, cnt = ?, tot_price = ? " +
-				" where order_id = ?";
+		String sql = "update order_detail set cnt = ?, tot_price = ? " +
+				" where product_id = ? and order_id = ?";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
-				order_detail.getProductId(),
 				order_detail.getCnt(),
 				order_detail.getTotPrice(), 
+				order_detail.getProductId(),
 				order_detail.getOrderId()
 				));
 		oraConn.queryInfosKey.add(key);
