@@ -8,7 +8,8 @@ import com.humancoffee.model.OrderBottom;
 
 public class OrderHead {
 	public String order_id;
-	public String customer_id;
+	public String member_id;
+	public String customer_tel;
 	public String customer_name;
 	public int tot_price = 0;
 	public int status = 0;

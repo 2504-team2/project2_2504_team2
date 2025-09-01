@@ -15,6 +15,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageComMembers {
 	public List<Com_Member>[] com_members = (List<Com_Member>[]) new List[2];
+	public List<Com_Member> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -37,11 +38,16 @@ public class ManageComMembers {
 			com_members[0].clear();
 		if(com_members[1] != null)
 			com_members[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageComMembers(){
 		com_members[0] = new Vector<>();
 		com_members[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 	public void readComMember(byte mem_pos) {
@@ -110,6 +116,7 @@ public class ManageComMembers {
 			
 			com_members[mem_pos].add(com_member);
 		}
+		lists = com_members[mem_pos];
 	}
 	
 

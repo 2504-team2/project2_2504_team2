@@ -16,6 +16,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageSubComs {
 	public List<Sub_Com>[] sub_coms = (List<Sub_Com>[]) new List[2];
+	public List<Sub_Com> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -35,11 +36,16 @@ public class ManageSubComs {
 			sub_coms[0].clear();
 		if(sub_coms[1] != null)
 			sub_coms[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageSubComs(){
 		sub_coms[0] = new Vector<>();
 		sub_coms[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
@@ -112,6 +118,7 @@ public class ManageSubComs {
 			
 			sub_coms[mem_pos].add(sub_com);
 		}
+		lists = sub_coms[mem_pos];
 	}
 	
 	public void updateSubComStatus(Sub_Com sub_com) {
