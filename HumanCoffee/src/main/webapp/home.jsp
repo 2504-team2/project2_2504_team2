@@ -19,10 +19,6 @@
                         <p id="years">25년</p>
                     </div>
                 </div>
-                <form action="<%= request.getContextPath() %>/" method="post">
-					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
-					<button type="submit" class="home_btn-apply">창업신청</button>
-				</form>
             </div>
         </section>
         
@@ -54,8 +50,7 @@
                 </div>
             </section>
         </div>
-    </div>
-
+      </div>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- 커스텀 JS -->

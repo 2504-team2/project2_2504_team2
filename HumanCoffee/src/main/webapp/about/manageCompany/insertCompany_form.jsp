@@ -291,10 +291,7 @@ pageEncoding="UTF-8"%>
 
         /* 반응형 디자인 */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
+
             .insertHistory-form {
                 max-width: 450px;
                 margin: 10px 0;

@@ -16,6 +16,7 @@ import com.humancoffee.dao.OraConnect;
 
 public class ManageMyOrders {
 	public List<My_Order>[] my_orders = (List<My_Order>[]) new List[2];
+	public List<My_Order> lists;
 	public byte memory_pos = 0;
 	private int[] indexSearch = new int[2];
 	
@@ -35,18 +36,23 @@ public class ManageMyOrders {
 			my_orders[0].clear();
 		if(my_orders[1] != null)
 			my_orders[1].clear();
+		
+		if(lists != null)
+			lists.clear();
 	}
 	
 	public ManageMyOrders(){
 		my_orders[0] = new Vector<>();
 		my_orders[1] = new Vector<>();
+		
+		lists = new Vector<>();
 	}
 	
 
 	public void readMyOrder(byte mem_pos) {
 		Object[][] obj;
 		QueryInfo qi;
-		String sql = "select id, customer_id, tot_price, pay_div, cupon, card, cash, indate, outdate, status " +
+		String sql = "select id, member_id, customer_tel, tot_price, pay_div, cupon, card, cash, indate, outdate, status " +
 				" from my_order order by id";
 		qi = new QueryInfo(sql, new Object[0]);
 		obj = oraConn.exeSelect(qi);
@@ -66,7 +72,11 @@ public class ManageMyOrders {
 			
 			value = Objects.toString(obj[row][col++]);
 //			System.out.println(row + ":" + col + ":" + value);
-			my_order.setCustomerId((value == null) ? "" : value);
+			my_order.setMemberId((value == null) ? "" : value);
+			
+			value = Objects.toString(obj[row][col++]);
+//			System.out.println(row + ":" + col + ":" + value);
+			my_order.setCustomerTel((value == null) ? "" : value);
 
 			value = Objects.toString(obj[row][col++]);
 //			System.out.println(row + ":" + col + ":" + value);
@@ -117,6 +127,7 @@ public class ManageMyOrders {
 			
 			my_orders[mem_pos].add(my_order);
 		}
+		lists = my_orders[mem_pos];
 	}
 	
 	public void updateMyOrderStatus(My_Order my_order) {
@@ -141,12 +152,13 @@ public class ManageMyOrders {
 			System.out.println(my_order.getId() + ":는 없는 ID 입니다.");
 			return;
 		}
-		String sql = "update my_order set customer_id = ?, tot_price = ?, pay_div = ?, cupon = ?, card = ?, cash = ?, outdate = ?, status = ? " +
+		String sql = "update my_order set member_id = ?, customer_tel = ?, tot_price = ?, pay_div = ?, cupon = ?, card = ?, cash = ?, outdate = ?, status = ? " +
 				" where id = ?";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
-				my_order.getCustomerId(),
+				my_order.getMemberId(),
+				my_order.getCustomerTel(),
 				my_order.getTotPrice(), 
 				my_order.getDiv(), 
 				my_order.getCupon(),
@@ -170,13 +182,14 @@ public class ManageMyOrders {
 			System.out.println(my_order.getId() + ":는 존재하는 ID 입니다.");
 			return null;
 		}
-		String sql = "insert into my_order (id, customer_id, tot_price, pay_div, cupon, card, cash, indate) values " +
-				" (?, ?, ?, ?, ?, ?, ?, sysdate) ";
+		String sql = "insert into my_order (id, member_id, customer_tel, tot_price, pay_div, cupon, card, cash, indate) values " +
+				" (?, ?, ?, ?, ?, ?, ?, ?, sysdate) ";
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
 				my_order.getId(),
-				my_order.getCustomerId(),
+				my_order.getMemberId(),
+				my_order.getCustomerTel(),
 				my_order.getTotPrice(), 
 				my_order.getDiv(), 
 				my_order.getCupon(),

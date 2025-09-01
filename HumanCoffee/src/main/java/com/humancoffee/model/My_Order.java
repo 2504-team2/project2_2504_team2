@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class My_Order implements Comparable<My_Order>{
 	private String id;
-	private String customer_id;
+	private String member_id;
+	private String customer_tel;
 	private int		tot_price;
 	private int		pay_div;
 	private int		cupon;
@@ -18,8 +19,11 @@ public class My_Order implements Comparable<My_Order>{
 	public void setId(String id) {
 		this.id = id;
 	}
-	public void setCustomerId(String id) {
-		this.customer_id = id;
+	public void setMemberId(String id) {
+		this.member_id = id;
+	}
+	public void setCustomerTel(String tel) {
+		this.customer_tel = tel;
 	}
 	public void setTotPrice(int price) {
 		this.tot_price = price;
@@ -49,8 +53,11 @@ public class My_Order implements Comparable<My_Order>{
 	public String getId() {
 		return this.id;
 	}
-	public String getCustomerId() {
-		return this.customer_id;
+	public String getMemberId() {
+		return this.member_id;
+	}
+	public String getCustomerTel() {
+		return this.customer_tel;
 	}
 	public int getTotPrice() {
 		return this.tot_price;
