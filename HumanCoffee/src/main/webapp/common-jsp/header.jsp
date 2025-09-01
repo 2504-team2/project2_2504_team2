@@ -119,12 +119,6 @@ if (div != null && div.equals("member")) {
 					<input type="hidden" name="next_page" value="/merchant/merchantList.jsp" />
 					<button type="submit" class="link-button">가맹점 리스트</button>
 				  </form> 
-
-                  <form action="<%= request.getContextPath() %>/" method="post">
-					<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
-					<button type="submit" class="link-button">창업신청</button>
-				  </form>
-
                 </ul>
                 </li>
             </ul>
