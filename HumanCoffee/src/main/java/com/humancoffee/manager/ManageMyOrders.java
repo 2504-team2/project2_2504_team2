@@ -21,6 +21,7 @@ public class ManageMyOrders {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class MyOrderIdComparator implements Comparator<My_Order>{
 		@Override
@@ -53,63 +54,64 @@ public class ManageMyOrders {
 			return;
 		String value = "";
 		my_orders[mem_pos].clear();
+		System.out.println("readMyOrder cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			My_Order my_order = new My_Order();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			my_order.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			my_order.setCustomerId((value == null) ? "" : value);
 
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setTotPrice(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setDiv(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setCupon(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setCard(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setCash(Integer.parseInt(value));
 									
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				my_order.setInDate(null);
 			else
 				my_order.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				my_order.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				my_order.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			my_order.setStatus(Integer.parseInt(value));
 			
@@ -157,11 +159,16 @@ public class ManageMyOrders {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertMyOrder(My_Order my_order) {
+	public My_Order insertMyOrder(My_Order my_order) {
+		String max_id = null;
+		if(my_orders[memory_pos].size() > 0)
+			max_id = my_orders[memory_pos].get(my_orders[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId16(max_id);
+		my_order.setId(max_id);
 		indexSearch = algo.binarySearchIndex(my_orders[memory_pos], my_order, new MyOrderIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(my_order.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into my_order (id, customer_id, tot_price, pay_div, cupon, card, cash, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, sysdate) ";
@@ -177,6 +184,7 @@ public class ManageMyOrders {
 				my_order.getCash()
 				));
 		oraConn.queryInfosKey.add(key);
+		return my_order;
 	}
 	
 	public My_Order searchMyOrderById(My_Order my_order) {

@@ -20,6 +20,7 @@ public class ManageComMembers {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public ManageCustomers mCustomers;
 	public ManageCustomers.CustomerIdComparator mCustomerIdComparator;
@@ -56,53 +57,54 @@ public class ManageComMembers {
 			return;
 		String value = "";
 		com_members[mem_pos].clear();
+		System.out.println("readComMember cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Com_Member com_member = new Com_Member();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
+			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setComId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setPwd((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			com_member.setRollId((value == null) ? "" : value);
-
-			
+		
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				com_member.setInDate(null);
 			else
 				com_member.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				com_member.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				com_member.setOutDate(Timestamp.valueOf(value));
 			}
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			com_member.setStatus(Integer.parseInt(value));
 			
@@ -136,8 +138,9 @@ public class ManageComMembers {
 		}
 
 		String sql = "update com_member set com_id = ?, pwd = ?, name = ?, tel = ?, roll_id = ?, outdate = ?, status = ? " +
-
 				" where id = ?";
+		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());
+		com_member.setPwd(pwd);
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
@@ -153,21 +156,22 @@ public class ManageComMembers {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertComMember(Com_Member com_member) {
+	public Com_Member insertComMember(Com_Member com_member) {
 		indexSearch = algo.binarySearchIndex(com_members[memory_pos], com_member, new ComMemberIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(com_member.getId() + ":는 com_member 존재하는 ID 입니다.");
-			return;
+			return null;
 		}else {
 			Customer customer = new Customer();
 			customer.setId(com_member.getId());
 			indexSearch = algo.binarySearchIndex(mCustomers.customers[mCustomers.memory_pos], customer, mCustomerIdComparator);
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(com_member.getId() + ":는 customer 존재하는 ID 입니다.");
-				return;
+				return null;
 			}
 		}
-
+		String pwd = algo.generateSha256(com_member.getId(), com_member.getPwd());
+		com_member.setPwd(pwd);
 		String sql = "insert into com_member (com_id, id, pwd, name, tel, roll_id, indate) values " +
 
 				" (?, ?, ?, ?, ?, ?, sysdate) ";
@@ -183,6 +187,7 @@ public class ManageComMembers {
 
 				));
 		oraConn.queryInfosKey.add(key);
+		return com_member;
 	}
 	
 	public Com_Member searchComMemberById(Com_Member com_member) {

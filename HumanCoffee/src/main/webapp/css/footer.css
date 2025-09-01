@@ -2,12 +2,9 @@
 .footer_root {
     background-color: #272727;
     border-top: 1px solid #333;
-    min-height: 300px;
-    height: auto;
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -33,7 +30,7 @@
     font-size: 17px;
 }
 
-.footer_menu a {
+.footer_menu form {
     padding: 0px;
     margin-bottom: 10px;
 }
@@ -64,8 +61,8 @@
     display: none;
 }
 
-/* 헤더 스타일과 통일된 링크 스타일 - 움직임 제거 */
-.footer_menu li a {
+.footer_menu button {
+
     display: block;
     color: #ccc;
     font-size: 14px;
@@ -102,7 +99,7 @@
     left: 100%;
 }
 
-.footer_menu li a.green {
+.footer_menu button.green {
     color: #669900;
 }
 
@@ -240,9 +237,6 @@
 /* 모바일 화면 (최대 768px) */
 @media (max-width: 768px) {
     .footer_root {
-        position: fixed;
-        bottom: 0;
-        left: 0;
         width: 100%;
         min-height: auto;
         padding: 15px 0;
@@ -279,14 +273,11 @@
 
 /* 작은 모바일 화면 (최대 480px) */
 @media (max-width: 480px) {
-    .footer_root {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px 0;
-        margin: 0;
-    }
+.footer_root {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
     
     .footer_container > *:not(.footer_info) {
         display: none;

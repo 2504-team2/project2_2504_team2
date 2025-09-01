@@ -54,58 +54,57 @@ public class ManageCustomers {
 			return;
 		String value = "";
 		customers[mem_pos].clear();
+		System.out.println("readCustomer cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Customer customer = new Customer();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setPwd((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			customer.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setPoint(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setCupon(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				customer.setInDate(null);
 			else
 				customer.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				customer.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				customer.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			customer.setStatus(Integer.parseInt(value));
 			
@@ -136,6 +135,8 @@ public class ManageCustomers {
 			System.out.println(customer.getId() + ":는 없는 ID 입니다.");
 			return;
 		}
+		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
+		customer.setPwd(pwd);
 		String sql = "update customer set pwd = ?, name = ?, tel = ?, point = ?, cupon = ?, outdate = ?, status = ? " +
 				" where id = ?";
 		
@@ -152,20 +153,22 @@ public class ManageCustomers {
 		oraConn.queryInfosKey.add(key);
 	}
 
-	public void insertCustomer(Customer customer) {
+	public Customer insertCustomer(Customer customer) {
 		indexSearch = algo.binarySearchIndex(customers[memory_pos], customer, new CustomerIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(customer.getId() + ":는 customer 존재하는 ID 입니다.");
-			return;
+			return null;
 		}else {
 			Com_Member com_member = new Com_Member();
 			com_member.setId(customer.getId());
 			indexSearch = algo.binarySearchIndex(mComMembers.com_members[mComMembers.memory_pos], com_member, mComMemberIdComparator);
 			if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 				System.out.println(customer.getId() + ":는 com_member 존재하는 ID 입니다.");
-				return;
+				return null;
 			}
 		}
+		String pwd = algo.generateSha256(customer.getId(), customer.getPwd());
+		customer.setPwd(pwd);
 		String sql = "insert into customer (id, pwd, name, tel, indate) values " +
 				" (?, ?, ?, ?, sysdate) ";
 		
@@ -177,6 +180,7 @@ public class ManageCustomers {
 				customer.getTel()
 				));
 		oraConn.queryInfosKey.add(key);
+		return customer;
 	}
 	
 	public Customer searchCustomerById(Customer customer) {

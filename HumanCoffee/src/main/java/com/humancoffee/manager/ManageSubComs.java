@@ -21,6 +21,7 @@ public class ManageSubComs {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class SubComIdComparator implements Comparator<Sub_Com>{
 		@Override
@@ -53,57 +54,59 @@ public class ManageSubComs {
 			return;
 		String value = "";
 		sub_coms[mem_pos].clear();
+		System.out.println("readSubCom cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Sub_Com sub_com = new Sub_Com();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
+			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setComId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setName((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setTel((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setFax((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setAddr((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			sub_com.setEmail((value == null) ? "" : value);
 						
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty())
 				sub_com.setInDate(null);
 			else
 				sub_com.setInDate(Timestamp.valueOf(value));
 			
 			value = Objects.toString(obj[row][col++], null);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			if(value == null || value.isEmpty()) {
-				System.out.println("null 입력");
+//				System.out.println("null 입력");
 				sub_com.setOutDate(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
+//				System.out.println("setOutDate: " + Timestamp.valueOf(value));
 				sub_com.setOutDate(Timestamp.valueOf(value));
 			}
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			sub_com.setStatus(Integer.parseInt(value));
 			
@@ -151,14 +154,24 @@ public class ManageSubComs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertSubCom(Sub_Com sub_com) {
+	public Sub_Com insertSubCom(Sub_Com sub_com) {
+		String max_id = null;
+		if(sub_coms[memory_pos].size() > 0)
+			max_id = sub_coms[memory_pos].get(sub_coms[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		sub_com.setId(max_id);
 		indexSearch = algo.binarySearchIndex(sub_coms[memory_pos], sub_com, new SubComIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(sub_com.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into sub_com (com_id, id, name, tel, fax, addr, email, indate) values " +
 				" (?, ?, ?, ?, ?, ?, ?, ?) ";
+		
+		java.sql.Date sqlInDate = null;
+		if(sub_com.getInDate() != null) {
+		    sqlInDate = new java.sql.Date(sub_com.getInDate().getTime());
+		}
 		
 		String key = this.getClass().getName() + "|" + String.valueOf(System.currentTimeMillis());
 		oraConn.queryInfos.put(key, new QueryInfo(sql, 
@@ -169,9 +182,11 @@ public class ManageSubComs {
 				sub_com.getFax(),
 				sub_com.getAddr(),
 				sub_com.getEmail(),
-				sub_com.getInDate()
+//				sub_com.getInDate()
+				sqlInDate
 				));
 		oraConn.queryInfosKey.add(key);
+		return sub_com;
 	}
 	
 	public Sub_Com searchSubComById(Sub_Com sub_com) {

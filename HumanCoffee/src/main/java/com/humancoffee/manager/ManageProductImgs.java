@@ -22,6 +22,7 @@ public class ManageProductImgs {
 	
 	public OraConnect oraConn;// = new OraConnect();
 	private GenerateAlgorithm algo = new GenerateAlgorithm();
+	private Common common = new Common();
 	
 	public class ProductImgIdComparator implements Comparator<Product_Img>{
 		@Override
@@ -54,10 +55,11 @@ public class ManageProductImgs {
 			return;
 		String value = "";
 		product_imgs[mem_pos].clear();
+		System.out.println("readProductImg cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Product_Img product_img = new Product_Img();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
 			System.out.println(row + ":" + col + ":" + value);
@@ -76,13 +78,14 @@ public class ManageProductImgs {
 			System.out.println(row + ":" + col + ":" + value);
 			product_img.setFilename((value == null) ? "" : value);
 			
-			System.out.println(row + ":" + col + ":" + value);
-			if( obj[row][col++] == null ) {
+			System.out.println(row + ":" + (col + 1) + ":" + obj[row][col]);
+			Object bFile = obj[row][col++];
+			if( bFile == null ) {
 				System.out.println("null 입력");
 				product_img.setBFile(null); 
 			}else {
-				System.out.println("setOutDate: " + Timestamp.valueOf(value));
-				product_img.setBFile((Blob) obj[row][col++]);
+				System.out.println("bFile Input ");
+				product_img.setBFile((Blob) bFile);
 			}
 			
 			value = Objects.toString(obj[row][col++], null);
@@ -149,11 +152,16 @@ public class ManageProductImgs {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertProductImg(Product_Img product_img) {
+	public Product_Img insertProductImg(Product_Img product_img) {
+		String max_id = null;
+		if(product_imgs[memory_pos].size() > 0)
+			max_id = product_imgs[memory_pos].get(product_imgs[memory_pos].size() - 1).getId();
+		max_id = common.generateDateSequenceId10(max_id);
+		product_img.setId(max_id);
 		indexSearch = algo.binarySearchIndex(product_imgs[memory_pos], product_img, new ProductImgIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println(product_img.getId() + ":는 존재하는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into product_img (product_id, id, div, filename, bfile, indate) values " +
 				" (?, ?, ?, ?, ?, ?) ";
@@ -168,6 +176,7 @@ public class ManageProductImgs {
 				product_img.getInDate()
 				));
 		oraConn.queryInfosKey.add(key);
+		return product_img;
 	}
 	
 	public List<Product_Img> searchProductImgByProductId(String id) {

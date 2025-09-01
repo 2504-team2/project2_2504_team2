@@ -25,6 +25,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.8.4/swiper-bundle.min.js"></script>
 
 <script src="./js/login.js"></script> 
+<script src="./js/home.js"></script> 
 
 <link rel="stylesheet" href="./css/index.css" />
 <link rel="stylesheet" href="./css/header.css" />
@@ -44,7 +45,11 @@
 <link rel="stylesheet" href="./css/adminMain.css">
 <link rel="stylesheet" href="./css/merchantManage.css">
 <link rel="stylesheet" href="./css/merchantUpdate.css">
+<link rel="stylesheet" href="./css/merchantModal.css">
+<link rel="stylesheet" href="./css/merchantCreate.css">
+
 </head>
+
 <body>
 <div class="index_desktop">
 	<div class="index_top_pos">

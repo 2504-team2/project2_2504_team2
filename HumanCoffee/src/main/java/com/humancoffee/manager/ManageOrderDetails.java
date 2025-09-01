@@ -59,30 +59,30 @@ public class ManageOrderDetails {
 			return;
 		String value = "";
 		order_details[mem_pos].clear();
+		System.out.println("readOrderDetail cnt:" + obj.length);
 		for(int row = 0; row < obj.length; row++) {
 			Order_Detail order_detail = new Order_Detail();
 			int col = 0;
-			System.out.println();
+//			System.out.println();
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			order_detail.setOrderId((value == null) ? "" : value);
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			order_detail.setProductId((value == null) ? "" : value);
 
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			order_detail.setCnt(Integer.parseInt(value));
 			
 			value = Objects.toString(obj[row][col++]);
-			System.out.println(row + ":" + col + ":" + value);
+//			System.out.println(row + ":" + col + ":" + value);
 			value = (value == null) ? "0" : value;
 			order_detail.setTotPrice(Integer.parseInt(value));
-			
-			
+					
 			order_details[mem_pos].add(order_detail);
 		}
 	}
@@ -123,11 +123,11 @@ public class ManageOrderDetails {
 		oraConn.queryInfosKey.add(key);
 	}
 	
-	public void insertOrderDetail(Order_Detail order_detail) {
+	public Order_Detail insertOrderDetail(Order_Detail order_detail) {
 		indexSearch = algo.binarySearchIndex(order_details[memory_pos], order_detail, new OrderDetailIdComparator());
 		if(indexSearch[algo.DEF_SEARCH_RESULT_POS] == 0) {
 			System.out.println("주문ID [" + order_detail.getOrderId() + "], 상품ID [" + order_detail.getProductId() + "] :는 있는 ID 입니다.");
-			return;
+			return null;
 		}
 		String sql = "insert into order_detail (order_id, product_id, cnt, tot_price ) values " +
 				" (?, ?, ?, ?) ";
@@ -140,6 +140,7 @@ public class ManageOrderDetails {
 				order_detail.getTotPrice()				
 				));
 		oraConn.queryInfosKey.add(key);
+		return order_detail;
 	}
 	
 	public Order_Detail searchOrderDetailByOrderIdNProductId(Order_Detail order_detail) {
