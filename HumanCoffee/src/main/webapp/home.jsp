@@ -55,3 +55,25 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <!-- 커스텀 JS -->
     <script src="./js/home.js"></script>
+    <!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<!-- 커스텀 JS -->
+<script src="./js/home.js"></script>
+
+<!-- 팝업 제어 JS -->
+<script>
+function openOrderPopup() {
+    const modal = document.getElementById('orderModal');
+    modal.style.display = "block";
+}
+function closeOrderPopup() {
+    const modal = document.getElementById('orderModal');
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    const modal = document.getElementById('orderModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
