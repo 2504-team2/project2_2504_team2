@@ -1,3 +1,3 @@
 # project2_2504_team2
 
-페이지 링크 : https://humancoffee-production.up.railway.app/
+배포된 웹 사이트 : https://humancoffee-production.up.railway.app/
