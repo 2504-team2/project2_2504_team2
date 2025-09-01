@@ -83,8 +83,24 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <div class="container comhistory_container">
-    <div class="comhistory_title">연혁 관리</div>
-    
+
+<div class="comhistory_title">연혁 관리</div>
+
+<!-- 연혁 등록/수정 폼 -->
+<div class="comhistory-box comhistory_box">
+<!-- 연혁 목록 테이블 -->
+<div class="comhistory-list-box">
+    <div class="list-header">
+        <h3 class="list-title">연혁 목록 <span class="record-count">(총 <%= tot_cnt %>건)</span></h3>
+        <% if (ManageCheck) { %>
+        <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_insert_form.jsp"><button class="btn btn-search">등록</button></a>
+        <% } %>
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요">
+            <button type="button" class="btn btn-search" onclick="searchHistory()">검색</button>
+        </div>
+    </div>
+
     
     
     <div class="comhistory-box comhistory_box">
@@ -140,6 +156,40 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 </div>
             </div>
         </div>
+
+        <div class="table-body" id="historyTableBody">
+            <%
+            if (tot_cnt == 0) {
+            %>
+            <div class="empty-state">
+                등록된 연혁이 없습니다.
+            </div>
+            <%
+            } else {
+                for (int loop = 0; loop < tot_cnt; loop++) {
+                    Com_History history = nowCom_HistoryList.get(loop);
+            %>
+            <div class="table-row" data-id="<%= history.getId() %>">
+                <div class="table-cell" name="comId"><%= (history.getComId() != null) ? history.getComId() : "" %></div>
+                <div class="table-cell" name="id"><%= (history.getId() != null) ? history.getId() : "" %></div>
+                <div class="table-cell" name="startDate"><%= (history.getStartDate() != null) ? sdf.format(history.getStartDate()) : "" %></div>
+                <div class="table-cell" name="endDate"><%= (history.getEndDate() != null) ? sdf.format(history.getEndDate()) : "" %></div>
+                <div class="table-cell" name="title"><%= (history.getTitle() != null) ? history.getTitle() : "" %></div>
+                <div class="table-cell content-cell" name="content" title="<%= (history.getContent() != null) ? history.getContent() : "" %>">
+                    <%= (history.getContent() != null) ? history.getContent() : "" %>
+                </div>
+                <div class="table-cell">
+                    <span class="status-badge status-<%= history.getStatus() %>"><%= (history.getStatus() == 0) ? "운영중" : "폐업" %></span>
+                </div>
+
+            <div class="table-cell">
+    <div class="btn-group">
+       <a href="<%= request.getContextPath() %>/about/manageHistory/comhistory_update_form.jsp">
+       		<% if (ManageCheck) { %>
+            <button class="btn btn-edit">수정</button>
+            <% } %>
+        </a>
+
     </div>
 </div>
 

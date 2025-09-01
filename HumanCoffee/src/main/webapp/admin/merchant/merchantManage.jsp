@@ -46,7 +46,17 @@
 </script>
 
 <div class="merchantManage_container">
-    <div class="merchantManage_title">가맹점 리스트</div>
+	<div class="merchantManage_titlecontainer">
+		<div class="merchantManage_title">가맹점 리스트</div>
+		 <form action="<%= request.getContextPath() %>/" method="post">
+    		<input type="hidden" name="next_page" value="/admin/merchant/merchantCreate.jsp" />
+	        <!-- 가맹점 관리 페이지로 이동 -->
+	        <button type="submit" class="adminMain_btn">
+	            가맹점 등록하기
+	        </button>
+		</form>
+	</div>
+ 
 
     <table class="merchantManage_table">
         <thead>

@@ -159,7 +159,9 @@ function deleteOrderItem(element) {
            if (response.ok) {
                 console.log('Order update successful');
                 // 업데이트 성공 시 항목 즉시 삭제
-                element.remove();
+
+//                element.remove();
+
             } else {
                 console.error('Order update failed');
                 alert("주문 업데이트 실패");
@@ -228,20 +230,13 @@ function connectWebSocket() {
             const orderStatusDiv = document.getElementById('orderStatus');
             
             orders.forEach(order => {
-                // 동일한 order_id를 가진 항목이 이미 존재하면 해당 항목을 삭제
-                const existingItem = document.querySelector(`.order-id[data-order-id="${order.order_id}"]`);
-                if (existingItem) {
-                    const parentItem = existingItem.closest('.order-item');
-                    if (parentItem) {
-                        parentItem.remove(); // 기존 항목 삭제
-                    }
-                }
 
-                // 만약 order.status가 1인 경우, 항목 생성하지 않고 종료
+            	// 만약 order.status가 1인 경우, 항목 생성하지 않고 종료
                 if(order.status == 1) {
                     return;
                 }
-                
+                // 새로운 주문 항목 생성
+
                 const orderItem = document.createElement('div');
                 orderItem.className = 'order-item';
                 
@@ -269,13 +264,23 @@ function connectWebSocket() {
                 
                 orderItem.innerHTML = htmlContent;
                 
-                // 클릭 이벤트 리스너 추가: 클릭 시 해당 항목 삭제
+
+                // 클릭 이벤트 리스너 추가
                 orderItem.onclick = function(event) {
                     deleteOrderItem(this);
                 };
-                
-                // 새로운 주문을 맨 위에 추가
-                orderStatusDiv.prepend(orderItem);
+
+                // 동일한 order_id를 가진 기존 항목을 찾음
+                const existingItem = document.querySelector(`.order-id[data-order-id="${order.order_id}"]`);
+                if (existingItem) {
+                    // 기존 항목의 부모 요소를 찾아 새로운 항목으로 교체
+                    const parentItem = existingItem.closest('.order-item');
+                    parentItem.replaceWith(orderItem); // 이 부분이 변경된 핵심 로직입니다.
+                } else {
+                    // 기존 항목이 없으면 맨 위에 새로운 항목을 추가
+                    orderStatusDiv.prepend(orderItem);
+                }
+
             });
 
         } catch (e) {

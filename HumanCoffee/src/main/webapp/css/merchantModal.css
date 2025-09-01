@@ -1,4 +1,4 @@
-.modal-overlay {
+.merchantModal-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0;
@@ -10,9 +10,9 @@
 }
 
 /* 모달 전체 */
-.modal-content {
+.merchantModal-content {
     background: #fff;
-    padding: 20px;
+    padding: 20px; 
     border-radius: 12px;
     width: 800px;
     max-width: 95%;
@@ -24,7 +24,7 @@
 }
 
 /* 왼쪽 영역 */
-.modal-left {
+.merchantModal-left {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
     line-height: 1.6;          /* 줄간격 넓게 */
 }
 
-.modal-left img {
+.merchantModal-left img {
     max-height: 40%;           /* 모달 높이의 약 40% 차지 */
     width: auto;               /* 비율 유지 */
     border-radius: 6px;
@@ -43,7 +43,7 @@
     object-fit: contain;
 }
 
-.modal-left h2 {
+.merchantModal-left h2 {
     font-size: 18px;
     margin: 8px 0;
     border-bottom: 1px solid #ddd;  /* 제목 밑에 선 */
@@ -51,24 +51,25 @@
     width: 80%;
 }
 
-.modal-left p {
+.merchantModal-left p {
     margin: 8px 0;
     width: 80%;
     padding: 6px 0;
     border-bottom: 1px solid #eee;  /* 각 항목 구분선 */
 }
+
 /* 오른쪽 영역 */
-.modal-right {
+.merchantModal-right {
     flex: 1;
     display: flex;
 }
 
-.map-container {
+.merchantModal-map-container {
     width: 100%;
     height: 100%;
 }
 
-.embedded-map {
+.merchantModal-embedded-map {
     width: 100%;
     height: 100%;
     border: none;
@@ -76,7 +77,7 @@
 
 /* 버튼 */
 /* 닫기 버튼 */
-.close-btn {
+.merchantModal-close-btn {
     margin-top: 20px;
     padding: 8px 16px;
     border: none;
