@@ -62,14 +62,92 @@
 }
 
 .footer_menu button {
+
     display: block;
-    color: rgba(147, 147, 147);
+    color: #ccc;
     font-size: 14px;
-    padding: 5px;
+    padding: 12px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+.footer_menu li a:hover {
+    color: #8B4513;
+    background: rgba(139, 69, 19, 0.1);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+}
+
+/* 헤더와 동일한 애니메이션 효과를 위한 추가 스타일 */
+.footer_menu li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.footer_menu li a:hover::before {
+    left: 100%;
 }
 
 .footer_menu button.green {
     color: #669900;
+}
+
+.footer_menu li a.green:hover {
+    color: #8BC34A;
+    background: rgba(139, 195, 74, 0.1);
+}
+
+/* 푸터의 form 버튼들도 헤더 스타일과 통일 - 움직임 제거 */
+.footer_menu form button.link-button {
+    display: block;
+    color: #ccc;
+    font-size: 14px;
+    padding: 12px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    border-radius: 4px;
+    margin: 2px 0;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-family: 'Nanum Gothic', Arial, sans-serif;
+}
+
+.footer_menu form button.link-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 69, 19, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.footer_menu form button.link-button:hover {
+    color: #8B4513;
+    background: rgba(139, 69, 19, 0.1);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+}
+
+.footer_menu form button.link-button:hover::before {
+    left: 100%;
 }
 
 .footer_info {
@@ -85,6 +163,34 @@
     width: 200px;
     background-color: #999;
     border: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 푸터 버튼에도 헤더 스타일 적용 */
+.footer_info .footer_button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.footer_info .footer_button:hover::before {
+    left: 100%;
+}
+
+.footer_info .footer_button:hover {
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.3);
 }
 
 .footer_infotext {

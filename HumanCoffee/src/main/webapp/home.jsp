@@ -54,6 +54,13 @@
                 </div>
             </section>
         </div>
+
+      </div>
+      <form action="<%= request.getContextPath() %>/" method="post">
+			<input type="hidden" name="next_page" value="/merchant/merchantApply.jsp" />
+			<button type="submit" class="home_btn-apply">창업신청</button>
+	  </form>
+
     </div>
 
     <!-- Swiper JS -->

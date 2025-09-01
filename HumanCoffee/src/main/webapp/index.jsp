@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="./css/merchantUpdate.css">
 <link rel="stylesheet" href="./css/merchantModal.css">
 <link rel="stylesheet" href="./css/merchantCreate.css">
+
 </head>
 
 <body>
