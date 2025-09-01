@@ -1,6 +1,8 @@
 <!-- product_insert.jsp -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="jakarta.servlet.annotation.MultipartConfig" %>
+<%@ page import="jakarta.servlet.http.Part" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %>
 <%@ page import="com.humancoffee.common.*" %>
@@ -9,9 +11,19 @@
 <%@ page import="com.humancoffee.manager.*" %>  
 <%@ page import = "com.humancoffee.*" %>  
 <%
+	// 먼저 multipart 요청 확인
+	String contentType = request.getContentType();
+	System.out.println("실제 Content-Type: " + contentType);
+
+	if (contentType == null || !contentType.toLowerCase().contains("multipart/form-data")) {
+		out.println("<script>alert('잘못된 요청입니다.'); location.href='productForm.jsp';</script>");
+		return;
+	}
 	Common common = new Common();
 	String jspPath = Common.getProjectPath(application.getRealPath("/"), request.getContextPath());
 	String savePath = request.getContextPath() + "/";
+	
+	// 파라미터 받기
 	String name = request.getParameter("name");
 	String price = request.getParameter("price");
     String category = request.getParameter("category");
@@ -19,21 +31,39 @@
 	System.out.println("price: " + price);
 	System.out.println("category: " + category);
 	
-	//	최종 저장 경로
+	
+//	최종 저장 경로
 	jspPath += "images/";
 	savePath += "images/";
+	// 카테고리에 따라 div 값 설정
+	int div = 1; // 기본값
+	if ("커피".equals(category)) {
+	    div = 1;
+	    jspPath += "coffee/";
+	    savePath += "coffee/";
+	} else if ("디카페인".equals(category)) {
+	    div = 3;
+	    jspPath += "coffee/";
+	    savePath += "coffee/";
+	} else if ("주스".equals(category)) {
+	    div = 4;
+	    jspPath += "juice/";
+	    savePath += "juice/";
+	} else if ("기타".equals(category)) {
+	    div = 5; // 기타 카테고리를 위한 새로운 값
+	}
+	
 //	jspPath = "D:\\MyGit_root\\human_project2_2504_team2\\project2_2504_team2\\HumanCoffee\\src\\main\\webapp\\";
 //	jspPath += "images/";
 	File uploadDir = new File(jspPath);
 	if (!uploadDir.exists()){
 		System.out.println("make path: " + jspPath);
-		uploadDir.mkdir();
+		uploadDir.mkdirs();
 	}
 	
     Part filePart = request.getPart("product_image");
 	String fileName = filePart.getSubmittedFileName();
 	
-	jspPath += fileName;
 	savePath += fileName;
 	
 	Blob blob = common.getPartToBlob(filePart, application);
@@ -62,19 +92,7 @@
 	product.setName(name);
 	product.setPrice(Integer.parseInt(price));
 	product.setPoint(point);	//	제품 1개 구매 시 적립 포인트
-	
-	// 카테고리에 따라 div 값 설정
-	int div = 1; // 기본값
-	if ("커피".equals(category)) {
-	    div = 1;
-	} else if ("디카페인".equals(category)) {
-	    div = 3;
-	} else if ("주스".equals(category)) {
-	    div = 4;
-	} else if ("기타".equals(category)) {
-	    div = 5; // 기타 카테고리를 위한 새로운 값
-	}
-	
+		
 	product.setDiv(div);
 	System.out.println("설정된 div 값: " + div);
 	
@@ -126,6 +144,6 @@
     </div>
     
     <a href="productForm.jsp" class="btn">다시 등록하기</a>
-    <a href="productList.jsp" class="btn">상품 목록 보기</a>
+    <a href="product_List.jsp" class="btn">상품 목록 보기</a>
 </body>
 </html>

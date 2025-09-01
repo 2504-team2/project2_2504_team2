@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록</title>
+<link rel="stylesheet" href="../../css/productForm.css" />
+
 </head>
 <body>
 <h2>상품 등록</h2>
@@ -19,7 +21,7 @@
     <option value="기타">기타</option>
 </select><br>
 이미지: <input type="file" name="product_image" accept="image/*" required><br>
-<button type="submit" class="btn">입력</button>
+<button type="submit" class="btn">업로드</button>
 </form>
 </body>
 <script>

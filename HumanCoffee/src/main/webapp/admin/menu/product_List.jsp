@@ -7,77 +7,46 @@
 <%@ page import="com.humancoffee.model.*" %>
 <%@ page import="com.humancoffee.manager.*" %>  
 <%@ page import="com.humancoffee.*" %>
+
+
 <%
     // 1. HumanCoffee 인스턴스 가져오기
     HumanCoffee hcInstance = (HumanCoffee)getServletContext().getAttribute("HumanCoffee");
-	List<Product> productList = new Vector<>(hcInstance.mProducts.products[hcInstance.mProducts.memory_pos]);
-//	List<Product_Img> product_img = new Vector<>(hcInstance.mProductImgs.product_imgs[hcInstance.mProductImgs.memory_pos]);
-//    ManageProducts mgProducts = hcInstance.mProducts;
+
+    // 2. ManageProducts & ManageProductImgs 가져오기
+    ManageProducts mgProducts = hcInstance.mProducts;
     ManageProductImgs mgProductImgs = hcInstance.mProductImgs;
-    
-    // 2. 카테고리 파라미터 받기
+
+    // 3. DB에서 상품 데이터 로드
+    try {
+        mgProducts.readProduct(mgProducts.memory_pos);
+        System.out.println("상품 데이터 로드 완료");
+    } catch(Exception e) {
+        System.out.println("상품 데이터 로드 오류: " + e.getMessage());
+    }
+
+    // 4. 카테고리 파라미터 받기
     String categoryParam = request.getParameter("category");
     int categoryFilter = 0;
     if(categoryParam != null && !categoryParam.equals("")) {
-    	try {
-    		categoryFilter = Integer.parseInt(categoryParam);
-    	} catch(NumberFormatException e) {
-    		categoryFilter = 0;
-    	}
+        try {
+            categoryFilter = Integer.parseInt(categoryParam);
+        } catch(NumberFormatException e) {
+            categoryFilter = 0;
+        }
     }
-    
-    // 3. DB에서 상품 데이터 읽어오기
-    // ManageProducts의 readProduct() 메서드를 이용
-    try {
-//    	mgProducts.readProduct(mgProducts.memory_pos);
-    	System.out.println("상품 데이터 로드 완료");
-    } catch(Exception e) {
-    	System.out.println("상품 데이터 로드 오류: " + e.getMessage());
-    }
+
+    // 5. 상품 리스트 가져오기
+    List<Product> productList = new Vector<>(mgProducts.products[mgProducts.memory_pos]);
 %>
     <!DOCTYPE html>
     <html>
     <head>
     <meta charset="UTF-8">
     <title>상품 목록</title>
-    <style>
-    .category-nav {
-        margin: 20px 0;
-        text-align: center;
-    }
-    .category-nav a {
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 0 5px;
-        text-decoration: none;
-        background-color: #f0f0f0;
-        border-radius: 5px;
-        color: #333;
-    }
-    .category-nav a.active {
-        background-color: #007bff;
-        color: white;
-    }
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-    .product-card {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 10px;
-        text-align: center;
-        background-color: #fff;
-    }
-    .product-card img {
-        max-width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-    </style>
+    
+	<link rel="stylesheet" href="../../css/product-list.css" />
+
     </head>
     <body>
 
@@ -97,6 +66,8 @@
         // 4. 상품 목록 반복
         if(productList.size() > 0){
             for(Product product : productList) {
+            	if(product.getStatus() != 0)
+            		continue;
                 // 카테고리 필터링
                 if(categoryFilter != 0 && product.getDiv() != categoryFilter) {
                     continue; // 선택된 카테고리가 아니면 건너뛰기
@@ -115,7 +86,8 @@
                 String filePath = "#";
                 if(product_img != null && !product_img.getFilename().isEmpty())
                 	filePath = product_img.getFilename();
-                System.out.println("filePath: " + filePath);
+          //      System.out.println("filePath: " + filePath);
+          
                 
                 // 카테고리 이름
                 String categoryName = "";
@@ -140,7 +112,7 @@
     %>
                 <!-- HTML 출력 -->
                 <div class="product-card">
-                    <% if(!"#".equals(filePath)) { %>
+                    <% if(!filePath.equals("#")) { %>
                         <img src="<%= filePath %>" alt="<%= product.getName() %>">
                     <% } else { %>
                         <div style="height: 150px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center;">
@@ -151,6 +123,9 @@
                     <p>가격: <%= product.getPrice() %>원</p>
                     <p>카테고리: <%= categoryName %></p>
                     <p>상품ID: <%= product.getId() %> (div: <%= product.getDiv() %>)</p>
+					<a href="productForm_update.jsp?id=<%= product.getId() %>"><button>수정</button></a>
+					<a href="product_delete.jsp?id=<%= product.getId() %>"><button>삭제</button></a>
+                    
                 </div>
     <%
             } 
