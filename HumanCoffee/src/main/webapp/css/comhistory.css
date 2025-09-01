@@ -49,11 +49,6 @@ background: rgba(51, 51, 51);
   gap: 10px;
 }
 
-/* 폼 바디 */
-.form-body {
-  
-}
-
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
